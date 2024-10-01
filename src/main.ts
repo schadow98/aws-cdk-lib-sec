@@ -1,4 +1,5 @@
-import { writeStackToYaml, praseFileToStack } from "./tools/stackToFile";
+import { writeStackToFile, praseFileToStack } from "./tools/stackToFile";
+import { checkStackClass } from "./tools/validator";
 import logger from "./tools/logger";
 import { OptionValues } from 'commander';
 import * as fs from "fs"
@@ -12,7 +13,8 @@ export async function main(options: OptionValues): Promise<void> {
   const stacks: Stack[] =  await praseFileToStack(options.configFile)
 
   for(var index in stacks){
-    writeStackToYaml(stacks[index], options.outputDir)
+    checkStackClass(stacks[index])
+    writeStackToFile(stacks[index], options.outputDir)
   }
 
 }

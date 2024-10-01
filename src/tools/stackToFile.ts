@@ -5,7 +5,7 @@ import { App, Stack } from 'aws-cdk-lib';
 import  logger  from '../tools/logger';
 
 // function to convert a stack to a yaml and write it into an file
-export function writeStackToYaml(stack: Stack, outputDir: string): void {
+export function writeStackToFile(stack: Stack, outputDir: string): void {
  // Creating of the stack template.
   const app = stack.node.root as cdk.App; 
   const assembly = app.synth();          
@@ -65,7 +65,7 @@ export async function stackToFile(stackFilePath: string, outputDir: string="./ou
 
     var stacks:Stack[] = await praseFileToStack(stackFilePath)
     for(var index in stacks){
-        writeStackToYaml(stacks[index], outputDir)
+        writeStackToFile(stacks[index], outputDir)
     }
 
     return null
