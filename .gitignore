@@ -131,3 +131,5 @@ dist
 
 
 cdkExample/
+
+logs/

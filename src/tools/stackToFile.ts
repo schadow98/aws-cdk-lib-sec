@@ -5,7 +5,7 @@ import { App, Stack } from 'aws-cdk-lib';
 import  logger  from '../tools/logger';
 
 // function to convert a stack to a yaml and write it into an file
-function writeStackToYaml(stack: Stack, outputDir: string): void {
+export function writeStackToYaml(stack: Stack, outputDir: string): void {
  // Creating of the stack template.
   const app = stack.node.root as cdk.App; 
   const assembly = app.synth();          
@@ -16,7 +16,7 @@ function writeStackToYaml(stack: Stack, outputDir: string): void {
   logger.info(`cloudformation stack get written into file: ${outputPath}`);
 }
 
-async function fileToStack(filePath: string): Promise<Stack[]>{
+export async function praseFileToStack(filePath: string): Promise<Stack[]>{
     filePath = path.join(process.cwd(), filePath)
     if (! fs.existsSync(filePath)) {
         const consoleMsg: string = `The configFile doesn't exists: ${filePath}`
@@ -63,7 +63,7 @@ async function fileToStack(filePath: string): Promise<Stack[]>{
 
 export async function stackToFile(stackFilePath: string, outputDir: string="./output"): Promise<null> {
 
-    var stacks:Stack[] = await fileToStack(stackFilePath)
+    var stacks:Stack[] = await praseFileToStack(stackFilePath)
     for(var index in stacks){
         writeStackToYaml(stacks[index], outputDir)
     }
