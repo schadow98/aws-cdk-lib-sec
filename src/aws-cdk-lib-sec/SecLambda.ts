@@ -9,9 +9,7 @@ import { ITopic } from 'aws-cdk-lib/aws-sns';
 import { IQueue } from 'aws-cdk-lib/aws-sqs';
 import { Duration, Size } from 'aws-cdk-lib/core';
 import { Construct } from 'constructs';
-
-
-console.log(Lambda.Runtime.ALL.map(elem => "Lambda.Runtime."+elem.name.toUpperCase()))
+import { LogError } from '../tools/LogError';
 
 const safeLambdaRuntimes: Lambda.Runtime[] = [
     // Lambda.Runtime.NODEJS,
@@ -55,36 +53,7 @@ const safeLambdaRuntimes: Lambda.Runtime[] = [
   ]
 
 class safeFunctionProps{
-    constructor(props: FunctionProps){
-        this._runtime = props.runtime
-        this._code = props.code 
-        this._handler = props.handler 
-    }
-
-    public set runtime(runtime: Lambda.Runtime){
-        if  (! safeLambdaRuntimes.includes(runtime)){
-            throw Error("Not a valid Runtime" + runtime)
-        }
-        this._runtime = runtime
-    }
-
-    public get runtime():  Lambda.Runtime{
-        return this._runtime
-    }
-
-    public get code():  Lambda.Code{
-        return this._code
-    }
-
-    public get handler():  string{
-        return this._handler
-    }
-
-    public set handler(handler: string){
-        this._handler = handler
-    }
-
-    _runtime: Lambda.Runtime;
+    _runtime: Lambda.Runtime= Lambda.Runtime.NODEJS_18_X;
     _code: Lambda.Code;
     _handler: string;
     _description?: string | undefined;
@@ -136,13 +105,48 @@ class safeFunctionProps{
     _onSuccess?: Lambda.IDestination | undefined;
     _maxEventAge?: Duration | undefined;
     _retryAttempts?: number | undefined;
+
+    constructor(props: FunctionProps){
+        this.runtime = props.runtime
+        this._code = props.code 
+        this._handler = props.handler 
+    }
+
+    public set runtime(runtime: Lambda.Runtime){
+        if  (! safeLambdaRuntimes.includes(runtime)){
+            throw new LogError("Not a valid Runtime" + runtime)
+        }
+        this._runtime = runtime
+    }
+
+    public get runtime():  Lambda.Runtime{
+        return this._runtime
+    }
+
+    public get code():  Lambda.Code{
+        return this._code
+    }
+
+    public set code(code: Lambda.Code){
+        this._code = code
+    }
+
+    public get handler():  string{
+        return this._handler
+    }
+
+    public set handler(handler: string){
+        this._handler = handler
+    }
+
+ 
 }
 
-class safeLambdaClass extends Lambda.Function{
+export class SecLambda extends Lambda.Function{
     constructor(scope: Construct, id: string, props: FunctionProps){
+        
         super(scope, id, new safeFunctionProps(props))
     }
 }
 
 
-export {safeLambdaClass}

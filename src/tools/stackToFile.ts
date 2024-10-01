@@ -3,6 +3,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { App, Stack } from 'aws-cdk-lib';
 import  logger  from '../tools/logger';
+import { LogError } from './LogError';
 
 // function to convert a stack to a yaml and write it into an file
 export function writeStackToFile(stack: Stack, outputDir: string): void {
@@ -22,7 +23,7 @@ export async function praseFileToStack(filePath: string): Promise<Stack[]>{
         const consoleMsg: string = `The configFile doesn't exists: ${filePath}`
         
         logger.warn(consoleMsg);
-        throw Error(consoleMsg)
+        throw new LogError(consoleMsg)
       } 
 
     // Dynamic import of configFile
@@ -44,7 +45,7 @@ export async function praseFileToStack(filePath: string): Promise<Stack[]>{
             try {
                 stack = new exportedClass(app, exportName)
             } catch (error) {
-                throw Error(`config and parsing error  ${exportName} in ${exportedClass}`)
+                throw new LogError(`config and parsing error  ${exportName} in ${exportedClass}`)
             }
             
             stacks.push( stack);
@@ -52,7 +53,7 @@ export async function praseFileToStack(filePath: string): Promise<Stack[]>{
     }
 
     if (stacks.length === 0){
-        throw new Error('No valid Stack class found in the module.');
+        throw new LogError('No valid Stack class found in the module.');
     }else{
         return stacks;
     }

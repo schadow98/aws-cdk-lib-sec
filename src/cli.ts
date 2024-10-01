@@ -12,13 +12,14 @@ program
   .option('-o, --outputDir <any>', 'A path to where the output gets written', "./output")
   .option('-l, --logLevel <any>', 'Defines the logLevel', "INFO")
   .option('-f, --cloudFormation', 'Return the CloudFormation Template', false)
-
+  .option('-d, --debug', 'Debug', false)
 
 program.parse(process.argv);
 const options = program.opts()
 
 //set loglevel
 process.env.LOGLEVEL = options.logLevel.toLowerCase()
+process.env.DEBUG    = options.debug
 
 import { main } from './main';
 main(options)
