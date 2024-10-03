@@ -1,4 +1,3 @@
-import { log } from 'console';
 import { config, createLogger, format, transports } from 'winston';
 
 if(! process.env.LOGLEVEL){

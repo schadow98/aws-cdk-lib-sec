@@ -1,0 +1,54 @@
+import { config, createLogger, format, LeveledLogMethod, LogMethod, transports } from 'winston';
+
+const logger = createLogger({
+    format: format.combine(
+      format.timestamp(),
+      format.printf(({ timestamp, level, message }) => {
+        return `${timestamp} [${level}]: ${message}`;
+      })
+    ),
+    transports: [
+      new transports.Console()
+    ],
+  });
+
+const log: LogMethod = logger.log 
+
+const error: LeveledLogMethod = logger.error;
+const warn: LeveledLogMethod = logger.warn;
+const help: LeveledLogMethod = logger.help;
+const data: LeveledLogMethod = logger.data;
+const info: LeveledLogMethod = logger.info;
+const debug: LeveledLogMethod = logger.debug;
+const prompt: LeveledLogMethod = logger.prompt;
+const http: LeveledLogMethod = logger.http;
+const verbose: LeveledLogMethod = logger.verbose;
+const input: LeveledLogMethod = logger.input;
+const silly: LeveledLogMethod = logger.silly;
+
+const emerg: LeveledLogMethod = logger.emerg;
+const alert: LeveledLogMethod = logger.alert;
+const crit: LeveledLogMethod = logger.crit;
+const warning: LeveledLogMethod = logger.warning;
+const notice: LeveledLogMethod = logger.notice;
+
+export {
+  logger,
+  log,
+  error,
+  warn,
+  help,
+  data,
+  info,
+  debug,
+  prompt,
+  http,
+  verbose,
+  input,
+  silly,
+  emerg,
+  alert,
+  crit,
+  warning,
+  notice,
+};
