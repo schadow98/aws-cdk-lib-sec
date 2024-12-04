@@ -1,7 +1,7 @@
 import { config, createLogger, format, transports } from 'winston';
 
 if(! process.env.LOGLEVEL){
-  throw new Error("Not a valid logLevel: please enter a string or use default: " + process.env.LOGLEVEL)
+  process.env.LOGLEVEL = "info"
 }
 
 

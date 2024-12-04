@@ -1,4 +1,5 @@
 import { config, createLogger, format, LeveledLogMethod, LogMethod, transports } from 'winston';
+import { SecMarker } from './SecMarker';
 
 const logger = createLogger({
     format: format.combine(
@@ -11,6 +12,9 @@ const logger = createLogger({
       new transports.Console()
     ],
   });
+
+(logger as any)[SecMarker] = true;
+
 
 const log: LogMethod = logger.log 
 
