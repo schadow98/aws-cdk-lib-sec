@@ -1,13 +1,13 @@
-import { SecStack } from '../aws-cdk-lib-sec';
+import { Stack as SecStack }  from '../aws-cdk-lib-sec';
 import { Stack } from 'aws-cdk-lib';
 import logger from '../tools/logger'; 
-import { LogError } from './LogError';
+import { ConfigurationError } from './ConfigurationError';
 
 // checks if the class of the stack is the secured class
 export function checkStackClass(stack: Stack) {
 
     if (!(stack instanceof SecStack)) {
-        throw new LogError( "Stack is not derived from the secured class: " + stack.stackName);
+        throw new Error( "Stack is not derived from the secured class: " + stack.stackName);
     }
 
 

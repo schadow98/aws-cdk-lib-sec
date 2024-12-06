@@ -1,6 +1,6 @@
 import { CloudFormation, CloudFormationClient } from '@aws-sdk/client-cloudformation';
 import logger from './logger';
-import { LogError } from './LogError';
+import { ConfigurationError } from './ConfigurationError';
 import { App, Stack } from 'aws-cdk-lib';
 const cloudformationClient = new CloudFormation();
 
@@ -21,17 +21,17 @@ export async function isStackDeployed(stackName: string): Promise<boolean> {
     return true
   } catch (error) {
 
-    throw new LogError('Unexpected error:' + error);
+    throw new Error('Unexpected error:' + error);
 
   }
 }
 
-export async function deployStack(stack: Stack){
+export async function deployStack(stackInput: Stack){
     logger.info("Stack will be deployed.");
 
     // Synthese des Stacks
     const app = new App();
-    const stack = new stack(app, stackName);
+    const stack = new stackInput(app, stackName);
     const assembly = app.synth();
 
     // Holen des CloudFormation-Templates

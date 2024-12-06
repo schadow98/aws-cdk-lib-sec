@@ -10,14 +10,16 @@ import { IQueue } from 'aws-cdk-lib/aws-sqs';
 import { Duration, Size } from 'aws-cdk-lib/core';
 import { checkRuntime } from './checkRuntime';
 import { SecMarker } from '../SecMarker';
-import { checkCode, checkHandler } from './StandardizedNaming';
+import { checkCode, checkHandler, checkDescription } from './StandardizedNaming';
 
-export class SafeFunctionProps {
+export class SecFunctionProps {
   static [SecMarker] = true;
-  runtime?: Lambda.Runtime;
+  static defaultCode: Lambda.AssetCode = Lambda.Code.fromAsset('src')
+  static defaultHandler: 'index.handler'
+  runtime: Lambda.Runtime;
   code?: Lambda.Code;
   handler?: string;
-  description?: string | undefined;
+  description: string;
   timeout?: Duration | undefined;
   environment?: { [key: string]: string; } | undefined;
   functionName?: string | undefined;
@@ -67,11 +69,11 @@ export class SafeFunctionProps {
   maxEventAge?: Duration | undefined;
   retryAttempts?: number | undefined;
 
-  constructor(props: Partial<SafeFunctionProps>) {
-    this.runtime = props.runtime;
-    this.code = props.code || Lambda.Code.fromAsset('src');
-    this.handler = props.handler || 'index.handler';
-    this.description = props.description;
+  constructor(props: SecFunctionProps) {
+    this.runtime = checkRuntime(props.runtime);
+    this.code = checkCode(props.code || SecFunctionProps.defaultCode);
+    this.handler = checkHandler(props.handler || SecFunctionProps.defaultHandler);
+    this.description = checkDescription(props.description);
     this.timeout = props.timeout;
     this.environment = props.environment;
     this.functionName = props.functionName;

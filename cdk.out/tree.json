@@ -55,6 +55,16 @@
                               ]
                             ]
                           }
+                        ],
+                        "tags": [
+                          {
+                            "key": "insecure",
+                            "value": "false"
+                          },
+                          {
+                            "key": "runtime:insecureReason",
+                            "value": "Legacy system"
+                          }
                         ]
                       }
                     },
@@ -105,16 +115,26 @@
                       "s3Bucket": {
                         "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
                       },
-                      "s3Key": "a9b07b8cc92bbbbbeae956d04f738ef21814b325b19bc18adc0872a2cc9a833e.zip"
+                      "s3Key": "0beb767afc28fb1cb02ad20d79890ca23717f7839a64a5bc125052358950ac69.zip"
                     },
-                    "handler": "index.handler",
+                    "description": "My lambda function to deploy something",
                     "role": {
                       "Fn::GetAtt": [
                         "MyLambdaFunctionServiceRole313A4D46",
                         "Arn"
                       ]
                     },
-                    "runtime": "nodejs20.x"
+                    "runtime": "nodejs12.x",
+                    "tags": [
+                      {
+                        "key": "insecure",
+                        "value": "false"
+                      },
+                      {
+                        "key": "runtime:insecureReason",
+                        "value": "Legacy system"
+                      }
+                    ]
                   }
                 },
                 "constructInfo": {

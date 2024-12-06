@@ -28,6 +28,16 @@
        ]
       ]
      }
+    ],
+    "Tags": [
+     {
+      "Key": "insecure",
+      "Value": "false"
+     },
+     {
+      "Key": "runtime:insecureReason",
+      "Value": "Legacy system"
+     }
     ]
    },
    "Metadata": {
@@ -41,23 +51,33 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "a9b07b8cc92bbbbbeae956d04f738ef21814b325b19bc18adc0872a2cc9a833e.zip"
+     "S3Key": "0beb767afc28fb1cb02ad20d79890ca23717f7839a64a5bc125052358950ac69.zip"
     },
-    "Handler": "index.handler",
+    "Description": "My lambda function to deploy something",
     "Role": {
      "Fn::GetAtt": [
       "MyLambdaFunctionServiceRole313A4D46",
       "Arn"
      ]
     },
-    "Runtime": "nodejs20.x"
+    "Runtime": "nodejs12.x",
+    "Tags": [
+     {
+      "Key": "insecure",
+      "Value": "false"
+     },
+     {
+      "Key": "runtime:insecureReason",
+      "Value": "Legacy system"
+     }
+    ]
    },
    "DependsOn": [
     "MyLambdaFunctionServiceRole313A4D46"
    ],
    "Metadata": {
     "aws:cdk:path": "MyLambdaStack/MyLambdaFunction/Resource",
-    "aws:asset:path": "asset.a9b07b8cc92bbbbbeae956d04f738ef21814b325b19bc18adc0872a2cc9a833e",
+    "aws:asset:path": "asset.0beb767afc28fb1cb02ad20d79890ca23717f7839a64a5bc125052358950ac69",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
    }

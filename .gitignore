@@ -134,3 +134,5 @@ cdkExample/
 
 logs/
 output/
+
+cdk.out/

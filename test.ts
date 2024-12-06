@@ -1,43 +1,64 @@
-// SecModule.ts
+import * as Lambda  from 'aws-cdk-lib/aws-lambda';
 
-// 1. Definiere das Symbol für den Marker
-export const SecMarker = Symbol('SecMarker');
 
-// 2. Klasse SecStack, die den Marker besitzt
-export class SecStack {
-  static [SecMarker] = true;
+const safeLambdaRuntimes: Lambda.Runtime[] = [
+  Lambda.Runtime.NODEJS_18_X,
+  Lambda.Runtime.NODEJS_20_X,
+  Lambda.Runtime.PYTHON_3_8,
+  Lambda.Runtime.PYTHON_3_9,
+  Lambda.Runtime.PYTHON_3_10,
+  Lambda.Runtime.PYTHON_3_11,
+  Lambda.Runtime.PYTHON_3_12,
+  Lambda.Runtime.JAVA_8_CORRETTO,
+  Lambda.Runtime.JAVA_11,
+  Lambda.Runtime.JAVA_17,
+  Lambda.Runtime.JAVA_21,
+  Lambda.Runtime.DOTNET_6,
+  Lambda.Runtime.DOTNET_8,
+  Lambda.Runtime.RUBY_3_2,
+  Lambda.Runtime.RUBY_3_3,
+  Lambda.Runtime.PROVIDED_AL2,
+  Lambda.Runtime.PROVIDED_AL2023,
+  Lambda.Runtime.FROM_IMAGE,
+];
 
-  constructor() {
-    console.log('SecStack instance created');
+class LoggedError extends Error {
+  constructor(message: string) {
+      super(message);
+      this.name = "LoggedError";
+      LoggedError.logError(this);
+      if (true){
+        console.log(message)
+      }else{
+        throw this
+      }
+
+  }
+
+  // Statische Methode zum Protokollieren von Fehlern
+  static logError(error: Error) {
+      console.error("An error occurred:");
+      // ErrorHandler.errors.push(error); // Fehlerliste aktualisieren
   }
 }
 
-// 3. Klasse SecLogger, die ebenfalls den Marker besitzt
-export class SecLogger {
-  static [SecMarker] = true;
-
-  log(message: string) {
-    console.log('Log:', message);
+export const checkRuntime = (runtime: Lambda.Runtime): Lambda.Runtime => {
+  if (!safeLambdaRuntimes.includes(runtime)) {
+      throw new LoggedError("Not a valid and secured runtime: " + runtime);
   }
-}
+  return runtime;
+};
 
-// 4. Klasse ohne Marker zur Demonstration
-export class UnmarkedClass {
-  constructor() {
-    console.log('UnmarkedClass instance created');
+(async () => {
+  try {
+      const runtime = await checkRuntime(Lambda.Runtime.NODEJS_18_X);
+      console.log("Valid runtime:", runtime); // Gibt die Runtime zurück
+  } catch (error) {
+      console.error("Caught error:", error); // Fehlerbehandlung
   }
-}
 
-// 5. Funktion zur Überprüfung, ob eine Instanz den Marker hat
-export function hasSecMarker(instance: any): boolean {
-  return Boolean(instance.constructor[SecMarker]);
-}
+  const invalidRuntime = await checkRuntime(Lambda.Runtime.NODEJS_16_X);
+  console.log("Invalid runtime:", invalidRuntime); // Gibt null zurück
 
-// Testcode, um das Verhalten zu demonstrieren
-const stack = new SecStack();
-const logger = new SecLogger();
-const unmarked = new UnmarkedClass();
-
-console.log(hasSecMarker(stack));    // true, da SecStack den Marker hat
-console.log(hasSecMarker(logger));   // true, da SecLogger den Marker hat
-console.log(hasSecMarker(unmarked)); // false, da UnmarkedClass den Marker nicht hat
+  //console.log("Logged errors:", ErrorHandler.errors); // Zeigt die Liste der protokollierten Fehler
+})();

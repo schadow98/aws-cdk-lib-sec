@@ -15,11 +15,15 @@
       "properties": {
         "templateFile": "MyLambdaStack.template.json",
         "terminationProtection": false,
+        "tags": {
+          "includesInsecureResource": "true",
+          "MyLambdaFunction:runtime:insecureReason": "Legacy system"
+        },
         "validateOnSynth": false,
         "notificationArns": [],
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/2cf4a6ec1106b962fe6cd95320969526fcf1755ba11017ec7014bb61c89774b9.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/56fb5a79de4b5748615125d6300b63340db40b78dbc499d59a604c3f3a33ab6d.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -35,6 +39,21 @@
         "MyLambdaStack.assets"
       ],
       "metadata": {
+        "/MyLambdaStack": [
+          {
+            "type": "aws:cdk:stack-tags",
+            "data": [
+              {
+                "Key": "includesInsecureResource",
+                "Value": "true"
+              },
+              {
+                "Key": "MyLambdaFunction:runtime:insecureReason",
+                "Value": "Legacy system"
+              }
+            ]
+          }
+        ],
         "/MyLambdaStack/MyLambdaFunction/ServiceRole/Resource": [
           {
             "type": "aws:cdk:logicalId",

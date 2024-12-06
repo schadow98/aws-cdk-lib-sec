@@ -26,13 +26,17 @@ export class MyLambdaStack extends cdk.Stack {
         super(scope, id);
 
         // Add a Lambda-Function to the stack
-        new cdk.aws_lambda.Function(this, 'MyLambdaFunction', {
-            runtime: cdk.aws_lambda.Runtime.NODEJS_20_X
+        const lambdaFunction = new cdk.aws_lambda.Function(this, 'MyLambdaFunction', {
+            runtime: cdk.aws_lambda.Runtime.NODEJS_12_X,
+            description: "My lambda function to deploy something",
             // handler: 'handler.handler',
             // code: cdk.aws_lambda.Code.fromAsset('src')
         });
+        cdk.Tags.of(lambdaFunction).add("runtime:insecureReason", "Legacy system")
+        cdk.Tags.of(lambdaFunction).add("insecure", "false")
     }
 }
 
 const app = new cdk.App();
 new MyLambdaStack(app, 'MyLambdaStack');
+app.synth();
