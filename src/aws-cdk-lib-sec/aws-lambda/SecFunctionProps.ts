@@ -1,27 +1,37 @@
-import { IProfilingGroup } from 'aws-cdk-lib/aws-codeguruprofiler';
-import { IVpc, SubnetSelection, ISecurityGroup } from 'aws-cdk-lib/aws-ec2';
-import { PolicyStatement, IRole } from 'aws-cdk-lib/aws-iam';
-import { IKey } from 'aws-cdk-lib/aws-kms';
-import * as Lambda  from 'aws-cdk-lib/aws-lambda';
-import { FunctionProps } from 'aws-cdk-lib/aws-lambda';
-import { RetentionDays, ILogGroup } from 'aws-cdk-lib/aws-logs';
-import { ITopic } from 'aws-cdk-lib/aws-sns';
-import { IQueue } from 'aws-cdk-lib/aws-sqs';
-import { Duration, Size } from 'aws-cdk-lib/core';
-import { checkRuntime } from './checkRuntime';
-import { SecMarker } from '../SecMarker';
-import { checkCode, checkHandler, checkDescription } from './StandardizedNaming';
+import { IProfilingGroup } from "aws-cdk-lib/aws-codeguruprofiler";
+import { IVpc, SubnetSelection, ISecurityGroup } from "aws-cdk-lib/aws-ec2";
+import { PolicyStatement, IRole } from "aws-cdk-lib/aws-iam";
+import { IKey } from "aws-cdk-lib/aws-kms";
+import * as Lambda from "aws-cdk-lib/aws-lambda";
+import { FunctionProps } from "aws-cdk-lib/aws-lambda";
+import { RetentionDays, ILogGroup } from "aws-cdk-lib/aws-logs";
+import { ITopic } from "aws-cdk-lib/aws-sns";
+import { IQueue } from "aws-cdk-lib/aws-sqs";
+import { Duration, Size } from "aws-cdk-lib/core";
+import { checkRuntime } from "./checkRuntime";
+import { SecMarker } from "../SecMarker";
+import {
+  checkCode,
+  checkHandler,
+  checkDescription,
+} from "./StandardizedNaming";
+import logger from "../../tools/logger";
+import { deactivateOldAttribute } from "./deactivateOldAttribute";
+import { checkEnvVariables } from "./checkEnvironmentVariables";
+import { checkRecursiveLoop } from "./checkRecursiveLoop";
+import { createCodeSigningConfig } from "./codeSigningConfig";
+import { Construct } from "constructs";
 
 export class SecFunctionProps {
   static [SecMarker] = true;
-  static defaultCode: Lambda.AssetCode = Lambda.Code.fromAsset('src')
-  static defaultHandler: 'index.handler'
+  static defaultCode: Lambda.AssetCode = Lambda.Code.fromAsset("src");
+  static defaultHandler: "index.handler";
   runtime: Lambda.Runtime;
   code?: Lambda.Code;
   handler?: string;
   description: string;
   timeout?: Duration | undefined;
-  environment?: { [key: string]: string; } | undefined;
+  environment?: { [key: string]: string } | undefined;
   functionName?: string | undefined;
   memorySize?: number | undefined;
   ephemeralStorageSize?: Size | undefined;
@@ -69,13 +79,16 @@ export class SecFunctionProps {
   maxEventAge?: Duration | undefined;
   retryAttempts?: number | undefined;
 
-  constructor(props: SecFunctionProps) {
+  constructor(props: SecFunctionProps, scope: Construct, id: string) {
+    logger.debug("InputProps SecFunctionProps " + JSON.stringify(props));
     this.runtime = checkRuntime(props.runtime);
     this.code = checkCode(props.code || SecFunctionProps.defaultCode);
-    this.handler = checkHandler(props.handler || SecFunctionProps.defaultHandler);
+    this.handler = checkHandler(
+      props.handler || SecFunctionProps.defaultHandler
+    );
     this.description = checkDescription(props.description);
     this.timeout = props.timeout;
-    this.environment = props.environment;
+    this.environment = checkEnvVariables(props.environment);
     this.functionName = props.functionName;
     this.memorySize = props.memorySize;
     this.ephemeralStorageSize = props.ephemeralStorageSize;
@@ -107,20 +120,31 @@ export class SecFunctionProps {
     this.filesystem = props.filesystem;
     this.allowPublicSubnet = props.allowPublicSubnet;
     this.environmentEncryption = props.environmentEncryption;
-    this.codeSigningConfig = props.codeSigningConfig;
+    this.codeSigningConfig = createCodeSigningConfig(
+      scope,
+      id,
+      props.codeSigningConfig
+    );
     this.architecture = props.architecture;
     this.runtimeManagementMode = props.runtimeManagementMode;
     this.logGroup = props.logGroup;
-    this.logFormat = props.logFormat;
+    this.logFormat = deactivateOldAttribute("logFormat", props.logFormat);
     this.loggingFormat = props.loggingFormat;
-    this.recursiveLoop = props.recursiveLoop;
-    this.applicationLogLevel = props.applicationLogLevel;
+    this.recursiveLoop = checkRecursiveLoop(props.recursiveLoop);
+    this.applicationLogLevel = deactivateOldAttribute(
+      "applicationLogLevel",
+      props.applicationLogLevel
+    );
     this.applicationLogLevelV2 = props.applicationLogLevelV2;
-    this.systemLogLevel = props.systemLogLevel;
+    this.systemLogLevel = deactivateOldAttribute(
+      "systemLogLevel",
+      props.systemLogLevel
+    );
     this.systemLogLevelV2 = props.systemLogLevelV2;
     this.onFailure = props.onFailure;
     this.onSuccess = props.onSuccess;
     this.maxEventAge = props.maxEventAge;
     this.retryAttempts = props.retryAttempts;
+    logger.debug("OutputProps SecFunctionProps " + JSON.stringify(props));
   }
 }

@@ -1,6 +1,6 @@
 import * as Lambda  from 'aws-cdk-lib/aws-lambda';
 import { ConfigurationError } from '../../tools/ConfigurationError';
-
+import logger from '../../tools/logger';
 const safeLambdaRuntimes: Lambda.Runtime[] = [
     // Lambda.Runtime.NODEJS,
     // Lambda.Runtime.NODEJS_4_3,
@@ -45,6 +45,7 @@ const safeLambdaRuntimes: Lambda.Runtime[] = [
 
 
   export const checkRuntime = (runtime: Lambda.Runtime): Lambda.Runtime => {
+    logger.debug("checkRuntime " + runtime)
     if (!safeLambdaRuntimes.includes(runtime)) {
         new ConfigurationError("runtime", "Not a valid and secured runtime: " + runtime);
     }

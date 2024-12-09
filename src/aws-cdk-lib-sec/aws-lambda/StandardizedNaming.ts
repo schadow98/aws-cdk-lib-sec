@@ -1,9 +1,9 @@
 import * as Lambda  from 'aws-cdk-lib/aws-lambda';
-import { SecFunctionProps } from './SafeFunctionProps';
+import { SecFunctionProps } from './SecFunctionProps';
 import { ConfigurationError } from '../../tools/ConfigurationError';
-
+import logger from '../../tools/logger';
 export function checkCode(input_code: Lambda.Code = SecFunctionProps.defaultCode): Lambda.Code{
-
+    logger.debug("checkCode " + input_code)
 
     if (input_code instanceof Lambda.AssetCode) {
         if (input_code.path !== SecFunctionProps.defaultCode.path) {
@@ -16,6 +16,7 @@ export function checkCode(input_code: Lambda.Code = SecFunctionProps.defaultCode
 }
 
 export function checkHandler(handler_name: string=SecFunctionProps.defaultHandler): string{
+    logger.debug("checkHandler " + handler_name)
     if (handler_name !== SecFunctionProps.defaultHandler){
         new ConfigurationError("handler", "Please defiend the handler in a file 'handle' with an method 'handler' -> set this value to 'handler.handler'");
     }
@@ -23,6 +24,7 @@ export function checkHandler(handler_name: string=SecFunctionProps.defaultHandle
 }
 
 export function checkDescription(description: string): string{
+    logger.debug("checkDescription " + checkDescription)
     if (!description || description.length < 20){
         new ConfigurationError("description", "Please describe the lambda function with a least 20 letters");
     }

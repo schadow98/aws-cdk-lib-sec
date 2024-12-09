@@ -1,9 +1,9 @@
 // my-stack.ts
 // npx ts-node app.ts && cdk synth
-import * as cdk from './src/aws-cdk-lib-sec';
+import * as cdk from '../src/aws-cdk-lib-sec';
 import { Construct } from 'constructs';
-import * as ssm from 'aws-cdk-lib/aws-ssm';
-import * as lambda from './src/aws-cdk-lib-sec/aws-lambda';
+
+
 
 
 console.log(process.argv)
@@ -13,27 +13,12 @@ export class MyLambdaStack extends cdk.Stack {
     constructor(scope: Construct, id: string) {
         super(scope, id, { description: "irgendwas was 10 zeichen hat"});
 
-        //const parameter = new ssm.StringParameter(this, 'Parameter', {
-        //    parameterName: 'mySsmParameterName',
-        //    stringValue: 'mySsmParameterValue',
-        //
-        //  });
-        //
-        //  const paramsAndSecrets = lambda.ParamsAndSecretsLayerVersion.fromVersion(lambda.ParamsAndSecretsVersions.V1_0_103, {
-        //    cacheSize: 500,
-        //    logLevel: lambda.ParamsAndSecretsLogLevel.DEBUG,
-        //  });    
-
         // Add a Lambda-Function to the stack
         const lambdaFunction = new cdk.aws_lambda.Function(this, 'MyLambdaFunction', {
             runtime: cdk.aws_lambda.Runtime.NODEJS_20_X,
             description: "My lambda function to deploy something",
             environment: {
-                // API_URL: 'https://example.com/api',
-                // DB_PASSWORD: 'someHardcodedSecret',
-                // TOKEN: 'ghp_very_suspicious_token',
-                // NORMAL_VAR: 'just_normal_value',
-                PATH1: '/usr/bin:/bin',
+
             }
             // handler: 'handler.handler',
             // code: cdk.aws_lambda.Code.fromAsset('src')

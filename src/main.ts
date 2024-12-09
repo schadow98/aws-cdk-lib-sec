@@ -1,5 +1,5 @@
 import { writeStackToFile, praseFileToStack } from "./tools/stackToFile";
-import { checkStackClass } from "./tools/validator";
+import { checkStackClass } from "./aws-cdk-lib-sec/aws-stack/validator";
 import logger from "./tools/logger";
 import { OptionValues } from 'commander';
 import * as fs from "fs"
