@@ -24,7 +24,7 @@ export function checkHandler(handler_name: string=SecFunctionProps.defaultHandle
 }
 
 export function checkDescription(description: string): string{
-    logger.debug("checkDescription " + checkDescription)
+    logger.debug("checkDescription " + description)
     if (!description || description.length < 20){
         new ConfigurationError("description", "Please describe the lambda function with a least 20 letters");
     }

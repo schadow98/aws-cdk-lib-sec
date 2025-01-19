@@ -1,7 +1,11 @@
+import { IKey } from "aws-cdk-lib/aws-kms";
 import { ConfigurationError } from "../../tools/ConfigurationError";
 import logger from "../../tools/logger";
 
-
+import { Construct } from "constructs";
+import * as cdk from 'aws-cdk-lib';
+import { Key } from "../aws-kms/SecKey";
+import { checkSafeAttributForSecMarker } from "../aws-stack/validator";
 
 // List of regular expressions to detect potential secrets
 const secretPatterns: RegExp[] = [
@@ -35,18 +39,18 @@ export function checkEnvVariables(env: { [key: string]: string } | undefined): {
 
         // Check for forbidden variables
         if (forbiddenVariables.includes(key)) {
-            throw new ConfigurationError("environment", `Forbidden environment variable detected: '${key}'`);
+            new ConfigurationError("environment", `Forbidden environment variable detected: '${key}'`);
         }
 
         // Check for hardcoded secrets
         const secretMatch = secretPatterns.some((pattern) => pattern.test(value));
         if (secretMatch) {
-            throw new ConfigurationError("environment", `Potential secret detected in environment variable '${key}'`);
+            new ConfigurationError("environment", `Potential secret detected in environment variable '${key}'`);
         }
 
         // Check for potential injection vulnerabilities
         if (value.includes(';') || value.includes('&&') || value.includes('|')) {
-            throw new ConfigurationError("environment", `Potential injection detected in environment variable '${key}'. Value: '${value}'`);
+            new ConfigurationError("environment", `Potential injection detected in environment variable '${key}'. Value: '${value}'`);
         }
     });
 
@@ -56,3 +60,24 @@ export function checkEnvVariables(env: { [key: string]: string } | undefined): {
 
 
 
+export function checkEnvironmentEncryption(
+    scope: Construct, // Stack
+    lambdaId: string, // LambdaFunction 
+    ikey?: IKey
+): IKey {
+    logger.debug("Starting checkEnvironmentEncryption analysis...");
+    // Wenn kein Schlüssel bereitgestellt wurde, erstellen Sie einen neuen KMS-Schlüssel
+    const environmentEncryptionKey = new Key(scope, `${lambdaId}EnvironmentEncryptionKey`, {
+        description: `Schlüssel zur Verschlüsselung der Lambda-Umgebungsvariablen ${lambdaId}`,
+    });
+
+    if (!ikey) {
+        return environmentEncryptionKey
+    }
+
+    if (!checkSafeAttributForSecMarker(ikey)) {
+        new ConfigurationError("environmentEncryption", `environmentEncryption is not Safe`);
+    }
+
+    return environmentEncryptionKey;
+}

@@ -8,13 +8,20 @@ import { checkSecClass } from './validator';
 
 export class Stack extends cdk.Stack {
     static [SecMarker] = true;
+    stage = undefined
 
     constructor(scope: Construct, id: string, props: SecStackProps) {
         logger.debug("Stack scope " + scope)
         logger.debug("Stack id " + id)
         logger.debug("Stack props " + JSON.stringify(props))
+
+        const stage = scope.node.tryGetContext('stage') || 'development';
+        if(!props.stage){
+            props.stage = stage
+        }
         props = new SecStackProps(props)
         super(scope, id, props);
+        this.stage = stage
         addConfigurationErrorDetails(this, id)
         
         this.node.addValidation({

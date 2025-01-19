@@ -17,10 +17,16 @@ import {
 } from "./StandardizedNaming";
 import logger from "../../tools/logger";
 import { deactivateOldAttribute } from "./deactivateOldAttribute";
-import { checkEnvVariables } from "./checkEnvironmentVariables";
+import { checkEnvironmentEncryption, checkEnvVariables } from "./checkEnvironmentVariables";
 import { checkRecursiveLoop } from "./checkRecursiveLoop";
 import { createCodeSigningConfig } from "./codeSigningConfig";
 import { Construct } from "constructs";
+import { activeSnapStart } from "./snapStart";
+import { checkSafeAttributForSecMarker } from "../aws-stack/validator";
+import { checkArchitecture, checkEphemeralStorageSize, deactivateProperties } from "./deactivateProperties";
+import { checkRuntimeManagementMode } from "./checkRuntimeManagementMode";
+import { checkApplicationLogLevel, checkLoggingFormat, checkLogGroup, checkLogRetention, checkLogRetentionOptions, checkLogRetentionRole, checkSystemLogLevel, checkTracing } from "./logging";
+import { checkAllowAllIpv6Outbound, checkAllowAllOutbound, checkAllowPublicSubnet, checkIpv6AllowedForDualStack, checkVPC, checkVPCSubnets } from "./checkVPC";
 
 export class SecFunctionProps {
   static [SecMarker] = true;
@@ -91,20 +97,20 @@ export class SecFunctionProps {
     this.environment = checkEnvVariables(props.environment);
     this.functionName = props.functionName;
     this.memorySize = props.memorySize;
-    this.ephemeralStorageSize = props.ephemeralStorageSize;
+    this.ephemeralStorageSize = checkEphemeralStorageSize(props.ephemeralStorageSize);
     this.initialPolicy = props.initialPolicy;
     this.role = props.role;
-    this.vpc = props.vpc;
-    this.ipv6AllowedForDualStack = props.ipv6AllowedForDualStack;
-    this.vpcSubnets = props.vpcSubnets;
+    this.vpc = checkVPC(scope, props.vpc);
+    this.ipv6AllowedForDualStack = checkIpv6AllowedForDualStack(props.ipv6AllowedForDualStack);
+    this.vpcSubnets = checkVPCSubnets(props.vpcSubnets);
     this.securityGroups = props.securityGroups;
-    this.allowAllOutbound = props.allowAllOutbound;
-    this.allowAllIpv6Outbound = props.allowAllIpv6Outbound;
-    this.deadLetterQueueEnabled = props.deadLetterQueueEnabled;
-    this.deadLetterQueue = props.deadLetterQueue;
-    this.deadLetterTopic = props.deadLetterTopic;
-    this.tracing = props.tracing;
-    this.snapStart = props.snapStart;
+    this.allowAllOutbound = checkAllowAllOutbound(props.allowAllOutbound);
+    this.allowAllIpv6Outbound = checkAllowAllIpv6Outbound(props.allowAllIpv6Outbound);
+    this.deadLetterQueueEnabled = deactivateProperties("deadLetterQueueEnabled", props.deadLetterQueueEnabled);
+    this.deadLetterQueue = deactivateProperties("deadLetterQueue", props.deadLetterQueue);
+    this.deadLetterTopic = deactivateProperties("deadLetterTopic", props.deadLetterTopic)
+    this.tracing = checkTracing(props.tracing);
+    this.snapStart = activeSnapStart(props.snapStart, props.runtime);
     this.profiling = props.profiling;
     this.profilingGroup = props.profilingGroup;
     this.insightsVersion = props.insightsVersion;
@@ -113,36 +119,38 @@ export class SecFunctionProps {
     this.layers = props.layers;
     this.reservedConcurrentExecutions = props.reservedConcurrentExecutions;
     this.events = props.events;
-    this.logRetention = props.logRetention;
-    this.logRetentionRole = props.logRetentionRole;
-    this.logRetentionRetryOptions = props.logRetentionRetryOptions;
+    this.logRetention = checkLogRetention(props.logRetention);
+    this.logRetentionRole = checkLogRetentionRole(props.logRetentionRole);
+    this.logRetentionRetryOptions = checkLogRetentionOptions(props.logRetentionRetryOptions);
     this.currentVersionOptions = props.currentVersionOptions;
     this.filesystem = props.filesystem;
-    this.allowPublicSubnet = props.allowPublicSubnet;
-    this.environmentEncryption = props.environmentEncryption;
+    this.allowPublicSubnet = checkAllowPublicSubnet(props.allowPublicSubnet);
+    this.environmentEncryption = checkEnvironmentEncryption(scope,
+      id,
+      props.environmentEncryption);
     this.codeSigningConfig = createCodeSigningConfig(
       scope,
       id,
       props.codeSigningConfig
     );
-    this.architecture = props.architecture;
-    this.runtimeManagementMode = props.runtimeManagementMode;
-    this.logGroup = props.logGroup;
+    this.architecture = checkArchitecture(props.architecture);
+    this.runtimeManagementMode = checkRuntimeManagementMode(props.runtimeManagementMode);
+    this.logGroup = checkLogGroup(id, props.logGroup);
     this.logFormat = deactivateOldAttribute("logFormat", props.logFormat);
-    this.loggingFormat = props.loggingFormat;
+    this.loggingFormat = checkLoggingFormat(props.loggingFormat);
     this.recursiveLoop = checkRecursiveLoop(props.recursiveLoop);
     this.applicationLogLevel = deactivateOldAttribute(
       "applicationLogLevel",
       props.applicationLogLevel
     );
-    this.applicationLogLevelV2 = props.applicationLogLevelV2;
+    this.applicationLogLevelV2 = checkApplicationLogLevel(scope, props.applicationLogLevelV2);
     this.systemLogLevel = deactivateOldAttribute(
       "systemLogLevel",
       props.systemLogLevel
     );
-    this.systemLogLevelV2 = props.systemLogLevelV2;
-    this.onFailure = props.onFailure;
-    this.onSuccess = props.onSuccess;
+    this.systemLogLevelV2 = checkSystemLogLevel(scope, props.systemLogLevelV2);
+    this.onFailure = checkSafeAttributForSecMarker(props.onFailure);
+    this.onSuccess = checkSafeAttributForSecMarker(props.onSuccess);
     this.maxEventAge = props.maxEventAge;
     this.retryAttempts = props.retryAttempts;
     logger.debug("OutputProps SecFunctionProps " + JSON.stringify(props));

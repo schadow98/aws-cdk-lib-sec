@@ -5,6 +5,7 @@ import logger from "../../tools/logger";
 export class SecStackProps implements cdk.StackProps {
   public description: string;
   public env?: cdk.Environment;
+  public stage? : string;
   public tags?: { [key: string]: string };
   public synthesizer?: cdk.IStackSynthesizer;
   public stackName?: string;
@@ -16,6 +17,7 @@ export class SecStackProps implements cdk.StackProps {
     logger.debug("SecStackProps Input" + JSON.stringify(props));
     this.description = checkDescription(props.description);
     this.env = checkEnvironment(props.env);
+    this.stage = checkStage(props.stage);
     this.tags = props.tags;
     this.synthesizer = props.synthesizer;
     this.stackName = props.stackName;
@@ -27,6 +29,15 @@ export class SecStackProps implements cdk.StackProps {
     logger.debug("SecStackProps Output " + JSON.stringify(this));
   }
 }
+
+function checkStage(stage: string | undefined): string {
+  logger.debug("checkStage " + stage);
+  if (!stage) {
+    return "development";
+  }
+  return stage;
+}
+ 
 
 function checkDescription(description: string | undefined): string {
   logger.debug("checkDescription " + description);

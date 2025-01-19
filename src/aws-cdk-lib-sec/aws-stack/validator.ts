@@ -29,3 +29,10 @@ export function hasSecMarker(construct: any): boolean {
     const SecMarkerValue = (construct.constructor as any)[SecMarker];
     return SecMarkerValue === true;
 }
+
+export function checkSafeAttributForSecMarker(construct: any): any{
+    if(!construct){
+        return undefined
+    }
+    return hasSecMarker(construct)
+}

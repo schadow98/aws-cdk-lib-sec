@@ -5,24 +5,18 @@ import { Construct } from 'constructs';
 import * as ssm from 'aws-cdk-lib/aws-ssm';
 import * as lambda from './src/aws-cdk-lib-sec/aws-lambda';
 
-
-console.log(process.argv)
+import * as path from 'path';
+import { ProfilingGroup } from 'aws-cdk-lib/aws-codeguruprofiler';
 
 // Defines the Stack
 export class MyLambdaStack extends cdk.Stack {
     constructor(scope: Construct, id: string) {
         super(scope, id, { description: "irgendwas was 10 zeichen hat"});
 
-        //const parameter = new ssm.StringParameter(this, 'Parameter', {
-        //    parameterName: 'mySsmParameterName',
-        //    stringValue: 'mySsmParameterValue',
-        //
-        //  });
-        //
-        //  const paramsAndSecrets = lambda.ParamsAndSecretsLayerVersion.fromVersion(lambda.ParamsAndSecretsVersions.V1_0_103, {
-        //    cacheSize: 500,
-        //    logLevel: lambda.ParamsAndSecretsLogLevel.DEBUG,
-        //  });    
+        const paramsAndSecrets = lambda.ParamsAndSecretsLayerVersion.fromVersion(lambda.ParamsAndSecretsVersions.V1_0_103, {
+            cacheEnabled: false,
+            logLevel: lambda.ParamsAndSecretsLogLevel.DEBUG,
+          });
 
         // Add a Lambda-Function to the stack
         const lambdaFunction = new cdk.aws_lambda.Function(this, 'MyLambdaFunction', {
@@ -34,10 +28,15 @@ export class MyLambdaStack extends cdk.Stack {
                 // TOKEN: 'ghp_very_suspicious_token',
                 // NORMAL_VAR: 'just_normal_value',
                 PATH1: '/usr/bin:/bin',
-            }
+            },
+            paramsAndSecrets: paramsAndSecrets
             // handler: 'handler.handler',
             // code: cdk.aws_lambda.Code.fromAsset('src')
-        });
+            //snapStart: cdk.aws_lambda.SnapStartConf.ON_PUBLISHED_VERSIONS,
+        })
+
+
+
         cdk.Tags.of(lambdaFunction).add("runtime:insecureReason", "Legacy system")
         cdk.Tags.of(lambdaFunction).add("insecure", "false")
     }
