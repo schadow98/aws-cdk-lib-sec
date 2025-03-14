@@ -1,35 +1,31 @@
+// AuthorizerStack.ts
+
 import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
-import * as ec2 from 'aws-cdk-lib/aws-ec2';
+
+import fs from 'fs';
+import path from 'path';
 import * as apigateway from 'aws-cdk-lib/aws-apigateway';
+import * as aws_lambda from 'aws-cdk-lib/aws-lambda';
 
 export class AuthorizerStack extends cdk.Stack {
-    constructor(scope: Construct, id: string, props?: cdk.StackProps) {
-        super(scope, id, props);
+  public readonly authorizerFn: cdk.aws_lambda.IFunction;
+  public readonly authorizerFnArn: string;
+  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
+    super(scope, id, props);
 
-        // Create an API Gateway with an Authorizer
-        const api = new apigateway.RestApi(this, 'ApiWithAuthorizer', {
-            restApiName: 'ApiWithAuthorizer',
-            description: 'API with a custom Authorizer',
-        });
+    this.authorizerFn = new aws_lambda.Function(this, 'AuthorizerLambda', {
+      runtime: aws_lambda.Runtime.NODEJS_18_X,
+      code: aws_lambda.Code.fromInline(fs.readFileSync(path.join(path.dirname(__filename), "./authorizeCode.ts"), { encoding: 'utf8', flag: 'r' })),
+      handler: 'index.handler',
+    });
 
-        const authorizer = new apigateway.CfnAuthorizer(this, 'CustomAuthorizer', {
-            name: 'MyAuthorizer',
-            restApiId: api.restApiId,
-            type: 'REQUEST',
-            identitySource: 'method.request.header.Authorization',
-        });
+    this.authorizerFnArn = this.authorizerFn.functionArn;
 
-        // Output the API Gateway ID
-        new cdk.CfnOutput(this, 'ApiGatewayId', {
-            value: api.restApiId,
-            description: 'The ID of the API Gateway',
-        });
+    new cdk.CfnOutput(this, 'AuthorizerFnArn', {
+      value: this.authorizerFn.functionArn,
+      exportName: 'AuthorizerFnArn' // eindeutiger Export-Name
+    });
 
-        // Output the Authorizer ID
-        new cdk.CfnOutput(this, 'AuthorizerId', {
-            value: authorizer.ref,
-            description: 'The ID of the Authorizer',
-        });
-    }
+  }
 }

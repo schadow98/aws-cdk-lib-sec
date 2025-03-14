@@ -24,8 +24,6 @@ export class Function extends Lambda.Function {
       });
       
       this._logRetention = new SecLogRetention(this._logRetention)
-      console.log(this._logRetention)
-
       addConfigurationErrorDetails(this, id)
       logger.debug("Function" + this)
     }

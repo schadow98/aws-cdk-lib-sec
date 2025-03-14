@@ -24,6 +24,7 @@
         "@types/node": "^22.7.2",
         "aws-cdk": "^2.160.0",
         "aws-cdk-lib": "^2.160.0",
+        "aws-sdk": "^2.1692.0",
         "commander": "^12.1.0",
         "deep-diff": "^1.0.2",
         "json-diff": "^1.0.6",

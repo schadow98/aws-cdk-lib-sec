@@ -4,6 +4,7 @@ import { ConfigurationError } from "../../tools/ConfigurationError";
 export function checkRuntimeManagementMode(runtimeManagementMode? : Lambda.RuntimeManagementMode){
     logger.debug("checkRecursiveLoop " + runtimeManagementMode )
     if(!runtimeManagementMode){
+        logger.info("setting checkRecursiveLoop " + Lambda.RuntimeManagementMode.AUTO )
         return Lambda.RuntimeManagementMode.AUTO
     }
     if(runtimeManagementMode !== Lambda.RuntimeManagementMode.AUTO){

@@ -5,6 +5,7 @@ import logger from '../../tools/logger';
 export function checkRecursiveLoop(recursiveLoopInput?: Lambda.RecursiveLoop): Lambda.RecursiveLoop {
     logger.debug("checkRecursiveLoop " + recursiveLoopInput )
     if(!recursiveLoopInput){
+        logger.info("setting recursiveLoopInput to" + Lambda.RecursiveLoop.TERMINATE )
         return Lambda.RecursiveLoop.TERMINATE
     }
     if(recursiveLoopInput !== Lambda.RecursiveLoop.TERMINATE){

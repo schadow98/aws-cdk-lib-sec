@@ -7,14 +7,20 @@ import { SecMarker } from '../SecMarker';
 // checks if the class of the stack is the secured class
 export function checkSecClass(stack: Stack) {
 
+    logger.debug("check stack class ")
     if (!(stack instanceof Stack)) {
+        
         new ConfigurationError("class", "Stack is not derived from the secured class: " + stack);
     }
+
+    validateStackTags(stack)
 
 
     for (var elem of stack.node.children){
         logger.debug("check class for secmarker of elem: " + elem)
-        if (!hasSecMarker(elem)) {
+        // ugly hack: LogRetentionFunction generated class thorough
+        if (!hasSecMarker(elem) && elem.constructor.name !== 'LogRetentionFunction') {
+
             new ConfigurationError("stack.children", "Elem of stack " + stack.stackName + " is not dervied from the secured class: " + elem);
         }
     }
@@ -35,4 +41,26 @@ export function checkSafeAttributForSecMarker(construct: any): any{
         return undefined
     }
     return hasSecMarker(construct)
+}
+
+function validateStackTags(stack: Stack){
+   logger.debug("validateStackTags ")
+   const tagmanager= cdk.TagManager.of(stack)
+    if (!tagmanager){
+        throw "Problem while rendering tags of stack"
+    }
+
+   const allTags = tagmanager.tagValues();
+   
+   const requiredTagKeys = ['environment', 'cost-center', 'budget', 'privacy-class', 'creator', 'created-at', 'compliance', 'governance'];
+
+   const missingKeys: string[] = [];
+   for (const requiredKey of requiredTagKeys) {
+     if (!(requiredKey in allTags)) {
+       missingKeys.push(requiredKey);
+     }
+   }
+   if (missingKeys.length > 0){
+    new ConfigurationError("stack.tags", "Missing tags in stack: " + missingKeys);
+   }
 }

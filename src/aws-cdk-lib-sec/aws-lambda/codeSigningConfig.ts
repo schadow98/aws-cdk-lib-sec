@@ -50,6 +50,7 @@ export function createCodeSigningConfig(
                 Tags.of(codeSigningConfig).add(key, value);
             });
         }
+        logger.info("setting codeSigningConfig (secure, deafult)")
 
         return codeSigningConfig;
     }
@@ -59,6 +60,7 @@ export function createCodeSigningConfig(
     if(!hasSecMarker(codeSigningConfigInput)){
         new ConfigurationError("codeSigningConfig", "codeSigningConfig is not secured")
     }
+
 
     // Rückgabe der vorhandenen CodeSigningConfig, wenn vorhanden
     return codeSigningConfigInput as Lambda.CodeSigningConfig;

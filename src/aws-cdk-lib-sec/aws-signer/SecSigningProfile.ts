@@ -3,6 +3,7 @@ import * as signer from 'aws-cdk-lib/aws-signer';
 import { Construct } from 'constructs';
 import { SecMarker } from '../SecMarker';
 import { ConfigurationError } from '../../tools/ConfigurationError';
+import logger from '../../tools/logger';
 
 export class SigningProfile extends signer.SigningProfile{
     static [SecMarker] = true;
@@ -24,6 +25,7 @@ class SecSigningProfileProps{
         //platform
         this.platform = props.platform // signer.Platform.AWS_LAMBDA_SHA384_ECDSA
         if(!this.platform){
+            logger.info("setting signer.Platform " + signer.Platform.AWS_LAMBDA_SHA384_ECDSA)
             this.platform =  signer.Platform.AWS_LAMBDA_SHA384_ECDSA
         }
         if (this.platform !== signer.Platform.AWS_LAMBDA_SHA384_ECDSA){
@@ -32,6 +34,7 @@ class SecSigningProfileProps{
         // signatureValidity
         this.signatureValidity = props.signatureValidity
         if(!this.signatureValidity){
+            logger.info("setting signer.signatureValidity " + Duration.days(365 * 2))
             this.signatureValidity = Duration.days(365 * 2)
         }
         if (this.signatureValidity !== Duration.days(365 * 2)){
@@ -39,6 +42,7 @@ class SecSigningProfileProps{
         }
         // signingProfileName
         this.signingProfileName = props.signingProfileName //undefined sein
+        logger.info("setting signer.signingProfileName")
         if( this.signingProfileName){
             new ConfigurationError("signingProfileName", "The signingProfileName for a SigningProfileProps should be calculated by a cloudFormation, entered: " + this.signingProfileName)
         }

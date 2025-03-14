@@ -1,17 +1,37 @@
 // my-stack.ts
 // npx ts-node app.ts && cdk synth
 import * as cdk from './src/aws-cdk-lib-sec';
+
 import { Construct } from 'constructs';
 import * as ssm from 'aws-cdk-lib/aws-ssm';
 import * as lambda from './src/aws-cdk-lib-sec/aws-lambda';
-
+import * as apigateway from './src/aws-cdk-lib-sec/aws-apigateway';
 import * as path from 'path';
 import { ProfilingGroup } from 'aws-cdk-lib/aws-codeguruprofiler';
 
 // Defines the Stack
 export class MyLambdaStack extends cdk.Stack {
     constructor(scope: Construct, id: string) {
-        super(scope, id, { description: "irgendwas was 10 zeichen hat"});
+        super(scope, id, { 
+            description: "irgendwas was 10 zeichen hat",
+            contact: {
+                developerTeam:  "max.mustermain@domain.com",
+                operationTeam:  "max.mustermain@domain.com",
+                privacyManager: "max.mustermain@domain.com",
+                securityManager:"max.mustermain@domain.com",      
+              }
+
+        });
+
+
+        const apiGateway = new apigateway.RestApi(
+            this, 
+            "MyApiGateway",
+            {
+                description: "API Gateway default secured"
+            }
+        )
+        
 
         const paramsAndSecrets = lambda.ParamsAndSecretsLayerVersion.fromVersion(lambda.ParamsAndSecretsVersions.V1_0_103, {
             cacheEnabled: false,
@@ -35,10 +55,23 @@ export class MyLambdaStack extends cdk.Stack {
             //snapStart: cdk.aws_lambda.SnapStartConf.ON_PUBLISHED_VERSIONS,
         })
 
+        const pingRessource = apiGateway.root.addResource("ping");
+        pingRessource.addMethod("GET", new apigateway.LambdaIntegration(lambdaFunction));
 
 
         cdk.Tags.of(lambdaFunction).add("runtime:insecureReason", "Legacy system")
         cdk.Tags.of(lambdaFunction).add("insecure", "false")
+
+        cdk.Tags.of(this).add("environment", "dev");    
+        cdk.Tags.of(this).add("cost-center", "IT-123");   
+        cdk.Tags.of(this).add("budget", "1000");          
+        cdk.Tags.of(this).add("privacy-class", "internal");
+        cdk.Tags.of(this).add("creator", "MyTeam");       
+        cdk.Tags.of(this).add("created-at", "2025-03-14"); 
+        cdk.Tags.of(this).add("compliance", "GDPR");       
+        cdk.Tags.of(this).add("governance", "internal");
+
+
     }
 }
 

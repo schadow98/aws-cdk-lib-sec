@@ -1,0 +1,58 @@
+import * as aws_apigateway from 'aws-cdk-lib/aws-apigateway' ;
+import * as aws_iam from 'aws-cdk-lib/aws-iam' ;
+import { SecMarker } from '../SecMarker';
+import { Construct } from 'constructs';
+import { RemovalPolicy, Size } from 'aws-cdk-lib';
+import { checkDescription } from '../aws-lambda/StandardizedNaming';
+import { checkRetainDeployments } from './checkRetainDeployments';
+import { checkDomainName } from './checkDomainName';
+import { checkDefaultMethodOptions } from './checkDefaultMethodOptions';
+
+export class RestApi extends aws_apigateway.RestApi{
+    static [SecMarker] = true;
+    constructor(scope: Construct, id: string, props: SecRestApiAttributes){
+         
+      props = new SecRestApiAttributes(props, scope, id) 
+
+        super(scope, id, {
+            ...props
+          });        
+    }
+}
+class SecRestApiAttributes{
+  binaryMediaTypes?: string[];
+  minimumCompressionSize?: number;
+  minCompressionSize?: Size;
+  cloneFrom?: aws_apigateway.IRestApi;
+  apiKeySourceType?: aws_apigateway.ApiKeySourceType;
+  endpointConfiguration?: aws_apigateway.EndpointConfiguration;
+  defaultIntegration?: aws_apigateway.Integration;
+  defaultMethodOptions?: aws_apigateway.MethodOptions;
+  defaultCorsPreflightOptions?: aws_apigateway.CorsOptions;
+  deploy?: boolean;
+  deployOptions?: aws_apigateway.StageOptions;
+  retainDeployments?: boolean;
+  restApiName?: string;
+  parameters?: { [key: string]: string }
+  policy?: aws_iam.PolicyDocument;
+  failOnWarnings?: boolean;
+  domainName?: aws_apigateway.DomainNameOptions;
+  cloudWatchRole?: boolean;
+  cloudWatchRoleRemovalPolicy?: RemovalPolicy;
+  endpointExportName?: string;
+  endpointTypes?: aws_apigateway.EndpointType[];
+  disableExecuteApiEndpoint?: boolean;
+  description: string;
+
+
+  constructor(props: SecRestApiAttributes, scope: Construct, id: string) {
+    Object.assign(this, props);
+    this.description = checkDescription(props.description);
+    this.retainDeployments = checkRetainDeployments(props.retainDeployments)
+    this.domainName = checkDomainName(props.domainName)
+    this.defaultMethodOptions = checkDefaultMethodOptions(scope, props.defaultMethodOptions)
+  }
+}
+
+
+

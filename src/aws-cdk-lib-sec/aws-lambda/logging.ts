@@ -13,6 +13,7 @@ export function checkApplicationLogLevel(stackInput: Construct, applicationLogLe
     //prod
     if (stage === "production"){
         if(!applicationLogLevel){
+            logger.info("setting applicationLogLevel production " + Lambda.ApplicationLogLevel.INFO)
             return Lambda.ApplicationLogLevel.INFO
         }else{
             new ConfigurationError("ApplicationLogLevel ", "ApplicationLogLevel should be in production at INFO and not at: " + applicationLogLevel)
@@ -20,6 +21,7 @@ export function checkApplicationLogLevel(stackInput: Construct, applicationLogLe
     }else{
         //non-prod
         if(!applicationLogLevel){
+            logger.info("setting applicationLogLevel non-production " + Lambda.ApplicationLogLevel.DEBUG)
             return Lambda.ApplicationLogLevel.DEBUG
         }else{
             new ConfigurationError("ApplicationLogLevel ", "ApplicationLogLevel should be in non-production at Debug and not at: " + applicationLogLevel)
@@ -37,6 +39,7 @@ export function checkSystemLogLevel(stackInput: Construct, systemLogLevel?: Lamb
     //prod
     if (stage === "production"){
         if(!systemLogLevel){
+            logger.info("setting systemLogLevel production " + Lambda.ApplicationLogLevel.INFO)
             return Lambda.SystemLogLevel.INFO
         }else{
             new ConfigurationError("SystemLogLevel ", "SystemLogLevel should be in production at INFO and not at: " + systemLogLevel)
@@ -44,6 +47,7 @@ export function checkSystemLogLevel(stackInput: Construct, systemLogLevel?: Lamb
     }else{
         //non-prod
         if(!systemLogLevel){
+            logger.info("setting systemLogLevel non-production " + Lambda.ApplicationLogLevel.DEBUG)
             return Lambda.SystemLogLevel.DEBUG
         }else{
             new ConfigurationError("SystemLogLevel ", "SystemLogLevel should be in non-production at Debug and not at: " + systemLogLevel)
@@ -55,8 +59,9 @@ export function checkSystemLogLevel(stackInput: Construct, systemLogLevel?: Lamb
 
 
 export function checkLoggingFormat(loggingFormat?: Lambda.LoggingFormat): Lambda.LoggingFormat {
-    logger.debug("checkLoggingFormat" + loggingFormat)
+    logger.debug("checkLoggingFormat " + loggingFormat)
     if(!loggingFormat || loggingFormat === Lambda.LoggingFormat.JSON){
+        logger.info("setting LoggingFormat " + Lambda.LoggingFormat.JSON)
         return Lambda.LoggingFormat.JSON
     }else{
         new ConfigurationError("loggingFormat ", "loggingFormat should JSON, other configuration could cause an error with the implemented logger: " + loggingFormat)
@@ -70,6 +75,7 @@ export function checkLogGroup(lambdaId: string, logGroup?: ILogGroup): ILogGroup
     const excpectedLogGroup = "/aws/lambda/" + lambdaId
 
     if(!logGroup){
+        logger.info("setting logGroup")
         return undefined
     }
 
@@ -85,6 +91,7 @@ export function checkLogGroup(lambdaId: string, logGroup?: ILogGroup): ILogGroup
 export function checkTracing(tracing?: Lambda.Tracing): Lambda.Tracing {
     logger.debug("checkTracing" + tracing)
     if(!tracing || tracing === Lambda.Tracing.PASS_THROUGH){
+        logger.info("setting tracing " + Lambda.Tracing.PASS_THROUGH)
         return Lambda.Tracing.PASS_THROUGH
     }else{
         new ConfigurationError("checkTracing ", "checkTracing should be PASS_THROUGH: " + tracing)
@@ -96,6 +103,7 @@ export function checkTracing(tracing?: Lambda.Tracing): Lambda.Tracing {
 export function checkLogRetention(logRetention?: RetentionDays): RetentionDays {
     logger.debug("checkLogRetention" + logRetention)
     if(!logRetention){
+        logger.info("setting logRetention " + RetentionDays.THREE_MONTHS)
         return RetentionDays.THREE_MONTHS
     }      
 
@@ -110,6 +118,7 @@ export function checkLogRetentionRole(logRetentionRole?: any): IRole | undefined
     logger.debug(`checkLogRetentionRole: ${logRetentionRole?.roleName}`);
 
     if (!logRetentionRole) {
+        logger.info("setting logRetentionRole (secured)")
         logger.debug("No logRetentionRole provided. Returning undefined.");
         return undefined;
     }
@@ -163,16 +172,12 @@ export function checkLogRetentionRole(logRetentionRole?: any): IRole | undefined
     return logRetentionRole;
 }
 export function checkLogRetentionOptions(logRetentionOptions?: Lambda.LogRetentionRetryOptions): Lambda.LogRetentionRetryOptions | undefined {
-    logger.debug("checkLogRetentionOptions" + checkLogRetentionOptions)
+    logger.debug("checkLogRetentionOptions" + logRetentionOptions)
     if(!logRetentionOptions){
+        logger.info("setting logRetentionOptions (secure)")
         return undefined
     }      
-
-    // if(logRetention.valueOf() > 90){
-    //     new ConfigurationError("logRetention ", "RetentionDays should be 90 Days (3 Months) or shorter: " + logRetention)
-    // }
-// 
-    // return logRetention
+    return logRetentionOptions
 }
 
 

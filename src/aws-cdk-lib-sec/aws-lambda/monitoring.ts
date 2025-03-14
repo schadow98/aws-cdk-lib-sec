@@ -12,6 +12,7 @@ export function checkTracing (
     }
 
     if(!tracing){
+        logger.info("setting tracing to true")
         return true
     }
 
@@ -28,6 +29,7 @@ export function checkProfiling (
     }
 
     if(!profiling){
+        logger.info("setting profiling to true")
         return true
     }
 
@@ -65,6 +67,7 @@ export function checkProfilingGroup  (
 
       // give Lambda permissions to write code there
       // append Profiling Group ARN to env
+    logger.info("setting profilingGroup (secured)")
     return profilingGroupSec
     
 }

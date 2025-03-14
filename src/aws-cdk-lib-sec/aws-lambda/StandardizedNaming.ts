@@ -12,6 +12,7 @@ export function checkCode(input_code: Lambda.Code = SecFunctionProps.defaultCode
     } else {
         new Error("The provided code must be of type 'AssetCode'");
     }
+    logger.info("setting code to " + SecFunctionProps.defaultCode)
     return input_code
 }
 
@@ -20,6 +21,7 @@ export function checkHandler(handler_name: string=SecFunctionProps.defaultHandle
     if (handler_name !== SecFunctionProps.defaultHandler){
         new ConfigurationError("handler", "Please defiend the handler in a file 'handle' with an method 'handler' -> set this value to 'handler.handler'");
     }
+    logger.info("setting handler to " + SecFunctionProps.defaultHandler)
     return handler_name
 }
 

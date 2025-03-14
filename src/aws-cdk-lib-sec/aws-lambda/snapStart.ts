@@ -5,9 +5,10 @@ export function activeSnapStart(snapStart?: Lambda.SnapStartConf, runtime?: Lamb
     logger.debug("activeSnapStart for " + runtime + " : " + snapStart)
     if(!snapStart){
         if(runtime?.supportsSnapStart){
+            logger.info("setting activeSnapStart " + Lambda.SnapStartConf.ON_PUBLISHED_VERSIONS)
             return Lambda.SnapStartConf.ON_PUBLISHED_VERSIONS
         }else{
-            // return nothing if it isnt supported
+            logger.info("setting activeSnapStart " + undefined)
             return undefined
         }
     }

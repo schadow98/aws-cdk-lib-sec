@@ -136,3 +136,4 @@ logs/
 output/
 
 cdk.out/
+keys_authorizer

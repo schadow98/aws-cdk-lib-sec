@@ -27,10 +27,10 @@ const forbiddenVariables: string[] = [
 
 // Function to analyze environment variables
 export function checkEnvVariables(env: { [key: string]: string } | undefined): { [key: string]: string } | undefined {
-    logger.debug("Starting environment variables analysis...");
+    logger.info("checking environment variables");
 
     if (!env) {
-        logger.warn("No environment variables found for analysis.");
+        logger.info("No environment variables found for analysis.");
         return undefined;
     }
 

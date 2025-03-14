@@ -17,6 +17,7 @@ export class Stack extends cdk.Stack {
 
         const stage = scope.node.tryGetContext('stage') || 'development';
         if(!props.stage){
+            logger.info("setting stage " + stage)
             props.stage = stage
         }
         props = new SecStackProps(props)
