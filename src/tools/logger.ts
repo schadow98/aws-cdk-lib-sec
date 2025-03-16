@@ -37,7 +37,7 @@ const logger = winston.createLogger({
   transports: [
       new winston.transports.Console(),  // Console output
       new winston.transports.File({ filename: 'logs/error.log', level: 'error', options: { flags: 'w+' } }),  // error log
-      new winston.transports.File({ filename: 'logs/info.log', options: { flags: 'w+' } })  // Info log
+      new winston.transports.File({ filename: 'logs/info.log', level: 'info',options: { flags: 'w+' } })  // Info log
   ],
 });
 
