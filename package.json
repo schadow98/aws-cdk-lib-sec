@@ -4,7 +4,8 @@
     "main": "src/aws-cdk-lib-sec/index.ts",
     "types": "src/aws-cdk-lib-sec/index.d.ts",
     "files": [
-        "src/aws-cdk-lib-sec"
+        "src/aws-cdk-lib-sec",
+        "dist"
     ],
     "type": "module",
     "scripts": {
