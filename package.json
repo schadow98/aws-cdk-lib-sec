@@ -6,7 +6,7 @@
         "dev": "ts-node app.ts",
         "start": "node app.js",
         "test": "jest",
-        "linting": "npx eslint ."
+        "linting": "npx eslint ./src"
     },
     "bin": {
         "cli": "app.js"

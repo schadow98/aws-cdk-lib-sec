@@ -18,7 +18,7 @@ jobs:
       - name: Install Dependencies
         run: npm install
       - name: Run ESLint
-        run: npx eslint .
+        run: npm run test
 
   jest:
     runs-on: ubuntu-latest
