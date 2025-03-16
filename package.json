@@ -1,5 +1,12 @@
 {
+    "name": "aws-cdk-lib-sec",
+    "version": "1.0.0",
     "type": "module",
+    "main": "src/aws-cdk-lib-sec/index.js",
+    "types": "src/aws-cdk-lib-sec/index.d.ts",
+    "files": [
+      "src/aws-cdk-lib-sec"
+    ],
     "scripts": {
         "build": "tsc",
         "auto": "nodemon --exec ts-node app.ts",
@@ -7,9 +14,6 @@
         "start": "node app.js",
         "test": "jest",
         "linting": "npx eslint ./src"
-    },
-    "bin": {
-        "cli": "app.js"
     },
     "devDependencies": {
         "@eslint/js": "^9.22.0",
@@ -36,5 +40,13 @@
         "jsonwebtoken": "^9.0.2",
         "snyk": "^1.1294.2",
         "winston": "^3.14.2"
-    }
+    },
+    "keywords": [
+        "aws",
+        "cdk",
+        "security",
+        "typescript"
+      ],
+      "license": "MIT",
+      "private": false
 }

@@ -1,0 +1,30 @@
+name: End-to-End Tests
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'e2e_test/**'
+  pull_request:
+    paths:
+      - 'e2e_test/**'
+
+jobs:
+  secure-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22.4.0'
+
+      - name: Install dependencies for E2E tests
+        run: npm install
+        working-directory: e2e
+
+      - name: Run End-to-End Tests
+        run: aws 
+        working-directory: e2e
