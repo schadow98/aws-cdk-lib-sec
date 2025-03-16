@@ -15,7 +15,7 @@ export function addCloudwatchMetricsAndAlarms(
 ) {
   logger.debug("calling addCloudwatchMetricsAndAlarms");
   const tags = TagManager.of(scope)?.renderTags();
-  var contact:any = {}
+  const contact:any = {}
   for (const elem of tags) {
     contact[elem.Key] = elem.Value;
   }

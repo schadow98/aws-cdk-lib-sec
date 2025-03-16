@@ -95,7 +95,7 @@ export function handleDetailedConfigurationErrors(stack: Stack) {
     const tagManager = (cfnFunction as any).tags;
     const tagName: string = `${detailedConfigurationError.attribut}:insecureReason`;
 
-    var isResourceUnsecure = checkIfUnsecureConfigurationisTagged(detailedConfigurationError, tagName, tagManager)
+    const isResourceUnsecure = checkIfUnsecureConfigurationisTagged(detailedConfigurationError, tagName, tagManager)
     if (isResourceUnsecure) {
       addTagsToStack(detailedConfigurationError, tagName, tagManager)
     }

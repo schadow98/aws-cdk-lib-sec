@@ -8,7 +8,7 @@ import { IRole, IPrincipal, ServicePrincipal, ManagedPolicy } from 'aws-cdk-lib/
 
 export function checkApplicationLogLevel(stackInput: Construct, applicationLogLevel?: Lambda.ApplicationLogLevel): Lambda.ApplicationLogLevel {
     logger.debug("checkApplicationLogLevel" + applicationLogLevel)
-    var stack = Stack.of(stackInput) as Stack;
+    const stack = Stack.of(stackInput) as Stack;
     const stage = stack.stage;
     //prod
     if (stage === "production"){
@@ -34,7 +34,7 @@ export function checkApplicationLogLevel(stackInput: Construct, applicationLogLe
 
 export function checkSystemLogLevel(stackInput: Construct, systemLogLevel?: Lambda.SystemLogLevel): Lambda.SystemLogLevel {
     logger.debug("checkSystemLogLevel" + systemLogLevel)
-    var stack = Stack.of(stackInput) as Stack;
+    const stack = Stack.of(stackInput) as Stack;
     const stage = stack.stage;
     //prod
     if (stage === "production"){

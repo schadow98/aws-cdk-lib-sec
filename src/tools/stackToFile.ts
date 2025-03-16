@@ -1,9 +1,9 @@
 import * as cdk from 'aws-cdk-lib';
 import * as fs from 'fs';
 import * as path from 'path';
-import { App, Stack } from 'aws-cdk-lib';
+import {  Stack } from 'aws-cdk-lib';
 import  logger  from '../tools/logger';
-import { ConfigurationError } from './ConfigurationError';
+
 
 // function to convert a stack to a yaml and write it into an file
 export function writeStackToFile(stack: Stack, outputDir: string): void {
@@ -29,7 +29,7 @@ export async function praseFileToStack(filePath: string): Promise<Stack[]>{
     // Dynamic import of configFile
     logger.info("Parsing configFile: " + filePath)
     const stackModule = await import(filePath);
-    var stacks: Stack[] = []
+    const stacks: Stack[] = []
 
 
     //Find all classes of a stack
@@ -41,10 +41,11 @@ export async function praseFileToStack(filePath: string): Promise<Stack[]>{
 
             logger.info(`found stack ${exportName} in ${exportedClass}`)
             const app = new cdk.App();
-            var stack;
+            let stack;
             try {
                 stack = new exportedClass(app, exportName)
             } catch (error) {
+                logger.warn(error)
                 throw new Error(`config and parsing error  ${exportName} in ${exportedClass}`)
             }
             
@@ -64,8 +65,8 @@ export async function praseFileToStack(filePath: string): Promise<Stack[]>{
 
 export async function stackToFile(stackFilePath: string, outputDir: string="./output"): Promise<null> {
 
-    var stacks:Stack[] = await praseFileToStack(stackFilePath)
-    for(var index in stacks){
+    const stacks:Stack[] = await praseFileToStack(stackFilePath)
+    for(const index in stacks){
         writeStackToFile(stacks[index], outputDir)
     }
 

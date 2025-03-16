@@ -25,7 +25,7 @@ export async function isStackDeployed(stackName: string): Promise<boolean> {
 
   }
 }
-
+/*
 export async function deployStack(stackInput: Stack){
     logger.info("Stack will be deployed.");
 
@@ -67,3 +67,4 @@ export async function deployStack(stackInput: Stack){
   }
 }
 
+*/

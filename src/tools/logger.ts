@@ -5,9 +5,10 @@ if(! process.env.LOGLEVEL){
 }
 
 
-if (! winston.config.npm.levels.hasOwnProperty(process.env.LOGLEVEL)){
-  throw new Error("process.env.LOGLEVEL is not a valid Loglevel: " + process.env.LOGLEVEL)
+if (!Object.prototype.hasOwnProperty.call(winston.config.npm.levels, process.env.LOGLEVEL)) {
+  throw new Error("process.env.LOGLEVEL is not a valid Loglevel: " + process.env.LOGLEVEL);
 }
+
 
 const logger = winston.createLogger({
   level: process.env.LOGLEVEL || 'info',

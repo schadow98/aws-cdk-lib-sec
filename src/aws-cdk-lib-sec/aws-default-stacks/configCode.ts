@@ -1,4 +1,4 @@
-exports.handler = async (event) => {
+exports.handler = async (event: any) => {
     // Das 'event' enthält die Informationen zu den Ressourcen, die du prüfen möchtest.
     // Du bekommst die AWS Config Event-Details in event.invokingEvent.
     // In event.ruleParameters liegen ggf. vom Benutzer definierte Parameter.

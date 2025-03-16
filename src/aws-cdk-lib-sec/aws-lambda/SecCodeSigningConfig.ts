@@ -28,7 +28,7 @@ class SecCodeSigningConfigProps{
         if(!this.signingProfiles || this.signingProfiles?.length){
             throw Error("Please defined a signingProfiles")
         }
-        for(var signingProfile in this.signingProfiles){
+        for(const signingProfile in this.signingProfiles){
             if ((signingProfile.constructor as any)[SecMarker] !== true){
                 new ConfigurationError("signingProfile", "The signingProfile is not secured: " + signingProfile)
             }

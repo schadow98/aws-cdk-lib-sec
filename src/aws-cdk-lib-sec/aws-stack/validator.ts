@@ -16,7 +16,7 @@ export function checkSecClass(stack: Stack) {
     validateStackTags(stack)
 
 
-    for (var elem of stack.node.children){
+    for (const elem of stack.node.children){
         logger.debug("check class for secmarker of elem: " + elem)
         // ugly hack: LogRetentionFunction generated class thorough
         if (!hasSecMarker(elem) && elem.constructor.name !== 'LogRetentionFunction') {
