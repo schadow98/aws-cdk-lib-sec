@@ -1,7 +1,6 @@
 {
     "name": "aws-cdk-lib-sec",
     "version": "1.0.0",
-    "type": "module",
     "main": "src/aws-cdk-lib-sec/index.js",
     "types": "src/aws-cdk-lib-sec/index.d.ts",
     "files": [

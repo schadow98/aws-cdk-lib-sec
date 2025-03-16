@@ -10,14 +10,14 @@ import { IPrincipal } from 'aws-cdk-lib/aws-iam';
 export class Key extends kms.Key{
     static [SecMarker] = true;
 
-    constructor(scope: Construct, id: string, props: SecKeyProps){
+    constructor(scope: Construct, id: string, props: KeyProps){
         super(scope, id, {
             ...props
           });        
     }
 }
 
-class SecKeyProps {
+export class KeyProps {
     /**
      * Eine Liste von Principals, die als Key-Administratoren zur Schlüsselrichtlinie hinzugefügt werden.
      *
@@ -102,7 +102,7 @@ class SecKeyProps {
      */
     readonly rotationPeriod?: Duration;
 
-    constructor(props: SecKeyProps){
+    constructor(props: KeyProps){
         this.admins = props.admins
         if (this.admins && this.admins.length > 0){
             new ConfigurationError("admins", "there should not be admins on a key")

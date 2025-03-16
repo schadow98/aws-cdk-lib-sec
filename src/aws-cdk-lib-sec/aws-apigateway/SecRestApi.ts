@@ -7,20 +7,20 @@ import { checkDescription } from '../aws-lambda/StandardizedNaming';
 import { checkRetainDeployments } from './checkRetainDeployments';
 import { checkDomainName } from './checkDomainName';
 import { checkDefaultMethodOptions } from './checkDefaultMethodOptions';
-import { logger } from '..';
+import logger from '../../tools/logger';
 
 export class RestApi extends aws_apigateway.RestApi{
     static [SecMarker] = true;
-    constructor(scope: Construct, id: string, props: SecRestApiAttributes){
+    constructor(scope: Construct, id: string, props: RestApiAttributes){
          
-      props = new SecRestApiAttributes(props, scope, id) 
+      props = new RestApiAttributes(props, scope, id) 
 
         super(scope, id, {
             ...props
           });        
     }
 }
-class SecRestApiAttributes{
+export class RestApiAttributes{
   binaryMediaTypes?: string[];
   minimumCompressionSize?: number;
   minCompressionSize?: Size;
@@ -46,8 +46,8 @@ class SecRestApiAttributes{
   description: string;
 
 
-  constructor(props: SecRestApiAttributes, scope: Construct, id: string) {
-    logger.debug("SecRestApiAttributes Input" + id + props)
+  constructor(props: RestApiAttributes, scope: Construct, id: string) {
+    logger.debug(id)
     Object.assign(this, props);
     this.description = checkDescription(props.description);
     this.retainDeployments = checkRetainDeployments(props.retainDeployments)

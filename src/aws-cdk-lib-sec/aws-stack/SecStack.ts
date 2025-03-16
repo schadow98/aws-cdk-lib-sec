@@ -2,7 +2,7 @@ import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import { SecMarker } from '../SecMarker';
 import { addConfigurationErrorDetails, handleDetailedConfigurationErrors } from '../../tools/ConfigurationError';
-import { SecStackProps } from './SecStackProps';
+import { StackProps } from './SecStackProps';
 import logger from '../../tools/logger';
 import { checkSecClass } from './validator';
 import { addConfigRules } from './configRules';
@@ -11,7 +11,7 @@ export class Stack extends cdk.Stack {
     static [SecMarker] = true;
     stage = undefined
 
-    constructor(scope: Construct, id: string, props: SecStackProps) {
+    constructor(scope: Construct, id: string, props: StackProps) {
         logger.debug("Stack scope " + scope)
         logger.debug("Stack id " + id)
         logger.debug("Stack props " + JSON.stringify(props))
@@ -21,7 +21,7 @@ export class Stack extends cdk.Stack {
             logger.info("setting stage " + stage)
             props.stage = stage
         }
-        props = new SecStackProps(props)
+        props = new StackProps(props)
         super(scope, id, props);
         this.stage = stage
         addConfigurationErrorDetails(this, id)

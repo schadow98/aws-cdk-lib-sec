@@ -27,7 +27,7 @@ import { checkRuntimeManagementMode } from "./checkRuntimeManagementMode";
 import { checkApplicationLogLevel, checkLoggingFormat, checkLogGroup, checkLogRetention, checkLogRetentionOptions, checkLogRetentionRole, checkSystemLogLevel, checkTracing } from "./logging";
 import { checkAllowAllIpv6Outbound, checkAllowAllOutbound, checkAllowPublicSubnet, checkIpv6AllowedForDualStack, checkVPC, checkVPCSubnets } from "./checkVPC";
 
-export class SecFunctionProps {
+export class FunctionProps {
   static [SecMarker] = true;
   static defaultCode: Lambda.AssetCode = Lambda.Code.fromAsset("src");
   static defaultHandler: "index.handler";
@@ -84,12 +84,12 @@ export class SecFunctionProps {
   maxEventAge?: Duration | undefined;
   retryAttempts?: number | undefined;
 
-  constructor(props: SecFunctionProps, scope: Construct, id: string) {
-    logger.debug("InputProps SecFunctionProps " + JSON.stringify(props));
+  constructor(props: FunctionProps, scope: Construct, id: string) {
+    logger.debug("InputProps FunctionProps " + JSON.stringify(props));
     this.runtime = checkRuntime(props.runtime);
-    this.code = checkCode(props.code || SecFunctionProps.defaultCode);
+    this.code = checkCode(props.code || FunctionProps.defaultCode);
     this.handler = checkHandler(
-      props.handler || SecFunctionProps.defaultHandler
+      props.handler || FunctionProps.defaultHandler
     );
     this.description = checkDescription(props.description);
     this.timeout = props.timeout;
@@ -152,6 +152,6 @@ export class SecFunctionProps {
     this.onSuccess = checkSafeAttributForSecMarker(props.onSuccess);
     this.maxEventAge = props.maxEventAge;
     this.retryAttempts = props.retryAttempts;
-    logger.debug("OutputProps SecFunctionProps " + JSON.stringify(props));
+    logger.debug("OutputProps FunctionProps " + JSON.stringify(props));
   }
 }

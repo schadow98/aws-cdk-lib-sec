@@ -87,7 +87,7 @@ export function addCloudwatchMetricsAndAlarms(
     metricNamespace: 'MyLambdaMetrics', // Wähle hier einen sinnvollen Namensraum
   });
   
-  new aws_cloudwatch.Alarm(scope, 'LambdaTimeoutAlarm', {
+  new Alarm(scope, 'LambdaTimeoutAlarm', {
     alarmName: 'LambdaTimeoutAlarm',
     alarmDescription: 'Timeout Alarm',
     metric: timeoutMetricFilter.metric({

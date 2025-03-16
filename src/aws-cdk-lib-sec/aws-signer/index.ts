@@ -1,2 +1,2 @@
 export * as signer from 'aws-cdk-lib/aws-signer';
-export { SigningProfile } from "./SecSigningProfile";
+export { SigningProfile, SigningProfileProps } from "./SecSigningProfile";

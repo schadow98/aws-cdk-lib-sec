@@ -8,7 +8,7 @@ import logger from '../../tools/logger';
 export class SigningProfile extends signer.SigningProfile{
     static [SecMarker] = true;
 
-    constructor(scope: Construct, id: string, props: SecSigningProfileProps){
+    constructor(scope: Construct, id: string, props: SigningProfileProps){
         super(scope, id, {
             ...props,
             platform: props.platform ?? signer.Platform.AWS_LAMBDA_SHA384_ECDSA
@@ -16,12 +16,12 @@ export class SigningProfile extends signer.SigningProfile{
     }
 }
 
-class SecSigningProfileProps{
+export class SigningProfileProps{
     platform?: signer.Platform; 
     signatureValidity?: Duration; // @default - 135 months
     signingProfileName?: string; // @default - Assigned by CloudFormation (recommended).
 
-    constructor(props: SecSigningProfileProps){
+    constructor(props: SigningProfileProps){
         //platform
         this.platform = props.platform // signer.Platform.AWS_LAMBDA_SHA384_ECDSA
         if(!this.platform){

@@ -2,7 +2,7 @@ import * as cdk from "aws-cdk-lib";
 import { ConfigurationError } from "../../tools/ConfigurationError";
 import logger from "../../tools/logger";
 
-export class SecStackProps implements cdk.StackProps {
+export class StackProps implements cdk.StackProps {
   public description: string;
   public contact: Contact;
   public env?: cdk.Environment;
@@ -14,8 +14,8 @@ export class SecStackProps implements cdk.StackProps {
   public templateOptions?: cdk.ITemplateOptions;
   public terminationProtection?: boolean;
 
-  constructor(props: Partial<SecStackProps> | undefined = {}) {
-    logger.debug("SecStackProps Input" + JSON.stringify(props));
+  constructor(props: Partial<StackProps> | undefined = {}) {
+    logger.debug("StackProps Input" + JSON.stringify(props));
     this.contact = checkContact(props.contact);
     this.description = checkDescription(props.description);
     this.env = checkEnvironment(props.env);
@@ -28,7 +28,7 @@ export class SecStackProps implements cdk.StackProps {
     this.terminationProtection = checkTerminationProtection(
       props.terminationProtection
     );
-    logger.debug("SecStackProps Output " + JSON.stringify(this));
+    logger.debug("StackProps Output " + JSON.stringify(this));
   }
 }
 
