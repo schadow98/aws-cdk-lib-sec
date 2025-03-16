@@ -1,7 +1,7 @@
 import * as cdk from '../../src/aws-cdk-lib-sec';
 import {  IConstruct } from 'constructs';
 
-class StackTaggerAllRessources implements cdk.IAspect {
+export class StackTaggerAllRessources implements cdk.IAspect {
     private readonly key: string;
     private readonly value: string;
     constructor(key: string, value: string) {

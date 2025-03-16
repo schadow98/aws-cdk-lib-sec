@@ -5,7 +5,6 @@ import { Construct } from 'constructs';
 
 import fs from 'fs';
 import path from 'path';
-import * as apigateway from 'aws-cdk-lib/aws-apigateway';
 import * as aws_lambda from 'aws-cdk-lib/aws-lambda';
 
 export class ConfigStack extends cdk.Stack {

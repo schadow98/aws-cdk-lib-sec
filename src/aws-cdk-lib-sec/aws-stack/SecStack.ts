@@ -1,5 +1,5 @@
 import * as cdk from 'aws-cdk-lib';
-import { Construct, IValidation } from 'constructs';
+import { Construct } from 'constructs';
 import { SecMarker } from '../SecMarker';
 import { addConfigurationErrorDetails, handleDetailedConfigurationErrors } from '../../tools/ConfigurationError';
 import { SecStackProps } from './SecStackProps';

@@ -1,7 +1,6 @@
-import { CloudFormation, CloudFormationClient } from '@aws-sdk/client-cloudformation';
+import { CloudFormation } from '@aws-sdk/client-cloudformation';
 import logger from './logger';
-import { ConfigurationError } from './ConfigurationError';
-import { App, Stack } from 'aws-cdk-lib';
+
 const cloudformationClient = new CloudFormation();
 
 export async function isStackDeployed(stackName: string): Promise<boolean> {

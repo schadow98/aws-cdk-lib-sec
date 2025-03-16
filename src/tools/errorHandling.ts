@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-function-type */
 class ErrorHandler {
     static errors: Error[] = [];
     private options: { throwError: boolean };

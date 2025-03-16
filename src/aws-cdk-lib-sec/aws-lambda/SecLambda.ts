@@ -1,12 +1,9 @@
 import * as Lambda  from 'aws-cdk-lib/aws-lambda';
-import * as Logs  from 'aws-cdk-lib/aws-logs';
 import { Construct } from 'constructs';
-import { ConfigurationError, addConfigurationErrorDetails } from '../../tools/ConfigurationError';
+import {  addConfigurationErrorDetails } from '../../tools/ConfigurationError';
 import { SecFunctionProps } from './SecFunctionProps';
 import { SecMarker } from '../SecMarker';
-import * as cdk from "..";
 import logger from '../../tools/logger';
-import { FunctionProps } from 'aws-cdk-lib/aws-lambda';
 import { addCloudwatchMetricsAndAlarms } from './cloudwatch';
 
 export class Function extends Lambda.Function {

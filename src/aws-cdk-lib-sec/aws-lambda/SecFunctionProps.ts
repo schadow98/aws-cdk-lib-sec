@@ -3,7 +3,6 @@ import { IVpc, SubnetSelection, ISecurityGroup } from "aws-cdk-lib/aws-ec2";
 import { PolicyStatement, IRole } from "aws-cdk-lib/aws-iam";
 import { IKey } from "aws-cdk-lib/aws-kms";
 import * as Lambda from "aws-cdk-lib/aws-lambda";
-import { FunctionProps } from "aws-cdk-lib/aws-lambda";
 import { RetentionDays, ILogGroup } from "aws-cdk-lib/aws-logs";
 import { ITopic } from "aws-cdk-lib/aws-sns";
 import { IQueue } from "aws-cdk-lib/aws-sqs";

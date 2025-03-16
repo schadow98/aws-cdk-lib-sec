@@ -1,4 +1,4 @@
-import { config, createLogger, format, LeveledLogMethod, LogMethod, transports } from 'winston';
+import { createLogger, format, LeveledLogMethod, LogMethod, transports } from 'winston';
 import { SecMarker } from './SecMarker';
 
 const logger = createLogger({

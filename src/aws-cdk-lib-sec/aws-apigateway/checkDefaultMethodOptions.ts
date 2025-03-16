@@ -3,7 +3,6 @@ import * as aws_lambda from 'aws-cdk-lib/aws-lambda' ;
 import fs from 'fs';
 import path from 'path';
 import logger from '../../tools/logger';
-import { AuthorizerStack } from '../aws-default-stacks/AuthorizerStack';
 import { Construct } from 'constructs';
 import { SecMarker } from '../SecMarker';
 import { ConfigurationError } from '../../tools/ConfigurationError';

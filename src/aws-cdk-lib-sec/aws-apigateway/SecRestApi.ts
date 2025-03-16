@@ -7,6 +7,7 @@ import { checkDescription } from '../aws-lambda/StandardizedNaming';
 import { checkRetainDeployments } from './checkRetainDeployments';
 import { checkDomainName } from './checkDomainName';
 import { checkDefaultMethodOptions } from './checkDefaultMethodOptions';
+import { logger } from '..';
 
 export class RestApi extends aws_apigateway.RestApi{
     static [SecMarker] = true;
@@ -46,6 +47,7 @@ class SecRestApiAttributes{
 
 
   constructor(props: SecRestApiAttributes, scope: Construct, id: string) {
+    logger.debug("SecRestApiAttributes Input" + id + props)
     Object.assign(this, props);
     this.description = checkDescription(props.description);
     this.retainDeployments = checkRetainDeployments(props.retainDeployments)

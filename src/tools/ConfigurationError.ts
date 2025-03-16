@@ -1,5 +1,5 @@
-import { error } from "console";
-import { CfnResource, Stack } from "../aws-cdk-lib-sec";
+
+import { Stack } from "../aws-cdk-lib-sec";
 import * as cdk from "../aws-cdk-lib-sec";
 import logger from "./logger";
 import { Construct } from 'constructs';
@@ -89,6 +89,7 @@ function checkIfValidRiskManagementTagsAreOnRessourceToo(detailedConfigurationEr
 }
 
 export function handleDetailedConfigurationErrors(stack: Stack) {
+  logger.debug("handleDetailedConfigurationErrors" + stack.stackId)
   for (const detailedConfigurationError of detailedConfigurationErrors) {
     // Zugriff auf das CloudFormation-Objekt der Ressource
     const cfnFunction = detailedConfigurationError.resource.node.defaultChild as cdk.CfnResource;

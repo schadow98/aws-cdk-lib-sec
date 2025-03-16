@@ -1,4 +1,4 @@
-import { Construct, IValidation } from 'constructs';
+import { Construct } from 'constructs';
 import * as aws_config from '../aws-config';
 import * as aws_lambda from 'aws-cdk-lib/aws-lambda';
 import { SecMarker } from '../SecMarker';
@@ -9,15 +9,15 @@ import logger from '../../tools/logger';
 export function addConfigRules(stack: Construct ){
     logger.debug("addConfigRules")
 
-    logger.debug("add lambdaFuntction complianceFunction")
+    logger.info("add lambdaFuntction complianceFunction")
     const complianceFunction = new SecConfigLambdaFunction(stack, 'ConfigLambda', {
           runtime: aws_lambda.Runtime.NODEJS_18_X,
           code: aws_lambda.Code.fromInline(fs.readFileSync(path.join(path.dirname(__filename), "../aws-default-stacks/authorizeCode.ts"), { encoding: 'utf8', flag: 'r' })),
           handler: 'index.handler',
         });
 
-    logger.debug("adding validateInstalledRessourcesRule")
-    const validateInstalledRessourcesRule = new aws_config.CustomRule(stack, 'ValidateInstalledRessources', {
+    logger.info("adding validateInstalledRessourcesRule")
+     new aws_config.CustomRule(stack, 'ValidateInstalledRessources', {
         configRuleName: 'validate-installed-ressources',
         lambdaFunction: complianceFunction,
         configurationChanges: true,
@@ -29,8 +29,8 @@ export function addConfigRules(stack: Construct ){
         ]),
       });
 
-      logger.debug("adding checkFrameworkVersionRule")
-      const checkFrameworkVersionRule = new aws_config.CustomRule(stack, 'CheckFrameworkVersion', {
+      logger.info("adding checkFrameworkVersionRule")
+       new aws_config.CustomRule(stack, 'CheckFrameworkVersion', {
         configRuleName: 'check-framework-version',
         lambdaFunction: complianceFunction,
         periodic: true, // falls du die Regel zeitlich periodisch laufen lassen möchtest, setze das auf true
@@ -41,8 +41,8 @@ export function addConfigRules(stack: Construct ){
         ]),
       });
 
-      logger.debug("adding driftDetectionRule")
-      const driftDetectionRule  = new aws_config.ManagedRule(stack, 'StackDriftCheckRule', {
+      logger.info("adding driftDetectionRule")
+      new aws_config.ManagedRule(stack, 'StackDriftCheckRule', {
         configRuleName: 'cloudformation-stack-drift-detection-check',
         identifier: aws_config.ManagedRuleIdentifiers.CLOUDFORMATION_STACK_DRIFT_DETECTION_CHECK,
 
@@ -52,7 +52,7 @@ export function addConfigRules(stack: Construct ){
       });
 
       logger.debug("adding riskManagementRule")
-      const riskManagementRule = new aws_config.CustomRule(stack, 'RiskManagementRule', {
+      new aws_config.CustomRule(stack, 'RiskManagementRule', {
         configRuleName: 'risk-management-rule',
         lambdaFunction: complianceFunction,
         periodic: true, // falls du die Regel zeitlich periodisch laufen lassen möchtest, setze das auf true

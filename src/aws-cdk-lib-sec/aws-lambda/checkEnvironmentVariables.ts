@@ -3,7 +3,6 @@ import { ConfigurationError } from "../../tools/ConfigurationError";
 import logger from "../../tools/logger";
 
 import { Construct } from "constructs";
-import * as cdk from 'aws-cdk-lib';
 import { Key } from "../aws-kms/SecKey";
 import { checkSafeAttributForSecMarker } from "../aws-stack/validator";
 

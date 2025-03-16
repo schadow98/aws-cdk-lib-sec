@@ -43,7 +43,7 @@ export function addCloudwatchMetricsAndAlarms(
    metricNamespace: lambdaId
   });
   
-  const internalServerErrorAlarm= new Alarm(scope, 'InternalServerErrorAlarm', {
+  new Alarm(scope, 'InternalServerErrorAlarm', {
     alarmName: 'InternalServerErrorAlarm',
     alarmDescription: 'Internal Server Error',
     metric: internalServerErrorFilter.metric({
@@ -66,7 +66,7 @@ export function addCloudwatchMetricsAndAlarms(
    metricNamespace: lambdaId
   });
   
-  const unsecureRESTRequestAlarm = new Alarm(scope, 'UnsecureRESTRequestAlarm', {
+  new Alarm(scope, 'UnsecureRESTRequestAlarm', {
     alarmName: 'UnsecureRESTRequestAlarm',
     alarmDescription: 'Unsecure REST Requests',
     metric: unsecureRESTRequestFilter.metric({
@@ -87,7 +87,7 @@ export function addCloudwatchMetricsAndAlarms(
     metricNamespace: 'MyLambdaMetrics', // Wähle hier einen sinnvollen Namensraum
   });
   
-  const timeoutAlarm = new aws_cloudwatch.Alarm(scope, 'LambdaTimeoutAlarm', {
+  new aws_cloudwatch.Alarm(scope, 'LambdaTimeoutAlarm', {
     alarmName: 'LambdaTimeoutAlarm',
     alarmDescription: 'Timeout Alarm',
     metric: timeoutMetricFilter.metric({

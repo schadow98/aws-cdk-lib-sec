@@ -1,7 +1,9 @@
 import logger from '../../tools/logger';
-import { ConfigurationError } from '../../tools/ConfigurationError';
-import { IpAddresses, IVpc, SubnetSelection, Vpc } from 'aws-cdk-lib/aws-ec2';
+
+import { IVpc, SubnetSelection } from 'aws-cdk-lib/aws-ec2';
 import { Construct } from "constructs";
+
+
 
 export function checkVPC(
     scope: Construct,

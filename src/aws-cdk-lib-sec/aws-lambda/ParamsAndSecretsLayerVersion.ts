@@ -2,7 +2,7 @@ import * as Lambda  from 'aws-cdk-lib/aws-lambda';
 import { Duration } from 'aws-cdk-lib/core';
 import { Construct } from 'constructs';
 
-declare abstract class ParamsAndSecretsLayerVersion {
+export declare abstract class ParamsAndSecretsLayerVersion {
     private readonly options;
 
     static fromVersionArn(arn: string, options?: Lambda.ParamsAndSecretsOptions): ParamsAndSecretsLayerVersion;

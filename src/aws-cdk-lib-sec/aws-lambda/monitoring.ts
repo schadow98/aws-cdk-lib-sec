@@ -62,7 +62,7 @@ export function checkProfilingGroup  (
         computePlatform: ComputePlatform.AWS_LAMBDA,
       });
 
-    const lambdaChild = scope.node.tryFindChild(lambdaId);
+    //const lambdaChild = scope.node.tryFindChild(lambdaId);
     // profilingGroupSec.grantPublish(lambdaChild);
 
       // give Lambda permissions to write code there
