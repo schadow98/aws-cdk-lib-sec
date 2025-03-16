@@ -7,6 +7,7 @@ import { SecMarker } from '../SecMarker';
 import * as cdk from "..";
 import logger from '../../tools/logger';
 import { FunctionProps } from 'aws-cdk-lib/aws-lambda';
+import { addCloudwatchMetricsAndAlarms } from './cloudwatch';
 
 export class Function extends Lambda.Function {
     static [SecMarker] = true;
@@ -25,6 +26,8 @@ export class Function extends Lambda.Function {
       
       this._logRetention = new SecLogRetention(this._logRetention)
       addConfigurationErrorDetails(this, id)
+
+      addCloudwatchMetricsAndAlarms(scope, id)
       logger.debug("Function" + this)
     }
   }

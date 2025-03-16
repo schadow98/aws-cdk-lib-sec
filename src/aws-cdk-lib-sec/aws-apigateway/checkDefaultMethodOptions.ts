@@ -7,9 +7,9 @@ import { AuthorizerStack } from '../aws-default-stacks/AuthorizerStack';
 import { Construct } from 'constructs';
 import { SecMarker } from '../SecMarker';
 import { ConfigurationError } from '../../tools/ConfigurationError';
-export function checkDefaultMethodOptions(scope: Construct, dfaultMethodOptionsInput?: aws_apigateway.MethodOptions): aws_apigateway.MethodOptions {
-    logger.debug("checkDefaultMethodOptions " + dfaultMethodOptionsInput)
-    if (!dfaultMethodOptionsInput){
+export function checkDefaultMethodOptions(scope: Construct, defaultMethodOptionsInput?: aws_apigateway.MethodOptions): aws_apigateway.MethodOptions {
+    logger.debug("checkDefaultMethodOptions " + defaultMethodOptionsInput)
+    if (!defaultMethodOptionsInput){
 
         const authorizerLambda = new SecAuthorizerLambdaFunction(scope, 'AuthorizerLambda', {
               runtime: aws_lambda.Runtime.NODEJS_18_X,
@@ -32,7 +32,7 @@ export function checkDefaultMethodOptions(scope: Construct, dfaultMethodOptionsI
 
     new ConfigurationError("defaultMethodOptions", "Unsceure defaultMethodOptions for API Gateway")
 
-    return dfaultMethodOptionsInput ||{}
+    return defaultMethodOptionsInput ||{}
 }
 
 class SecTokenAuthorizer extends aws_apigateway.TokenAuthorizer{

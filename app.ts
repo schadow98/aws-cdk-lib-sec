@@ -3,11 +3,10 @@
 import * as cdk from './src/aws-cdk-lib-sec';
 
 import { Construct } from 'constructs';
-import * as ssm from 'aws-cdk-lib/aws-ssm';
 import * as lambda from './src/aws-cdk-lib-sec/aws-lambda';
 import * as apigateway from './src/aws-cdk-lib-sec/aws-apigateway';
-import * as path from 'path';
-import { ProfilingGroup } from 'aws-cdk-lib/aws-codeguruprofiler';
+
+
 
 // Defines the Stack
 export class MyLambdaStack extends cdk.Stack {
@@ -15,10 +14,10 @@ export class MyLambdaStack extends cdk.Stack {
         super(scope, id, { 
             description: "irgendwas was 10 zeichen hat",
             contact: {
-                developerTeam:  "max.mustermain@domain.com",
-                operationTeam:  "max.mustermain@domain.com",
-                privacyManager: "max.mustermain@domain.com",
-                securityManager:"max.mustermain@domain.com",      
+                developerTeam:  "developerTeam@domain.com",
+                operationTeam:  "operationTeam@domain.com",
+                privacyManager: "privacyManager@domain.com",
+                securityManager:"securityManager@domain.com",      
               }
 
         });
@@ -70,7 +69,6 @@ export class MyLambdaStack extends cdk.Stack {
         cdk.Tags.of(this).add("created-at", "2025-03-14"); 
         cdk.Tags.of(this).add("compliance", "GDPR");       
         cdk.Tags.of(this).add("governance", "internal");
-
 
     }
 }
