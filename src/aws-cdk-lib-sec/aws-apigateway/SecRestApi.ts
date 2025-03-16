@@ -12,7 +12,7 @@ import logger from '../../tools/logger';
 export class RestApi extends aws_apigateway.RestApi{
     static [SecMarker] = true;
     constructor(scope: Construct, id: string, props: RestApiAttributes){
-         
+        
       props = new RestApiAttributes(props, scope, id) 
 
         super(scope, id, {
