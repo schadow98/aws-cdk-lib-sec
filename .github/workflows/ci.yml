@@ -49,7 +49,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
         with:
-          context: .
+          context: ${{ github.workspace }}
           push: true
           tags: ghcr.io/${{ github.repository }}:latest    
-          file: .github/Dockerfile
+          file: ${{ github.workspace }}/.github/Dockerfile
