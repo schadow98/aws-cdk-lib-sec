@@ -1,6 +1,17 @@
 
-export * as logger from './SecLogger'
-export * from 'aws-cdk-lib'
-export { Stack, StackProps } from './aws-stack'
-export * as aws_lambda from './aws-lambda';
-export * as aws_signer from './aws-signer';
+import * as logger from './SecLogger'
+import * as awsCdkLib from 'aws-cdk-lib'
+import { Stack, StackProps } from './aws-stack'
+import * as aws_lambda from './aws-lambda';
+import * as aws_signer from './aws-signer';
+
+
+
+module.exports = {
+  logger,
+  ...awsCdkLib,
+  Stack,
+  StackProps,
+  aws_lambda: aws_lambda,
+  aws_signer: aws_signer
+};
