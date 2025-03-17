@@ -7,7 +7,6 @@
         "src/aws-cdk-lib-sec",
         "dist"
     ],
-    "type": "module",
     "scripts": {
         "build": "tsc",
         "auto": "nodemon --exec ts-node app.ts",

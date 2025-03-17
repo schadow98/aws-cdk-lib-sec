@@ -9,6 +9,6 @@
   "author": "Malte Schadow",
   "license": "ISC",
   "dependencies": {
-    "aws-cdk-lib-sec": "github:schadow98/aws-cdk-lib-sec"
+    "aws-cdk-lib-sec": "file:.."
   }
 }
