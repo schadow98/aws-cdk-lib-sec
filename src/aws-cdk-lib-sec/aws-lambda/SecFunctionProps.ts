@@ -27,6 +27,12 @@ import { checkRuntimeManagementMode } from "./checkRuntimeManagementMode";
 import { checkApplicationLogLevel, checkLoggingFormat, checkLogGroup, checkLogRetention, checkLogRetentionOptions, checkLogRetentionRole, checkSystemLogLevel, checkTracing } from "./logging";
 import { checkAllowAllIpv6Outbound, checkAllowAllOutbound, checkAllowPublicSubnet, checkIpv6AllowedForDualStack, checkVPC, checkVPCSubnets } from "./checkVPC";
 
+/**
+ * Defines configuration properties for a secure and standardized Lambda function.
+ * 
+ * This class can be used to encapsulate all necessary parameters for creating
+ * a Lambda function, including runtime settings, logging, tracing, security, and more.
+ */
 export class FunctionProps {
   static [SecMarker] = true;
   static defaultCode: Lambda.AssetCode = Lambda.Code.fromAsset("src");

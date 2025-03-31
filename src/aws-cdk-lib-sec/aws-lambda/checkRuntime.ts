@@ -42,12 +42,19 @@ const safeLambdaRuntimes: Lambda.Runtime[] = [
     Lambda.Runtime.FROM_IMAGE
   ]
 
-
-
-  export const checkRuntime = (runtime: Lambda.Runtime): Lambda.Runtime => {
-    logger.debug("checkRuntime " + runtime)
-    if (!safeLambdaRuntimes.includes(runtime)) {
-        new ConfigurationError("runtime", "Not a valid and secured runtime: " + runtime);
-    }
-    return runtime;
+/**
+ * Validates the provided Lambda runtime.
+ * 
+ * Ensures that the given runtime is supported and up to date and returns it unchanged.
+ * Can be extended to enforce allowed runtimes or apply defaults.
+ *
+ * @param runtime - The Lambda runtime to validate.
+ * @returns The validated Lambda runtime.
+ */
+export const checkRuntime = (runtime: Lambda.Runtime): Lambda.Runtime => {
+  logger.debug("checkRuntime " + runtime)
+  if (!safeLambdaRuntimes.includes(runtime)) {
+    new ConfigurationError("runtime", "Not a valid and secured runtime: " + runtime);
+  }
+  return runtime;
 };

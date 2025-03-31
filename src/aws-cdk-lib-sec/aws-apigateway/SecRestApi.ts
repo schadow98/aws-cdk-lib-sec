@@ -9,6 +9,13 @@ import { checkDomainName } from './checkDomainName';
 import { checkDefaultMethodOptions } from './checkDefaultMethodOptions';
 import logger from '../../tools/logger';
 
+/**
+ * Custom wrapper for the AWS CDK `RestApi` construct.
+ * 
+ * This class adds the SecMarker tp the RestApi
+ * This class extends the default `RestApi` to provide additional functionality
+ * or predefined configurations for building secure and consistent REST APIs.
+ */
 export class RestApi extends aws_apigateway.RestApi{
     static [SecMarker] = true;
     constructor(scope: Construct, id: string, props: RestApiAttributes){
@@ -20,6 +27,13 @@ export class RestApi extends aws_apigateway.RestApi{
           });        
     }
 }
+
+/**
+ * Represents a configuration container for attributes related to a custom `RestApi`.
+ * 
+ * This class is used to group and manage input parameters or settings
+ * that define the behavior and structure of the `RestApi` construct.
+ */
 export class RestApiAttributes{
   binaryMediaTypes?: string[];
   minimumCompressionSize?: number;

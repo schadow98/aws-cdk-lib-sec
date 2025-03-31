@@ -1,15 +1,38 @@
 import * as winston from 'winston';
 
+/**
+ * Ensures that `process.env.LOGLEVEL` is set and valid.
+ * 
+ * - Defaults to `'debug'` if no value is set.
+ * - Validates that the value matches one of Winston's supported log levels (`winston.config.npm.levels`).
+ * - Throws an error if the provided log level is invalid.
+ */
 if(! process.env.LOGLEVEL){
   process.env.LOGLEVEL = "debug"
 }
-
 
 if (!Object.prototype.hasOwnProperty.call(winston.config.npm.levels, process.env.LOGLEVEL)) {
   throw new Error("process.env.LOGLEVEL is not a valid Loglevel: " + process.env.LOGLEVEL);
 }
 
-
+/**
+ * Central Winston logger for structured and colored application logging.
+ * 
+ * Features:
+ * - Uses `LOGLEVEL` from environment variables, defaults to `'info'`.
+ * - Adds timestamps to all log messages.
+ * - Applies color-coded log levels in TTY (interactive terminal) environments:
+ *   - `error`: Red
+ *   - `warn`: Yellow
+ *   - `info`: Green
+ *   - `debug`: Cyan
+ * - Falls back to plain text in non-TTY environments (e.g. CI/CD, file output).
+ * 
+ * Outputs logs to:
+ * - Console (all levels)
+ * - `logs/error.log` (only errors)
+ * - `logs/info.log` (info and above)
+ */
 const logger = winston.createLogger({
   level: process.env.LOGLEVEL || 'info',
   format: winston.format.combine(

@@ -8,13 +8,13 @@ import { hasSecMarker } from '../aws-stack/validator';
 import { ConfigurationError } from '../../tools/ConfigurationError';
 
 /**
- * Erstellt eine neue CodeSigningConfig oder gibt eine vorhandene zurück und fügt Tags hinzu.
+ * Creates a new `CodeSigningConfig` or returns an existing one.
+ * Then it adds to the Lambdafuntion
  *
- * @param scope - Der Konstruktbereich, in dem die Ressource erstellt wird.
- * @param lambdaId - Eine eindeutige Kennung für die Ressource.
- * @param codeSigningConfigInput - Optional: Eine vorhandene CodeSigningConfig.
- * @param tags - Optional: Ein Objekt mit Tags, die hinzugefügt werden sollen.
- * @returns Eine Instanz von Lambda.CodeSigningConfig.
+ * @param scope - The construct scope in which the resource is created.
+ * @param lambdaId - A unique identifier for the resource.
+ * @param codeSigningConfigInput - Optional: An existing `CodeSigningConfig`.
+ * @returns An instance of `Lambda.CodeSigningConfig`.
  */
 export function createCodeSigningConfig(
     scope: Construct, // Stack

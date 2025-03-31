@@ -8,6 +8,12 @@ import path from 'path';
 
 import * as aws_lambda from 'aws-cdk-lib/aws-lambda';
 
+/**
+ * CDK stack that provisions resources required for API Gateway authorizers.
+ * 
+ * This stack typically includes custom Lambda authorizers, IAM roles, and related configurations
+ * used to secure API Gateway endpoints.
+ */
 export class AuthorizerStack extends cdk.Stack {
   public readonly authorizerFn: cdk.aws_lambda.IFunction;
   public readonly authorizerFnArn: string;

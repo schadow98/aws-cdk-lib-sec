@@ -6,6 +6,15 @@ import fs from "fs"
 import path from "path"
 import logger from '../../tools/logger';
 
+/**
+ * Adds AWS Config rules to the provided CDK stack.
+ * 
+ * This function sets up compliance rules to evaluate resource configurations
+ * and ensure they align with organizational security and governance policies.
+ * 
+ * @param stack - The CDK construct in which the AWS Config rules will be defined.
+ */
+
 export function addConfigRules(stack: Construct ){
     logger.debug("addConfigRules")
 

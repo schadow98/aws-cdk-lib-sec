@@ -7,6 +7,14 @@ import fs from 'fs';
 import path from 'path';
 import * as aws_lambda from 'aws-cdk-lib/aws-lambda';
 
+/**
+ * CDK stack that sets up AWS Config resources for compliance and governance.
+ * 
+ * This stack may include custom or managed AWS Config rules, recorders, delivery channels,
+ * and associated permissions to monitor and evaluate resource configurations.
+ * It deploys a LambdaFunction to evaluate the Custom Config Rules.
+ */
+
 export class ConfigStack extends cdk.Stack {
   public readonly configFn: cdk.aws_lambda.IFunction;
   public readonly configFnArn: string;

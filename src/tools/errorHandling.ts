@@ -1,4 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unsafe-function-type */
+/**
+ * Centralized error handling utility to wrap and manage function execution.
+ * 
+ * - Catches and logs runtime errors from wrapped functions.
+ * - Optionally throws errors based on configuration.
+ * - Collects all errors in a static list (`ErrorHandler.errors`) for later inspection or reporting.
+ */
 class ErrorHandler {
     static errors: Error[] = [];
     private options: { throwError: boolean };
@@ -35,10 +42,14 @@ class ErrorHandler {
     }
 }
 
-// Beispielinstanz mit spezifischen Optionen
+/**
+ * Instance of `ErrorHandler` configured to throw errors by default.
+ */
 const errorHandlerInstance = new ErrorHandler({ throwError: true });
 
-// Wrapper-Funktion basierend auf einer Instanz des ErrorHandlers
+/**
+ * Shorthand helper to wrap functions using the default `errorHandlerInstance`.
+ */
 const handleError = errorHandlerInstance.handleError.bind(errorHandlerInstance);
 
 

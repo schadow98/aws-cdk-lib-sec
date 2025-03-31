@@ -9,6 +9,15 @@ import * as aws_lambda from 'aws-cdk-lib/aws-lambda';
 import * as aws_logs from 'aws-cdk-lib/aws-logs';
 import * as cdk from 'aws-cdk-lib';
 
+/**
+ * Adds default CloudWatch metrics and alarms for a given Lambda function.
+ * 
+ * This function sets up monitoring for the specified Lambda by creating
+ * commonly used metrics and alarms (e.g. errors, duration, throttles).
+ *
+ * @param scope - The CDK construct scope in which the resources are defined.
+ * @param lambdaId - The identifier of the Lambda function to monitor.
+ */
 export function addCloudwatchMetricsAndAlarms(
   scope: Construct,
   lambdaId: string
@@ -107,14 +116,34 @@ export function addCloudwatchMetricsAndAlarms(
   logger.info("adding AmountRequests");
 }
 
+/**
+ * Custom SNS Topic that extends the default `aws_sns.Topic` construct.
+ * 
+ * This class can be used to apply standardized security settings or tagging for SNS topics.
+ * The static `SecMarker` property is used to mark the topic for security-related processing.
+ */
 export class Topic extends aws_sns.Topic {
   static [SecMarker] = true;
 }
 
+/**
+ * Custom CloudWatch Alarm that extends the default `aws_cloudwatch.Alarm` construct.
+ * 
+ * This class allows for standardized alarm configurations and tagging.
+ * The static `SecMarker` property marks the alarm for security-related identification or processing.
+ */
+
 export class Alarm extends aws_cloudwatch.Alarm {
   static [SecMarker] = true;
 }
+
+/**
+ * Custom SNS email subscription that extends the default `aws_subs.EmailSubscription` construct.
+ * 
+ * This class enables standardized configuration or tagging of email subscriptions.
+ * The static `SecMarker` property marks the subscription for security-related identification or processing.
+ */
 export class EmailSubscription extends aws_subs.EmailSubscription {
-    static [SecMarker] = true;
-  }
+  static [SecMarker] = true;
+}
 

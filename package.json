@@ -13,6 +13,7 @@
         "dev": "ts-node app.ts",
         "start": "node app.js",
         "test": "jest",
+        "coverage": "jest --coverage",
         "linting": "npx eslint ./src"
     },
     "devDependencies": {

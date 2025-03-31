@@ -7,6 +7,11 @@ import { ConfigurationError } from '../../tools/ConfigurationError';
 
 import { IPrincipal } from 'aws-cdk-lib/aws-iam';
 
+/**
+ * Secured Key that extends the CDK `Key` construct.
+ * 
+ * This secures the class CustomRule and adds the SecMarker
+ */
 export class Key extends kms.Key{
     static [SecMarker] = true;
 

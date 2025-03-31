@@ -5,6 +5,16 @@ import { SecMarker } from '../SecMarker';
 import { ConfigurationError } from '../../tools/ConfigurationError';
 import logger from '../../tools/logger';
 
+/**
+ * Custom wrapper for AWS Signer `SigningProfile` with secure defaults.
+ * 
+ * Extends the default `signer.SigningProfile` and enforces the platform
+ * `AWS_LAMBDA_SHA384_ECDSA` if none is specified.
+ * 
+ * Includes a static `SecMarker` to mark the construct for security processing or identification.
+ *
+ * @extends signer.SigningProfile
+ */
 export class SigningProfile extends signer.SigningProfile{
     static [SecMarker] = true;
 
@@ -16,6 +26,16 @@ export class SigningProfile extends signer.SigningProfile{
     }
 }
 
+/**
+ * Configuration properties for a secure AWS Signer `SigningProfile` used with Lambda functions.
+ * 
+ * Enforces secure defaults and validations:
+ * - `platform` must be `AWS_LAMBDA_SHA384_ECDSA` (default if not provided)
+ * - `signatureValidity` must be exactly 2 years (default if not provided)
+ * - `signingProfileName` must be undefined to allow CloudFormation to assign it
+ *
+ * Throws a `ConfigurationError` if any property does not meet the expected security standards.
+ */
 export class SigningProfileProps{
     platform?: signer.Platform; 
     signatureValidity?: Duration; // @default - 135 months

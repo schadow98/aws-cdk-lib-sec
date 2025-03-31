@@ -5,7 +5,15 @@ import { ConfigurationError } from '../../tools/ConfigurationError';
 import * as Lambda  from 'aws-cdk-lib/aws-lambda';
 import logger from '../../tools/logger';
 
-
+/**
+ * Custom Lambda `CodeSigningConfig` with security tagging support.
+ * 
+ * Extends the default `Lambda.CodeSigningConfig` construct to apply
+ * additional configuration or metadata. Includes a static `SecMarker`
+ * used for identifying security-relevant constructs.
+ *
+ * @extends Lambda.CodeSigningConfig
+ */
 export class CodeSigningConfig extends Lambda.CodeSigningConfig{
     static [SecMarker] = true;
 
@@ -16,6 +24,12 @@ export class CodeSigningConfig extends Lambda.CodeSigningConfig{
     } 
 }
 
+/**
+ * Properties for configuring a secure Lambda `CodeSigningConfig`.
+ * 
+ * This class defines the expected input for creating a `CodeSigningConfig`
+ * with additional security considerations or defaults.
+ */
 class SecCodeSigningConfigProps{
     readonly signingProfiles: signer.ISigningProfile[];
     readonly untrustedArtifactOnDeployment?: Lambda.UntrustedArtifactOnDeployment; //@default UntrustedArtifactOnDeployment.WARN

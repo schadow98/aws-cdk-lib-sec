@@ -1,22 +1,35 @@
-import { createLogger, format, LeveledLogMethod, LogMethod, transports } from 'winston';
-import { SecMarker } from './SecMarker';
+import {
+  createLogger,
+  format,
+  LeveledLogMethod,
+  LogMethod,
+  transports,
+} from "winston";
+import { SecMarker } from "./SecMarker";
 
+/**
+ * Centralized application logger using Winston.
+ * 
+ * Configured to:
+ * - Include timestamps in all log messages
+ * - Format logs as: `<timestamp> [<level>]: <message>`
+ * - Output logs to the console
+ * 
+ * Useful for consistent and readable logging across all components.
+ */
 const logger = createLogger({
-    format: format.combine(
-      format.timestamp(),
-      format.printf(({ timestamp, level, message }) => {
-        return `${timestamp} [${level}]: ${message}`;
-      })
-    ),
-    transports: [
-      new transports.Console()
-    ],
-  });
+  format: format.combine(
+    format.timestamp(),
+    format.printf(({ timestamp, level, message }) => {
+      return `${timestamp} [${level}]: ${message}`;
+    })
+  ),
+  transports: [new transports.Console()],
+});
 
 (logger as any)[SecMarker] = true;
 
-
-const log: LogMethod = logger.log 
+const log: LogMethod = logger.log;
 
 const error: LeveledLogMethod = logger.error;
 const warn: LeveledLogMethod = logger.warn;
