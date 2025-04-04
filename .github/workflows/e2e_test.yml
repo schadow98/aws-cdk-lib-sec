@@ -36,3 +36,10 @@ jobs:
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
           aws-region: eu-central-1
+
+      - name: Install AWS CDK
+        run: npm install -g aws-cdk
+        
+      - name: Deploy CDK Stack
+        working-directory: e2e_test
+        run: cdk deploy --app "npx ts-node bin/sec-app.ts" --require-approval never
