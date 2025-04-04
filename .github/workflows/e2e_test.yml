@@ -5,10 +5,12 @@ on:
     branches: [ main ]
     paths:
       - 'e2e_test/**'
+      - '.github/workflows/e2e_test.yml'
   pull_request:
     paths:
       - 'e2e_test/**'
-
+      - '.github/workflows/e2e_test.yml'
+      
 permissions:
   id-token: write
   contents: read
