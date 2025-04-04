@@ -28,7 +28,7 @@ jobs:
           node-version: '22.4.0'
 
       - name: Install dependencies for E2E tests
-        run: npm install
+        run: npm ci
         working-directory: e2e_test
 
       - name: Configure AWS credentials
@@ -42,4 +42,4 @@ jobs:
         
       - name: Deploy CDK Stack
         working-directory: e2e_test
-        run: cdk deploy --app "npx ts-node bin/sec-app.ts" --require-approval never
+        run: cdk deploy --app "npx ts-node sec-app.ts" --require-approval never
