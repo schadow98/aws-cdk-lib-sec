@@ -12,7 +12,8 @@
   "license": "ISC",
   "dependencies": {
     "aws-cdk-lib-sec": "file:..",
-    "jest": "^29.7.0"
+    "jest": "^29.7.0",
+    "ts-node": "^10.9.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.24.0",
