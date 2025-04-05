@@ -10,9 +10,7 @@
         "types": "./dist/aws-cdk-lib-sec/index.d.ts"
       }
     },
-    "files": [
-      "dist"
-    ],
+    "files": ["dist"],
     "scripts": {
       "build": "tsc",
       "prepare": "tsc",
