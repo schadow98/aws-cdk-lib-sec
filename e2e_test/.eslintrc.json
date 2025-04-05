@@ -8,5 +8,7 @@
     "rules": {
       "security/detect-object-injection": "warn",
       "no-secrets/no-secrets": "warn"
-    }
+    },
+    "ignorePatterns": ["jest.config.cjs"]
   }
+  
