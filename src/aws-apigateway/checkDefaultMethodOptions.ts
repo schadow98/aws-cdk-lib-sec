@@ -28,7 +28,8 @@ export function checkDefaultMethodOptions(scope: Construct, defaultMethodOptions
         
 
         const tokenAuthorizer = new SecTokenAuthorizer(scope, 'TokenAuthorizer', {
-            handler: authorizerLambda
+            handler: authorizerLambda,
+            identitySource: 'method.request.header.Authorization'
           });
           logger.info("setting authorizer to API Gateway")
           logger.info("setting authorizationType " + aws_apigateway.AuthorizationType.CUSTOM)
