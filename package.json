@@ -7,6 +7,7 @@
     "exports": {
       ".": {
         "import": "./dist/aws-cdk-lib-sec/index.js",
+        "require": "./dist/aws-cdk-lib-sec/index.js",
         "types": "./dist/aws-cdk-lib-sec/index.d.ts"
       }
     },
