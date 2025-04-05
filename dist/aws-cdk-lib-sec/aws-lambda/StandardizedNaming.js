@@ -41,8 +41,8 @@ exports.checkHandler = checkHandler;
 exports.checkDescription = checkDescription;
 const Lambda = __importStar(require("aws-cdk-lib/aws-lambda"));
 const SecFunctionProps_1 = require("./SecFunctionProps");
-const ConfigurationError_1 = require("../../tools/ConfigurationError");
-const logger_1 = __importDefault(require("../../tools/logger"));
+const ConfigurationError_1 = require("../tools/ConfigurationError");
+const logger_1 = __importDefault(require("../tools/logger"));
 /**
  * Validates the provided Lambda `Code` configuration.
  *

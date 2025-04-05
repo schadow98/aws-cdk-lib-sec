@@ -4,8 +4,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.checkRetainDeployments = checkRetainDeployments;
-const ConfigurationError_1 = require("../../tools/ConfigurationError");
-const logger_1 = __importDefault(require("../../tools/logger"));
+const ConfigurationError_1 = require("../tools/ConfigurationError");
+const logger_1 = __importDefault(require("../tools/logger"));
 /**
  * Checks if the API Gateway deployments isretained.
  *

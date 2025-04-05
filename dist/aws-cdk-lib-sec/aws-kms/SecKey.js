@@ -37,7 +37,7 @@ exports.KeyProps = exports.Key = void 0;
 const aws_cdk_lib_1 = require("aws-cdk-lib");
 const kms = __importStar(require("aws-cdk-lib/aws-kms"));
 const SecMarker_1 = require("../SecMarker");
-const ConfigurationError_1 = require("../../tools/ConfigurationError");
+const ConfigurationError_1 = require("../tools/ConfigurationError");
 /**
  * Secured Key that extends the CDK `Key` construct.
  *

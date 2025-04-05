@@ -40,9 +40,9 @@ exports.createCodeSigningConfig = createCodeSigningConfig;
 const signer = __importStar(require("../aws-signer"));
 const aws_cdk_lib_1 = require("aws-cdk-lib");
 const SecCodeSigningConfig_1 = require("./SecCodeSigningConfig");
-const logger_1 = __importDefault(require("../../tools/logger"));
+const logger_1 = __importDefault(require("../tools/logger"));
 const validator_1 = require("../aws-stack/validator");
-const ConfigurationError_1 = require("../../tools/ConfigurationError");
+const ConfigurationError_1 = require("../tools/ConfigurationError");
 /**
  * Creates a new `CodeSigningConfig` or returns an existing one.
  * Then it adds to the Lambdafuntion

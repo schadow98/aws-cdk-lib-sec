@@ -6,8 +6,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.checkTracing = checkTracing;
 exports.checkProfiling = checkProfiling;
 exports.checkProfilingGroup = checkProfilingGroup;
-const logger_1 = __importDefault(require("../../tools/logger"));
-const ConfigurationError_1 = require("../../tools/ConfigurationError");
+const logger_1 = __importDefault(require("../tools/logger"));
+const ConfigurationError_1 = require("../tools/ConfigurationError");
 const aws_codeguruprofiler_1 = require("aws-cdk-lib/aws-codeguruprofiler");
 /**
  * Validates and enforces tracing configuration for the application.

@@ -41,8 +41,8 @@ exports.hasSecMarker = hasSecMarker;
 exports.checkSafeAttributForSecMarker = checkSafeAttributForSecMarker;
 const __1 = require("..");
 const cdk = __importStar(require(".."));
-const logger_1 = __importDefault(require("../../tools/logger"));
-const ConfigurationError_1 = require("../../tools/ConfigurationError");
+const logger_1 = __importDefault(require("../tools/logger"));
+const ConfigurationError_1 = require("../tools/ConfigurationError");
 const SecMarker_1 = require("../SecMarker");
 /**
  * Validates that the provided stack and all its children are based on secured classes.

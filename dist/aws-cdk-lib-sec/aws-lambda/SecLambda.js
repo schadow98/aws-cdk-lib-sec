@@ -38,10 +38,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SecLogRetention = exports.Function = void 0;
 const Lambda = __importStar(require("aws-cdk-lib/aws-lambda"));
-const ConfigurationError_1 = require("../../tools/ConfigurationError");
+const ConfigurationError_1 = require("../tools/ConfigurationError");
 const SecFunctionProps_1 = require("./SecFunctionProps");
 const SecMarker_1 = require("../SecMarker");
-const logger_1 = __importDefault(require("../../tools/logger"));
+const logger_1 = __importDefault(require("../tools/logger"));
 const cloudwatch_1 = require("./cloudwatch");
 /**
  * Secure wrapper around the AWS CDK `Lambda.Function` construct.

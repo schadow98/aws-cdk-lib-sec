@@ -6,8 +6,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.deactivateProperties = deactivateProperties;
 exports.checkEphemeralStorageSize = checkEphemeralStorageSize;
 exports.checkArchitecture = checkArchitecture;
-const ConfigurationError_1 = require("../../tools/ConfigurationError");
-const logger_1 = __importDefault(require("../../tools/logger"));
+const ConfigurationError_1 = require("../tools/ConfigurationError");
+const logger_1 = __importDefault(require("../tools/logger"));
 /**
  * Deactivates or sanitizes specific properties based on the given parameter name and value.
  *

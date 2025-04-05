@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 import * as cdk from "aws-cdk-lib-sec";
 import { Construct } from "constructs";
-console.log(require.resolve("aws-cdk-lib-sec"));
 
 export class MyCdkAppStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props: cdk.StackProps) {

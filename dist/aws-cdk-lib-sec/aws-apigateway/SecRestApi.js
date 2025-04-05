@@ -43,7 +43,7 @@ const StandardizedNaming_1 = require("../aws-lambda/StandardizedNaming");
 const checkRetainDeployments_1 = require("./checkRetainDeployments");
 const checkDomainName_1 = require("./checkDomainName");
 const checkDefaultMethodOptions_1 = require("./checkDefaultMethodOptions");
-const logger_1 = __importDefault(require("../../tools/logger"));
+const logger_1 = __importDefault(require("../tools/logger"));
 /**
  * Custom wrapper for the AWS CDK `RestApi` construct.
  *

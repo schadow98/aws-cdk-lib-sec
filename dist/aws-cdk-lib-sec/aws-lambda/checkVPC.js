@@ -9,7 +9,7 @@ exports.checkIpv6AllowedForDualStack = checkIpv6AllowedForDualStack;
 exports.checkAllowAllOutbound = checkAllowAllOutbound;
 exports.checkAllowAllIpv6Outbound = checkAllowAllIpv6Outbound;
 exports.checkAllowPublicSubnet = checkAllowPublicSubnet;
-const logger_1 = __importDefault(require("../../tools/logger"));
+const logger_1 = __importDefault(require("../tools/logger"));
 /**
  * Validates and returns the provided VPC configuration.
  *

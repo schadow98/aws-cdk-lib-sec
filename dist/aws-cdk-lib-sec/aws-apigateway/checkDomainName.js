@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.checkDomainName = checkDomainName;
-const logger_1 = __importDefault(require("../../tools/logger"));
+const logger_1 = __importDefault(require("../tools/logger"));
 /**
  * Validates and returns a complete `DomainNameOptions` configuration for an API Gateway custom domain.
  * If no input is provided, `undefined` is returned.

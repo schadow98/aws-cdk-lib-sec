@@ -38,8 +38,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.checkRuntime = void 0;
 const Lambda = __importStar(require("aws-cdk-lib/aws-lambda"));
-const ConfigurationError_1 = require("../../tools/ConfigurationError");
-const logger_1 = __importDefault(require("../../tools/logger"));
+const ConfigurationError_1 = require("../tools/ConfigurationError");
+const logger_1 = __importDefault(require("../tools/logger"));
 const safeLambdaRuntimes = [
     // Lambda.Runtime.NODEJS,
     // Lambda.Runtime.NODEJS_4_3,

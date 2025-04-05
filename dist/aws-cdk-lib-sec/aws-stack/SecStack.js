@@ -39,9 +39,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Stack = void 0;
 const cdk = __importStar(require("aws-cdk-lib"));
 const SecMarker_1 = require("../SecMarker");
-const ConfigurationError_1 = require("../../tools/ConfigurationError");
+const ConfigurationError_1 = require("../tools/ConfigurationError");
 const SecStackProps_1 = require("./SecStackProps");
-const logger_1 = __importDefault(require("../../tools/logger"));
+const logger_1 = __importDefault(require("../tools/logger"));
 const validator_1 = require("./validator");
 const configRules_1 = require("./configRules");
 /**

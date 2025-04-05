@@ -38,9 +38,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CodeSigningConfig = void 0;
 const SecMarker_1 = require("../SecMarker");
-const ConfigurationError_1 = require("../../tools/ConfigurationError");
+const ConfigurationError_1 = require("../tools/ConfigurationError");
 const Lambda = __importStar(require("aws-cdk-lib/aws-lambda"));
-const logger_1 = __importDefault(require("../../tools/logger"));
+const logger_1 = __importDefault(require("../tools/logger"));
 /**
  * Custom Lambda `CodeSigningConfig` with security tagging support.
  *

@@ -40,8 +40,8 @@ exports.SigningProfileProps = exports.SigningProfile = void 0;
 const aws_cdk_lib_1 = require("aws-cdk-lib");
 const signer = __importStar(require("aws-cdk-lib/aws-signer"));
 const SecMarker_1 = require("../SecMarker");
-const ConfigurationError_1 = require("../../tools/ConfigurationError");
-const logger_1 = __importDefault(require("../../tools/logger"));
+const ConfigurationError_1 = require("../tools/ConfigurationError");
+const logger_1 = __importDefault(require("../tools/logger"));
 /**
  * Custom wrapper for AWS Signer `SigningProfile` with secure defaults.
  *

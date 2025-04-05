@@ -41,9 +41,9 @@ const aws_apigateway = __importStar(require("aws-cdk-lib/aws-apigateway"));
 const aws_lambda = __importStar(require("aws-cdk-lib/aws-lambda"));
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
-const logger_1 = __importDefault(require("../../tools/logger"));
+const logger_1 = __importDefault(require("../tools/logger"));
 const SecMarker_1 = require("../SecMarker");
-const ConfigurationError_1 = require("../../tools/ConfigurationError");
+const ConfigurationError_1 = require("../tools/ConfigurationError");
 /**
  * Validates and returns a complete `MethodOptions` configuration for an API Gateway method.
  * If no options are provided, a default configuration will be generated.
