@@ -1,21 +1,21 @@
-import tseslint from 'typescript-eslint';
+import parser from '@typescript-eslint/parser';
+import plugin from '@typescript-eslint/eslint-plugin';
 import noSecrets from 'eslint-plugin-no-secrets';
 import security from 'eslint-plugin-security';
 
-export default tseslint.config(
+export default [
   {
     files: ['src/**/*.ts'],
     ignores: ['jest.config.cjs'],
     languageOptions: {
-      parser: tseslint.parser,
+      parser,
       parserOptions: {
-        project: './tsconfig.json',
-        tsconfigRootDir: new URL('.', import.meta.url).pathname,
+        ecmaVersion: 2020,
         sourceType: 'module'
       }
     },
     plugins: {
-      '@typescript-eslint': tseslint.plugin,
+      '@typescript-eslint': plugin,
       'no-secrets': noSecrets,
       security: security
     },
@@ -24,4 +24,4 @@ export default tseslint.config(
       'security/detect-object-injection': 'warn'
     }
   }
-);
+];
