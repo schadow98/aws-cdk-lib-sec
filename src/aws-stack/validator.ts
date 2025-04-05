@@ -30,7 +30,7 @@ export function checkSecClass(stack: Stack) {
     for (const elem of stack.node.children){
         logger.debug("check class for secmarker of elem: " + elem)
         // ugly hack: LogRetentionFunction generated class thorough
-        if (!hasSecMarker(elem) && elem.constructor.name !== 'LogRetentionFunction') {
+        if (!hasSecMarker(elem) && elem.constructor.name !== 'LogRetentionFunction'  && elem.constructor.name !== 'CDKMetadata') {
 
             new ConfigurationError("stack.children", "Elem of stack " + stack.stackName + " is not dervied from the secured class: " + elem);
         }
