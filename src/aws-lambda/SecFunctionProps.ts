@@ -36,7 +36,7 @@ import { checkAllowAllIpv6Outbound, checkAllowAllOutbound, checkAllowPublicSubne
 export class FunctionProps {
   static [SecMarker] = true;
   static defaultCode: Lambda.AssetCode = Lambda.Code.fromAsset("src");
-  static defaultHandler: "index.handler";
+  static defaultHandler: string = "handler.handler";
   runtime: Lambda.Runtime;
   code?: Lambda.Code;
   handler?: string;

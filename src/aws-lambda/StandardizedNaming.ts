@@ -44,7 +44,7 @@ export function checkCode(input_code: Lambda.Code = FunctionProps.defaultCode): 
 export function checkHandler(handler_name: string=FunctionProps.defaultHandler): string{
     logger.debug("checkHandler " + handler_name)
     if (handler_name !== FunctionProps.defaultHandler){
-        new ConfigurationError("handler", "Please defiend the handler in a file 'handle' with an method 'handler' -> set this value to 'handler.handler'");
+        new ConfigurationError("handler", "Please defiend the handler in a file 'handle' with an method 'handler' -> set this value to '" + FunctionProps.defaultHandler + "'");
     }
     logger.info("setting handler to " + FunctionProps.defaultHandler)
     return handler_name

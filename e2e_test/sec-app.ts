@@ -46,3 +46,4 @@ new MyCdkAppStack(app, "MyCdkAppStack", {
     securityManager: "securityManager@domain.com",
   },
 });
+

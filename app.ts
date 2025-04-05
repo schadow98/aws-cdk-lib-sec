@@ -48,6 +48,7 @@ export class MyLambdaStack extends cdk.Stack {
                 // NORMAL_VAR: 'just_normal_value',
                 PATH1: '/usr/bin:/bin',
             },
+            
             paramsAndSecrets: paramsAndSecrets
             // handler: 'handler.handler',
             // code: cdk.aws_lambda.Code.fromAsset('src')
