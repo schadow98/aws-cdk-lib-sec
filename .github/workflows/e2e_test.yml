@@ -37,11 +37,10 @@ jobs:
       # SECURITY SCANS BEGIN HERE
       # -----------------------------
 
-      - name: Run SAST with Semgrep
-        uses: returntocorp/semgrep-action@v1
-        with:
-          config: 'p/owasp-top-ten'
-          path: e2e_test
+      - name: Run SAST with ESLint + Security Rules
+        working-directory: e2e_test
+        run: |
+          npx eslint . --ext .ts,.js
 
       - name: Run Dependency Audit (npm audit)
         working-directory: e2e_test
