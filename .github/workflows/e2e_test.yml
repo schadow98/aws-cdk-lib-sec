@@ -75,6 +75,10 @@ jobs:
       - name: Install AWS CDK
         run: npm install -g aws-cdk
 
+      - name: debug
+        working-directory: e2e_test
+        run: npx ts-node sec-app.ts
+
       - name: Synthesize CDK Templates
         working-directory: e2e_test
         run: cdk synth --app "npx ts-node sec-app.ts" --output ../templates
