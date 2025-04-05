@@ -40,7 +40,7 @@ jobs:
       - name: Run SAST with ESLint + Security Rules
         working-directory: e2e_test
         run: |
-          npx run sast
+          npm run sast
 
       - name: Run Dependency Audit (npm audit)
         working-directory: e2e_test
