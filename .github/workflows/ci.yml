@@ -6,7 +6,12 @@ on:
     paths-ignore:
       - 'e2e_test/**'
       - '.github/workflows/e2e_test.yml'
-
+  pull_request:
+    branches: [ main ]
+    paths-ignore:
+      - 'e2e_test/**'
+      - '.github/workflows/e2e_test.yml'
+        
 jobs:
   eslint:
     runs-on: ubuntu-latest

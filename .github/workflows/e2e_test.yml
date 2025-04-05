@@ -63,6 +63,7 @@ jobs:
       - name: Run unit tests
         working-directory: e2e_test
         run: npm run unittest
+        
       - name: Run integration tests
         working-directory: e2e_test
         run: npm run integrationtest
