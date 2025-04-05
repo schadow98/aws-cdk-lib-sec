@@ -1,12 +1,12 @@
 {
     "name": "aws-cdk-lib-sec",
     "version": "1.0.0",
-    "main": "dist/aws-cdk-lib-sec/index.js",
-    "types": "dist/aws-cdk-lib-sec/index.d.ts",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
     "exports": {
       ".": {
-        "require": "./dist/aws-cdk-lib-sec/index.js",
-        "types": "./dist/aws-cdk-lib-sec/index.d.ts"
+        "require": "./dist/index.js",
+        "types": "./dist/index.d.ts"
       }
     },
     "files": ["dist"],

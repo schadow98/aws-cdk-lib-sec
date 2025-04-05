@@ -3,6 +3,7 @@
     "target": "ES2021",
     "module": "CommonJS",           // ← wichtig
     "lib": ["es2021"],
+    "types": ["node", "jest"],
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
