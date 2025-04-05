@@ -1,5 +1,8 @@
-import { createLogger, format, transports, } from "winston";
-import { SecMarker } from "./SecMarker";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.notice = exports.warning = exports.crit = exports.alert = exports.emerg = exports.silly = exports.input = exports.verbose = exports.http = exports.prompt = exports.debug = exports.info = exports.data = exports.help = exports.warn = exports.error = exports.log = exports.logger = void 0;
+const winston_1 = require("winston");
+const SecMarker_1 = require("./SecMarker");
 /**
  * Centralized application logger using Winston.
  *
@@ -10,29 +13,46 @@ import { SecMarker } from "./SecMarker";
  *
  * Useful for consistent and readable logging across all components.
  */
-const logger = createLogger({
-    format: format.combine(format.timestamp(), format.printf(({ timestamp, level, message }) => {
+const logger = (0, winston_1.createLogger)({
+    format: winston_1.format.combine(winston_1.format.timestamp(), winston_1.format.printf(({ timestamp, level, message }) => {
         return `${timestamp} [${level}]: ${message}`;
     })),
-    transports: [new transports.Console()],
+    transports: [new winston_1.transports.Console()],
 });
-logger[SecMarker] = true;
+exports.logger = logger;
+logger[SecMarker_1.SecMarker] = true;
 const log = logger.log;
+exports.log = log;
 const error = logger.error;
+exports.error = error;
 const warn = logger.warn;
+exports.warn = warn;
 const help = logger.help;
+exports.help = help;
 const data = logger.data;
+exports.data = data;
 const info = logger.info;
+exports.info = info;
 const debug = logger.debug;
+exports.debug = debug;
 const prompt = logger.prompt;
+exports.prompt = prompt;
 const http = logger.http;
+exports.http = http;
 const verbose = logger.verbose;
+exports.verbose = verbose;
 const input = logger.input;
+exports.input = input;
 const silly = logger.silly;
+exports.silly = silly;
 const emerg = logger.emerg;
+exports.emerg = emerg;
 const alert = logger.alert;
+exports.alert = alert;
 const crit = logger.crit;
+exports.crit = crit;
 const warning = logger.warning;
+exports.warning = warning;
 const notice = logger.notice;
-export { logger, log, error, warn, help, data, info, debug, prompt, http, verbose, input, silly, emerg, alert, crit, warning, notice, };
+exports.notice = notice;
 //# sourceMappingURL=SecLogger.js.map

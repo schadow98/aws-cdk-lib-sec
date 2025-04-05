@@ -1,5 +1,11 @@
-import { ConfigurationError } from "../../tools/ConfigurationError";
-import logger from "../../tools/logger";
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.StackProps = void 0;
+const ConfigurationError_1 = require("../../tools/ConfigurationError");
+const logger_1 = __importDefault(require("../../tools/logger"));
 /**
  * Secure and extended implementation of `cdk.StackProps` with validation logic.
  *
@@ -13,7 +19,7 @@ import logger from "../../tools/logger";
  *
  * @implements cdk.StackProps
  */
-export class StackProps {
+class StackProps {
     description;
     contact;
     env;
@@ -25,7 +31,7 @@ export class StackProps {
     templateOptions;
     terminationProtection;
     constructor(props = {}) {
-        logger.debug("StackProps Input" + JSON.stringify(props));
+        logger_1.default.debug("StackProps Input" + JSON.stringify(props));
         this.contact = checkContact(props.contact);
         this.description = checkDescription(props.description);
         this.env = checkEnvironment(props.env);
@@ -36,9 +42,10 @@ export class StackProps {
         this.stackId = props.stackId;
         this.templateOptions = props.templateOptions;
         this.terminationProtection = checkTerminationProtection(props.terminationProtection);
-        logger.debug("StackProps Output " + JSON.stringify(this));
+        logger_1.default.debug("StackProps Output " + JSON.stringify(this));
     }
 }
+exports.StackProps = StackProps;
 /**
  * Ensures that required contact tags are added to the stack's tag set.
  *
@@ -67,9 +74,9 @@ function checkTags(tags = {}, contact) {
  * @returns A valid `Contact` object (may contain empty fields).
  */
 function checkContact(contact) {
-    logger.debug("checkContact " + contact);
+    logger_1.default.debug("checkContact " + contact);
     if (!contact) {
-        new ConfigurationError("contact", "Please provide a contact with valid options");
+        new ConfigurationError_1.ConfigurationError("contact", "Please provide a contact with valid options");
         contact = {
             developerTeam: "",
             operationTeam: "",
@@ -89,9 +96,9 @@ function checkContact(contact) {
  * @returns A valid stage string.
  */
 function checkStage(stage) {
-    logger.debug("checkStage " + stage);
+    logger_1.default.debug("checkStage " + stage);
     if (!stage) {
-        logger.info("setting stage development");
+        logger_1.default.info("setting stage development");
         return "development";
     }
     return stage;
@@ -109,13 +116,13 @@ function checkStage(stage) {
  * @returns A valid description string.
  */
 function checkDescription(description) {
-    logger.debug("checkDescription " + description);
+    logger_1.default.debug("checkDescription " + description);
     if (!description || typeof description !== "string") {
-        new ConfigurationError("description", "Please defiene a description for the stack");
+        new ConfigurationError_1.ConfigurationError("description", "Please defiene a description for the stack");
         description = "Not defined";
     }
     if (description.length <= 10) {
-        new ConfigurationError("description", "Description for Stack to short");
+        new ConfigurationError_1.ConfigurationError("description", "Description for Stack to short");
     }
     return description;
 }
@@ -131,13 +138,13 @@ function checkDescription(description) {
  * @returns A valid `cdk.Environment` object with the required region.
  */
 function checkEnvironment(env) {
-    logger.debug("env " + env);
+    logger_1.default.debug("env " + env);
     if (!env) {
-        logger.info("setting env eu-central-1");
+        logger_1.default.info("setting env eu-central-1");
         return { region: "eu-central-1" };
     }
     if (env?.region !== "eu-central-1") {
-        new ConfigurationError("env.region", "region is not 'eu-central-1'");
+        new ConfigurationError_1.ConfigurationError("env.region", "region is not 'eu-central-1'");
     }
     return env;
 }
@@ -153,13 +160,13 @@ function checkEnvironment(env) {
  * @returns `true` if termination protection is enabled.
  */
 function checkTerminationProtection(terminationProtection) {
-    logger.debug("checkTerminationProtection " + terminationProtection);
+    logger_1.default.debug("checkTerminationProtection " + terminationProtection);
     if (terminationProtection === undefined) {
-        logger.info("setting terminationProtection true");
+        logger_1.default.info("setting terminationProtection true");
         return true;
     }
     if (terminationProtection !== true) {
-        new ConfigurationError("terminationProtection", "terminationProtection must be true");
+        new ConfigurationError_1.ConfigurationError("terminationProtection", "terminationProtection must be true");
     }
     return terminationProtection;
 }

@@ -1,4 +1,10 @@
-import jwt from 'jsonwebtoken';
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.handler = void 0;
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const PUBLIC_KEY = `-----BEGIN PUBLIC KEY-----
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAw1b/PruDGUEm33jDouwl
 m0yh0ZTyyFobhQPoNFr3EkRj3OG4bGwqntTCyv/i8v89XGHp5+Ft0lYJOzamHQmU
@@ -9,7 +15,7 @@ dLgs6aNXT7JLDEBacmQPJ/ouStJUl3yAYPlmJFI/HJqDL+bUkblRhQciDscOUb3b
 kQIDAQAB
 -----END PUBLIC KEY-----
 `;
-export const handler = async (event) => {
+const handler = async (event) => {
     const authHeader = event.authorizationToken;
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
         return buildDeny("anonymous", event.methodArn);
@@ -18,7 +24,7 @@ export const handler = async (event) => {
     console.log(event);
     try {
         // Für RS256 mit Public Key validieren
-        const decoded = jwt.verify(token, PUBLIC_KEY, { algorithms: ["RS256"] });
+        const decoded = jsonwebtoken_1.default.verify(token, PUBLIC_KEY, { algorithms: ["RS256"] });
         // Beispiel: Falls wir "sub" (subject) aus dem Token als principal verwenden
         if (decoded.iss !== "custom-issuer") {
             console.log("wrong-issuer");
@@ -47,6 +53,7 @@ export const handler = async (event) => {
         return principal;
     }
 };
+exports.handler = handler;
 function buildAllow(principalId, resource) {
     return {
         principalId,

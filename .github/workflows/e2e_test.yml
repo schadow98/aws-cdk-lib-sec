@@ -34,7 +34,7 @@ jobs:
           node-version: '22.4.0'
 
       - name: Install dependencies for E2E tests
-        run: npm ci
+        run: npm install
         working-directory: e2e_test
 
       # -----------------------------
@@ -63,7 +63,7 @@ jobs:
       - name: Run unit tests
         working-directory: e2e_test
         run: npm run unittest
-        
+
       - name: Run integration tests
         working-directory: e2e_test
         run: npm run integrationtest

@@ -1,4 +1,15 @@
-import logger from '../../tools/logger';
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.checkVPC = checkVPC;
+exports.checkVPCSubnets = checkVPCSubnets;
+exports.checkIpv6AllowedForDualStack = checkIpv6AllowedForDualStack;
+exports.checkAllowAllOutbound = checkAllowAllOutbound;
+exports.checkAllowAllIpv6Outbound = checkAllowAllIpv6Outbound;
+exports.checkAllowPublicSubnet = checkAllowPublicSubnet;
+const logger_1 = __importDefault(require("../../tools/logger"));
 /**
  * Validates and returns the provided VPC configuration.
  *
@@ -9,10 +20,10 @@ import logger from '../../tools/logger';
  * @param vpc - Optional VPC to be used. If not provided, `undefined` is returned.
  * @returns The provided VPC or `undefined` if none is given.
  */
-export function checkVPC(scope, vpc) {
-    logger.debug("checkVPC Input " + vpc);
+function checkVPC(scope, vpc) {
+    logger_1.default.debug("checkVPC Input " + vpc);
     if (!vpc) {
-        logger.info("setting VPC");
+        logger_1.default.info("setting VPC");
     }
     return vpc;
 }
@@ -25,10 +36,10 @@ export function checkVPC(scope, vpc) {
  * @param subnets - Optional subnet selection for the VPC.
  * @returns The provided `SubnetSelection` or `undefined` if none is given.
  */
-export function checkVPCSubnets(subnets) {
-    logger.debug("checkVPCSubnets Input " + subnets);
+function checkVPCSubnets(subnets) {
+    logger_1.default.debug("checkVPCSubnets Input " + subnets);
     if (!subnets) {
-        logger.info("setting VPC subnets");
+        logger_1.default.info("setting VPC subnets");
     }
     return subnets;
 }
@@ -41,10 +52,10 @@ export function checkVPCSubnets(subnets) {
  * @param ipv6AllowedForDualStack - Optional flag to allow IPv6 in dual-stack mode.
  * @returns The provided flag value or `undefined` if not set.
  */
-export function checkIpv6AllowedForDualStack(ipv6AllowedForDualStack) {
-    logger.debug("checkIpv6AllowedForDualStack Input: " + ipv6AllowedForDualStack);
+function checkIpv6AllowedForDualStack(ipv6AllowedForDualStack) {
+    logger_1.default.debug("checkIpv6AllowedForDualStack Input: " + ipv6AllowedForDualStack);
     if (!ipv6AllowedForDualStack) {
-        logger.info("setting VPC checkIpv6AllowedForDualStack");
+        logger_1.default.info("setting VPC checkIpv6AllowedForDualStack");
     }
     return ipv6AllowedForDualStack;
 }
@@ -57,10 +68,10 @@ export function checkIpv6AllowedForDualStack(ipv6AllowedForDualStack) {
  * @param allowAllOutbound - Optional flag to allow all outbound traffic.
  * @returns The provided flag value or `undefined` if not set.
  */
-export function checkAllowAllOutbound(allowAllOutbound) {
-    logger.debug("checkAllowAllOutbound Input " + allowAllOutbound);
+function checkAllowAllOutbound(allowAllOutbound) {
+    logger_1.default.debug("checkAllowAllOutbound Input " + allowAllOutbound);
     if (!allowAllOutbound) {
-        logger.info("setting VPC checkIpv6AllowedForDualStack");
+        logger_1.default.info("setting VPC checkIpv6AllowedForDualStack");
     }
     return allowAllOutbound;
 }
@@ -73,10 +84,10 @@ export function checkAllowAllOutbound(allowAllOutbound) {
  * @param allowAllIpv6Outbound - Optional flag to allow all outbound IPv6 traffic.
  * @returns The provided flag value or `undefined` if not set.
  */
-export function checkAllowAllIpv6Outbound(allowAllIpv6Outbound) {
-    logger.debug("checkAllowAllIpv6Outbound Input: " + allowAllIpv6Outbound);
+function checkAllowAllIpv6Outbound(allowAllIpv6Outbound) {
+    logger_1.default.debug("checkAllowAllIpv6Outbound Input: " + allowAllIpv6Outbound);
     if (!allowAllIpv6Outbound) {
-        logger.info("setting VPC checkAllowAllIpv6Outbound");
+        logger_1.default.info("setting VPC checkAllowAllIpv6Outbound");
     }
     return allowAllIpv6Outbound;
 }
@@ -89,10 +100,10 @@ export function checkAllowAllIpv6Outbound(allowAllIpv6Outbound) {
  * @param allowPublicSubnet - Optional flag to allow usage of public subnets.
  * @returns The provided flag value or `undefined` if not set.
  */
-export function checkAllowPublicSubnet(allowPublicSubnet) {
-    logger.debug("checkAllowPublicSubnet Input " + allowPublicSubnet);
+function checkAllowPublicSubnet(allowPublicSubnet) {
+    logger_1.default.debug("checkAllowPublicSubnet Input " + allowPublicSubnet);
     if (!allowPublicSubnet) {
-        logger.info("setting VPC allowPublicSubnet");
+        logger_1.default.info("setting VPC allowPublicSubnet");
     }
     return allowPublicSubnet;
 }

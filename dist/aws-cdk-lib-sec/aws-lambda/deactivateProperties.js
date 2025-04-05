@@ -1,5 +1,13 @@
-import { ConfigurationError } from "../../tools/ConfigurationError";
-import logger from "../../tools/logger";
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.deactivateProperties = deactivateProperties;
+exports.checkEphemeralStorageSize = checkEphemeralStorageSize;
+exports.checkArchitecture = checkArchitecture;
+const ConfigurationError_1 = require("../../tools/ConfigurationError");
+const logger_1 = __importDefault(require("../../tools/logger"));
 /**
  * Deactivates or sanitizes specific properties based on the given parameter name and value.
  *
@@ -9,10 +17,10 @@ import logger from "../../tools/logger";
  * @param paramName - The name of the property to deactivate.
  * @param paramValue - The current value of the property to process.
  */
-export function deactivateProperties(paramName, paramValue) {
-    logger.debug("deactivateProperties of " + paramName + " - please delete key and value: " + paramValue);
+function deactivateProperties(paramName, paramValue) {
+    logger_1.default.debug("deactivateProperties of " + paramName + " - please delete key and value: " + paramValue);
     if (paramValue || typeof paramValue == "string") {
-        new ConfigurationError(paramName, paramName + " ist not supported, please wait for the next version of the framework: " + paramValue);
+        new ConfigurationError_1.ConfigurationError(paramName, paramName + " ist not supported, please wait for the next version of the framework: " + paramValue);
     }
     return paramValue;
 }
@@ -25,8 +33,8 @@ export function deactivateProperties(paramName, paramValue) {
  * @param ephemeralStorageSize - Optional size of the ephemeral storage.
  * @returns The provided `Size` value or `undefined` if not specified.
  */
-export function checkEphemeralStorageSize(ephemeralStorageSize) {
-    logger.debug("ephemeralStorageSize " + ephemeralStorageSize);
+function checkEphemeralStorageSize(ephemeralStorageSize) {
+    logger_1.default.debug("ephemeralStorageSize " + ephemeralStorageSize);
     return ephemeralStorageSize;
 }
 /**
@@ -38,8 +46,8 @@ export function checkEphemeralStorageSize(ephemeralStorageSize) {
  * @param architecture - Optional Lambda architecture to validate.
  * @returns The provided architecture or a default (if implemented).
  */
-export function checkArchitecture(architecture) {
-    logger.debug("checkArchitecture " + architecture);
+function checkArchitecture(architecture) {
+    logger_1.default.debug("checkArchitecture " + architecture);
     return architecture;
 }
 //# sourceMappingURL=deactivateProperties.js.map

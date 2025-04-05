@@ -1,3 +1,6 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.errorHandlerInstance = exports.handleError = exports.ErrorHandler = void 0;
 /* eslint-disable @typescript-eslint/no-unsafe-function-type */
 /**
  * Centralized error handling utility to wrap and manage function execution.
@@ -37,13 +40,15 @@ class ErrorHandler {
         };
     }
 }
+exports.ErrorHandler = ErrorHandler;
 /**
  * Instance of `ErrorHandler` configured to throw errors by default.
  */
 const errorHandlerInstance = new ErrorHandler({ throwError: true });
+exports.errorHandlerInstance = errorHandlerInstance;
 /**
  * Shorthand helper to wrap functions using the default `errorHandlerInstance`.
  */
 const handleError = errorHandlerInstance.handleError.bind(errorHandlerInstance);
-export { ErrorHandler, handleError, errorHandlerInstance };
+exports.handleError = handleError;
 //# sourceMappingURL=errorHandling.js.map

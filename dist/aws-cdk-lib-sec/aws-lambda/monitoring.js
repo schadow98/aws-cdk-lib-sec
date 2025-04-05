@@ -1,6 +1,14 @@
-import logger from '../../tools/logger';
-import { ConfigurationError } from '../../tools/ConfigurationError';
-import { ProfilingGroup, ComputePlatform } from 'aws-cdk-lib/aws-codeguruprofiler';
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.checkTracing = checkTracing;
+exports.checkProfiling = checkProfiling;
+exports.checkProfilingGroup = checkProfilingGroup;
+const logger_1 = __importDefault(require("../../tools/logger"));
+const ConfigurationError_1 = require("../../tools/ConfigurationError");
+const aws_codeguruprofiler_1 = require("aws-cdk-lib/aws-codeguruprofiler");
 /**
  * Validates and enforces tracing configuration for the application.
  *
@@ -12,13 +20,13 @@ import { ProfilingGroup, ComputePlatform } from 'aws-cdk-lib/aws-codeguruprofile
  * @param tracing - Optional flag indicating whether tracing is enabled.
  * @returns `true` if tracing is enabled or set by default.
  */
-export function checkTracing(tracing) {
-    logger.debug("checkTracing Input " + tracing);
+function checkTracing(tracing) {
+    logger_1.default.debug("checkTracing Input " + tracing);
     if (tracing === false) {
-        new ConfigurationError("tracing", "please enable tracing, so monitoring of the app is secured");
+        new ConfigurationError_1.ConfigurationError("tracing", "please enable tracing, so monitoring of the app is secured");
     }
     if (!tracing) {
-        logger.info("setting tracing to true");
+        logger_1.default.info("setting tracing to true");
         return true;
     }
     return tracing;
@@ -34,13 +42,13 @@ export function checkTracing(tracing) {
  * @param profiling - Optional flag indicating whether profiling is enabled.
  * @returns `true` if profiling is enabled or set by default.
  */
-export function checkProfiling(profiling) {
-    logger.debug("checkProfiling Input " + profiling);
+function checkProfiling(profiling) {
+    logger_1.default.debug("checkProfiling Input " + profiling);
     if (profiling === false) {
-        new ConfigurationError("profiling", "please enable profiling, so monitoring of the app is secured");
+        new ConfigurationError_1.ConfigurationError("profiling", "please enable profiling, so monitoring of the app is secured");
     }
     if (!profiling) {
-        logger.info("setting profiling to true");
+        logger_1.default.info("setting profiling to true");
         return true;
     }
     return profiling;
@@ -57,27 +65,27 @@ export function checkProfiling(profiling) {
  * @param profilingGroup - Optional profiling group to validate and use.
  * @returns A valid and secure `IProfilingGroup` instance.
  */
-export function checkProfilingGroup(scope, lambdaId, profilingGroup) {
-    logger.debug("checkProfilingGroup Input " + profilingGroup);
+function checkProfilingGroup(scope, lambdaId, profilingGroup) {
+    logger_1.default.debug("checkProfilingGroup Input " + profilingGroup);
     if (profilingGroup) {
         const child = profilingGroup.node.defaultChild;
         if (!child) {
             throw new Error('ProfilingGroup ist importiert oder nicht kompatibel!');
         }
         if (child.computePlatform && child.computePlatform !== 'AWSLambda') {
-            new ConfigurationError('profilingGroup', 'Bitte setze die ProfilingGroup auf AWS_LAMBDA');
+            new ConfigurationError_1.ConfigurationError('profilingGroup', 'Bitte setze die ProfilingGroup auf AWS_LAMBDA');
         }
         // ProfilingGroup ist i.O., also zurückgeben
         return profilingGroup;
     }
-    const profilingGroupSec = new ProfilingGroup(scope, 'ProfilingGroup_DEV_SecMonitoring', {
-        computePlatform: ComputePlatform.AWS_LAMBDA,
+    const profilingGroupSec = new aws_codeguruprofiler_1.ProfilingGroup(scope, 'ProfilingGroup_DEV_SecMonitoring', {
+        computePlatform: aws_codeguruprofiler_1.ComputePlatform.AWS_LAMBDA,
     });
     //const lambdaChild = scope.node.tryFindChild(lambdaId);
     // profilingGroupSec.grantPublish(lambdaChild);
     // give Lambda permissions to write code there
     // append Profiling Group ARN to env
-    logger.info("setting profilingGroup (secured)");
+    logger_1.default.info("setting profilingGroup (secured)");
     return profilingGroupSec;
 }
 //# sourceMappingURL=monitoring.js.map

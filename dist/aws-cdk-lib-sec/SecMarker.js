@@ -1,3 +1,6 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.SecMarker = void 0;
 /**
  * Unique symbol used to mark classes as security-compliant.
  *
@@ -6,5 +9,5 @@
  *
  * This symbol acts as a lightweight and non-invasive security metadata flag.
  */
-export const SecMarker = Symbol('SecMarker');
+exports.SecMarker = Symbol('SecMarker');
 //# sourceMappingURL=SecMarker.js.map

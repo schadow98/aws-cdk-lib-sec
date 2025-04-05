@@ -1,5 +1,13 @@
-import { Stack } from "../aws-cdk-lib-sec";
-import logger from "./logger";
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ConfigurationError = void 0;
+exports.addConfigurationErrorDetails = addConfigurationErrorDetails;
+exports.handleDetailedConfigurationErrors = handleDetailedConfigurationErrors;
+const aws_cdk_lib_sec_1 = require("../aws-cdk-lib-sec");
+const logger_1 = __importDefault(require("./logger"));
 /**
  * Holds all basic configuration errors collected during construct validation.
  *
@@ -27,7 +35,7 @@ const detailedConfigurationErrors = [];
  * @param ressource - The CDK construct (e.g., a stack or resource) to associate with the errors.
  * @param resourceId - The identifier used for error tracing and reporting.
  */
-export function addConfigurationErrorDetails(ressource, resourceId) {
+function addConfigurationErrorDetails(ressource, resourceId) {
     configurationErrors.forEach(error => {
         const detailedError = new DetailedConfigurationError(ressource, resourceId, error.attribut, error.message);
         detailedConfigurationErrors.push(detailedError);
@@ -51,7 +59,7 @@ function checkIfUnsecureConfigurationisTagged(detailedConfigurationError, tagNam
     // Überprüfung, ob eine unsichere Konfiguration gewollt ist oder Fehlerbehandlung fehlt
     if (tagManager.tagValues() && tagName in tagManager.tagValues()) {
         isResourceUnsecure = true;
-        logger.warn(`Ressource ${detailedConfigurationError.resource.toString()} hat ein unsicheres Parameter ${detailedConfigurationError.attribut}: ${tagManager.tagValues()[tagName]}`);
+        logger_1.default.warn(`Ressource ${detailedConfigurationError.resource.toString()} hat ein unsicheres Parameter ${detailedConfigurationError.attribut}: ${tagManager.tagValues()[tagName]}`);
     }
     else {
         if (!process.env.DEBUG) {
@@ -59,7 +67,7 @@ function checkIfUnsecureConfigurationisTagged(detailedConfigurationError, tagNam
         }
         else {
             isResourceUnsecure = true;
-            logger.error(`Unsichere Konfiguration. Bitte fügen Sie einen Tag ${tagName} hinzu auf: ${detailedConfigurationError.toString()}`);
+            logger_1.default.error(`Unsichere Konfiguration. Bitte fügen Sie einen Tag ${tagName} hinzu auf: ${detailedConfigurationError.toString()}`);
         }
     }
     return isResourceUnsecure;
@@ -76,7 +84,7 @@ function checkIfUnsecureConfigurationisTagged(detailedConfigurationError, tagNam
  * @param tagManager - The CDK `TagManager` used to retrieve tag values.
  */
 function addTagsToStack(detailedConfigurationError, tagName, tagManager) {
-    const resourceStack = Stack.of(detailedConfigurationError.resource);
+    const resourceStack = aws_cdk_lib_sec_1.Stack.of(detailedConfigurationError.resource);
     resourceStack.tags.setTag('includesInsecureResource', 'true');
     resourceStack.tags.setTag(`${detailedConfigurationError.resourceId}:${detailedConfigurationError.attribut}:insecureReason`, tagManager.tagValues()[tagName] || "No reason set");
 }
@@ -127,7 +135,7 @@ function checkIfValidRiskManagementTagsAreOnRessourceToo(detailedConfigurationEr
                     throw new Error(errorMsg);
                 }
                 else {
-                    logger.error(errorMsg);
+                    logger_1.default.error(errorMsg);
                 }
             }
         }
@@ -137,7 +145,7 @@ function checkIfValidRiskManagementTagsAreOnRessourceToo(detailedConfigurationEr
                 throw new Error(errorMsg);
             }
             else {
-                logger.error(errorMsg);
+                logger_1.default.error(errorMsg);
             }
         }
     }
@@ -158,8 +166,8 @@ function checkIfValidRiskManagementTagsAreOnRessourceToo(detailedConfigurationEr
  *
  * @param stack - The CDK stack whose detailed configuration errors should be processed.
  */
-export function handleDetailedConfigurationErrors(stack) {
-    logger.debug("handleDetailedConfigurationErrors" + stack.stackId);
+function handleDetailedConfigurationErrors(stack) {
+    logger_1.default.debug("handleDetailedConfigurationErrors" + stack.stackId);
     for (const detailedConfigurationError of detailedConfigurationErrors) {
         // Zugriff auf das CloudFormation-Objekt der Ressource
         const cfnFunction = detailedConfigurationError.resource.node.defaultChild;
@@ -185,7 +193,7 @@ export function handleDetailedConfigurationErrors(stack) {
  *
  * This allows the application to switch between fail-fast and debug-friendly validation behavior.
  */
-export class ConfigurationError extends Error {
+class ConfigurationError extends Error {
     attribut;
     constructor(attribut, message) {
         super(message);
@@ -199,6 +207,7 @@ export class ConfigurationError extends Error {
         }
     }
 }
+exports.ConfigurationError = ConfigurationError;
 /**
  * Represents a configuration error with additional context about the affected resource.
  *

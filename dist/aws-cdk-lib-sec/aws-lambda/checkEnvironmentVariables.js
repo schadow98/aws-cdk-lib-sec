@@ -1,7 +1,14 @@
-import { ConfigurationError } from "../../tools/ConfigurationError";
-import logger from "../../tools/logger";
-import { Key } from "../aws-kms/SecKey";
-import { checkSafeAttributForSecMarker } from "../aws-stack/validator";
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.checkEnvVariables = checkEnvVariables;
+exports.checkEnvironmentEncryption = checkEnvironmentEncryption;
+const ConfigurationError_1 = require("../../tools/ConfigurationError");
+const logger_1 = __importDefault(require("../../tools/logger"));
+const SecKey_1 = require("../aws-kms/SecKey");
+const validator_1 = require("../aws-stack/validator");
 // List of regular expressions to detect potential secrets
 const secretPatterns = [
     /password/i, // Match variables containing "password"
@@ -27,29 +34,29 @@ const forbiddenVariables = [
  * @param env - Optional object containing environment variables as key-value pairs.
  * @returns The validated environment variables object or `undefined` if not provided.
  */
-export function checkEnvVariables(env) {
-    logger.info("checking environment variables");
+function checkEnvVariables(env) {
+    logger_1.default.info("checking environment variables");
     if (!env) {
-        logger.info("No environment variables found for analysis.");
+        logger_1.default.info("No environment variables found for analysis.");
         return undefined;
     }
     Object.entries(env).forEach(([key, value]) => {
-        logger.debug(`Checking variable: ${key}`);
+        logger_1.default.debug(`Checking variable: ${key}`);
         // Check for forbidden variables
         if (forbiddenVariables.includes(key)) {
-            new ConfigurationError("environment", `Forbidden environment variable detected: '${key}'`);
+            new ConfigurationError_1.ConfigurationError("environment", `Forbidden environment variable detected: '${key}'`);
         }
         // Check for hardcoded secrets
         const secretMatch = secretPatterns.some((pattern) => pattern.test(value));
         if (secretMatch) {
-            new ConfigurationError("environment", `Potential secret detected in environment variable '${key}'`);
+            new ConfigurationError_1.ConfigurationError("environment", `Potential secret detected in environment variable '${key}'`);
         }
         // Check for potential injection vulnerabilities
         if (value.includes(';') || value.includes('&&') || value.includes('|')) {
-            new ConfigurationError("environment", `Potential injection detected in environment variable '${key}'. Value: '${value}'`);
+            new ConfigurationError_1.ConfigurationError("environment", `Potential injection detected in environment variable '${key}'. Value: '${value}'`);
         }
     });
-    logger.debug("Environment variables analysis completed successfully.");
+    logger_1.default.debug("Environment variables analysis completed successfully.");
     return env; // Return the analyzed environment variables if needed
 }
 /**
@@ -62,19 +69,19 @@ export function checkEnvVariables(env) {
  * @param ikey - Optional existing KMS key to use for environment encryption.
  * @returns A KMS key (`IKey`) used to encrypt the Lambda environment variables.
  */
-export function checkEnvironmentEncryption(scope, // Stack
+function checkEnvironmentEncryption(scope, // Stack
 lambdaId, // LambdaFunction 
 ikey) {
-    logger.debug("Starting checkEnvironmentEncryption analysis...");
+    logger_1.default.debug("Starting checkEnvironmentEncryption analysis...");
     // Wenn kein Schlüssel bereitgestellt wurde, erstellen Sie einen neuen KMS-Schlüssel
-    const environmentEncryptionKey = new Key(scope, `${lambdaId}EnvironmentEncryptionKey`, {
+    const environmentEncryptionKey = new SecKey_1.Key(scope, `${lambdaId}EnvironmentEncryptionKey`, {
         description: `Schlüssel zur Verschlüsselung der Lambda-Umgebungsvariablen ${lambdaId}`,
     });
     if (!ikey) {
         return environmentEncryptionKey;
     }
-    if (!checkSafeAttributForSecMarker(ikey)) {
-        new ConfigurationError("environmentEncryption", `environmentEncryption is not Safe`);
+    if (!(0, validator_1.checkSafeAttributForSecMarker)(ikey)) {
+        new ConfigurationError_1.ConfigurationError("environmentEncryption", `environmentEncryption is not Safe`);
     }
     return environmentEncryptionKey;
 }

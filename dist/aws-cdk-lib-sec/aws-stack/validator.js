@@ -1,8 +1,49 @@
-import { Stack } from '..';
-import * as cdk from '..';
-import logger from '../../tools/logger';
-import { ConfigurationError } from '../../tools/ConfigurationError';
-import { SecMarker } from '../SecMarker';
+"use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || (function () {
+    var ownKeys = function(o) {
+        ownKeys = Object.getOwnPropertyNames || function (o) {
+            var ar = [];
+            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+            return ar;
+        };
+        return ownKeys(o);
+    };
+    return function (mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+        __setModuleDefault(result, mod);
+        return result;
+    };
+})();
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.checkSecClass = checkSecClass;
+exports.hasSecMarker = hasSecMarker;
+exports.checkSafeAttributForSecMarker = checkSafeAttributForSecMarker;
+const __1 = require("..");
+const cdk = __importStar(require(".."));
+const logger_1 = __importDefault(require("../../tools/logger"));
+const ConfigurationError_1 = require("../../tools/ConfigurationError");
+const SecMarker_1 = require("../SecMarker");
 /**
  * Validates that the provided stack and all its children are based on secured classes.
  *
@@ -15,21 +56,21 @@ import { SecMarker } from '../SecMarker';
  *
  * @param stack - The stack instance to validate.
  */
-export function checkSecClass(stack) {
-    logger.debug("check stack class ");
-    if (!(stack instanceof Stack)) {
-        new ConfigurationError("class", "Stack is not derived from the secured class: " + stack);
+function checkSecClass(stack) {
+    logger_1.default.debug("check stack class ");
+    if (!(stack instanceof __1.Stack)) {
+        new ConfigurationError_1.ConfigurationError("class", "Stack is not derived from the secured class: " + stack);
     }
     validateStackTags(stack);
     for (const elem of stack.node.children) {
-        logger.debug("check class for secmarker of elem: " + elem);
+        logger_1.default.debug("check class for secmarker of elem: " + elem);
         // ugly hack: LogRetentionFunction generated class thorough
         if (!hasSecMarker(elem) && elem.constructor.name !== 'LogRetentionFunction') {
-            new ConfigurationError("stack.children", "Elem of stack " + stack.stackName + " is not dervied from the secured class: " + elem);
+            new ConfigurationError_1.ConfigurationError("stack.children", "Elem of stack " + stack.stackName + " is not dervied from the secured class: " + elem);
         }
     }
     // Log success if the stack is valid
-    logger.debug(`Stack ${stack.stackName} is derived from SecStack.`);
+    logger_1.default.debug(`Stack ${stack.stackName} is derived from SecStack.`);
 }
 /**
  * Checks whether a construct class is marked as security-compliant using the `SecMarker` symbol.
@@ -40,8 +81,8 @@ export function checkSecClass(stack) {
  * @param construct - The construct instance to check.
  * @returns `true` if the construct class is marked with `SecMarker`, otherwise `false`.
  */
-export function hasSecMarker(construct) {
-    const SecMarkerValue = construct.constructor[SecMarker];
+function hasSecMarker(construct) {
+    const SecMarkerValue = construct.constructor[SecMarker_1.SecMarker];
     return SecMarkerValue === true;
 }
 /**
@@ -53,7 +94,7 @@ export function hasSecMarker(construct) {
  * @param construct - The construct to validate.
  * @returns `true` if the construct has `SecMarker`, `false` if not, or `undefined` if input is falsy.
  */
-export function checkSafeAttributForSecMarker(construct) {
+function checkSafeAttributForSecMarker(construct) {
     if (!construct) {
         return undefined;
     }
@@ -77,7 +118,7 @@ export function checkSafeAttributForSecMarker(construct) {
  * @param stack - The CDK stack to validate.
  */
 function validateStackTags(stack) {
-    logger.debug("validateStackTags ");
+    logger_1.default.debug("validateStackTags ");
     const tagmanager = cdk.TagManager.of(stack);
     if (!tagmanager) {
         throw "Problem while rendering tags of stack";
@@ -91,7 +132,7 @@ function validateStackTags(stack) {
         }
     }
     if (missingKeys.length > 0) {
-        new ConfigurationError("stack.tags", "Missing tags in stack: " + missingKeys);
+        new ConfigurationError_1.ConfigurationError("stack.tags", "Missing tags in stack: " + missingKeys);
     }
 }
 //# sourceMappingURL=validator.js.map
