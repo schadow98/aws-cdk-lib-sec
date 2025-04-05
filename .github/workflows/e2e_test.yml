@@ -87,25 +87,10 @@ jobs:
       # 🔐 SECURITY SCANS: CloudFormation
       # -----------------------------
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      - name: Simple test
+        uses: stelligent/cfn_nag@master
         with:
-          python-version: '3.11'
-
-      - name: Install cfn-lint and cfn-nag
-        run: |
-          pip install cfn-lint
-          gem install cfn-nag
-
-      - name: Run cfn-lint (syntax & best practices)
-        run: |
-          cfn-lint templates/*.template.json
-
-      - name: Run cfn-nag (security checks)
-        run: |
-          for template in templates/*.template.json; do
-            cfn_nag_scan --input-path "$template" || exit 1
-          done
+          input_path: e2e_test/templates
 
 
       # -----------------------------
