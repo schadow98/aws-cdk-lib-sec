@@ -90,7 +90,7 @@ jobs:
       - name: Simple test
         uses: stelligent/cfn_nag@master
         with:
-          input_path: ./e2e_test/templates
+          input_path: templates
 
 
       # -----------------------------

@@ -8,6 +8,7 @@ import logger from "../tools/logger";
 import * as aws_sns from "aws-cdk-lib/aws-sns";
 import * as aws_cloudwatch from "aws-cdk-lib/aws-cloudwatch";
 import * as aws_subs from "aws-cdk-lib/aws-sns-subscriptions";
+import * as aws_iam from "aws-cdk-lib/aws-iam";
 import * as events from "aws-cdk-lib/aws-events";
 import * as targets from "aws-cdk-lib/aws-events-targets";
 import { TagManager } from "aws-cdk-lib";
@@ -41,6 +42,13 @@ export function addConfigRules(stack: Construct) {
       handler: "index.handler",
     }
   );
+
+  const configRole = new Role(stack, 'ConfigCloudFormationRole', {
+    assumedBy: new ServicePrincipal('config.amazonaws.com'),
+    managedPolicies: [
+      ManagedPolicy.fromAwsManagedPolicyName('ReadOnlyAccess'), // Oder feingranular
+    ],
+  });
 
   logger.info("adding validateInstalledRessourcesRule");
   new aws_config.CustomRule(stack, "ValidateInstalledRessources", {
@@ -79,6 +87,9 @@ export function addConfigRules(stack: Construct) {
     ruleScope: aws_config.RuleScope.fromResources([
       aws_config.ResourceType.CLOUDFORMATION_STACK,
     ]),
+    inputParameters: {
+      cloudformationRoleArn: configRole.roleArn,
+    },
   });
 
   logger.debug("adding riskManagementRule");
@@ -182,3 +193,38 @@ export class Rule extends events.Rule {
 export class SnsTopic extends targets.SnsTopic {
   static [SecMarker] = true;
 }
+
+
+/**
+ * Role that extends the default `iam.Role` construct.
+ *
+ * This class enables standardized configuration or tagging of email subscriptions.
+ * The static `SecMarker` property marks the subscription for security-related identification or processing.
+ */
+export class Role extends aws_iam.Role {
+  static [SecMarker] = true;
+}
+
+/**
+ * Role that extends the default `iam.Role` construct.
+ *
+ * This class enables standardized configuration or tagging of email subscriptions.
+ * The static `SecMarker` property marks the subscription for security-related identification or processing.
+ */
+export class ServicePrincipal extends aws_iam.ServicePrincipal {
+  static [SecMarker] = true;
+}
+
+/**
+ * Role that extends the default `iam.Role` construct.
+ *
+ * This class enables standardized configuration or tagging of email subscriptions.
+ * The static `SecMarker` property marks the subscription for security-related identification or processing.
+ */
+export class ManagedPolicy extends aws_iam.ManagedPolicy {
+  static [SecMarker] = true;
+}
+
+
+
+
