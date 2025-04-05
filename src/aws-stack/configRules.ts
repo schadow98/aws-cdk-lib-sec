@@ -33,7 +33,7 @@ export function addConfigRules(stack: Construct) {
         fs.readFileSync(
           path.join(
             path.dirname(__filename),
-            "../aws-default-stacks/authorizeCode.ts"
+            "../aws-default-stacks/configCode.ts"
           ),
           { encoding: "utf8", flag: "r" }
         )

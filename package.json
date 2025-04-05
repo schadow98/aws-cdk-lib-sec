@@ -11,8 +11,9 @@
     },
     "files": ["dist"],
     "scripts": {
-      "build": "rd /s /q  dist && tsc",
-      "prepare": "tsc",
+      "build": "tsc && npm run copy-default-stack",
+      "copy-default-stack": "node -e \"require('fs').cpSync('src/aws-default-stacks', 'dist/aws-default-stacks', { recursive: true })\"",
+      "prepare": "npm run build",
       "auto": "nodemon --exec ts-node app.ts",
       "dev": "ts-node app.ts",
       "start": "node app.js",
