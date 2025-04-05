@@ -2,54 +2,61 @@
     "name": "aws-cdk-lib-sec",
     "version": "1.0.0",
     "type": "module",
-    "main": "src/aws-cdk-lib-sec/index.ts",
-    "types": "src/aws-cdk-lib-sec/index.d.ts",
+    "main": "dist/aws-cdk-lib-sec/index.js",
+    "types": "dist/aws-cdk-lib-sec/index.d.ts",
+    "exports": {
+      ".": {
+        "import": "./dist/aws-cdk-lib-sec/index.js",
+        "types": "./dist/aws-cdk-lib-sec/index.d.ts"
+      }
+    },
     "files": [
-        "src/aws-cdk-lib-sec",
-        "dist"
+      "dist"
     ],
     "scripts": {
-        "build": "tsc",
-        "auto": "nodemon --exec ts-node app.ts",
-        "dev": "ts-node app.ts",
-        "start": "node app.js",
-        "test": "jest",
-        "coverage": "jest --coverage",
-        "linting": "npx eslint ./src"
+      "build": "tsc",
+      "prepare": "tsc",
+      "auto": "nodemon --exec ts-node app.ts",
+      "dev": "ts-node app.ts",
+      "start": "node app.js",
+      "test": "jest",
+      "coverage": "jest --coverage",
+      "linting": "npx eslint ./src"
     },
     "devDependencies": {
-        "@eslint/js": "^9.22.0",
-        "@types/jest": "^29.5.14",
-        "@types/jsonwebtoken": "^9.0.7",
-        "eslint": "^9.22.0",
-        "globals": "^15.13.0",
-        "jest": "^29.7.0",
-        "nodemon": "^3.1.7",
-        "ts-jest": "^29.2.6",
-        "ts-node": "^10.9.2",
-        "typescript": "^5.8.2",
-        "typescript-eslint": "^8.26.1"
+      "@eslint/js": "^9.22.0",
+      "@types/jest": "^29.5.14",
+      "@types/jsonwebtoken": "^9.0.7",
+      "@types/node": "^22.7.2",
+      "eslint": "^9.22.0",
+      "globals": "^15.13.0",
+      "jest": "^29.7.0",
+      "nodemon": "^3.1.7",
+      "ts-jest": "^29.2.6",
+      "ts-node": "^10.9.2",
+      "typescript": "^5.8.2",
+      "typescript-eslint": "^8.26.1"
     },
     "dependencies": {
-        "@aws-sdk/client-cloudformation": "^3.665.0",
-        "@types/json-diff": "^1.0.3",
-        "@types/node": "^22.7.2",
-        "aws-cdk": "^2.160.0",
-        "aws-cdk-lib": "^2.160.0",
-        "aws-sdk": "^2.1692.0",
-        "commander": "^12.1.0",
-        "deep-diff": "^1.0.2",
-        "json-diff": "^1.0.6",
-        "jsonwebtoken": "^9.0.2",
-        "snyk": "^1.1294.2",
-        "winston": "^3.14.2"
+      "@aws-sdk/client-cloudformation": "^3.665.0",
+      "@types/json-diff": "^1.0.3",
+      "aws-cdk": "^2.160.0",
+      "aws-cdk-lib": "^2.160.0",
+      "aws-sdk": "^2.1692.0",
+      "commander": "^12.1.0",
+      "deep-diff": "^1.0.2",
+      "json-diff": "^1.0.6",
+      "jsonwebtoken": "^9.0.2",
+      "snyk": "^1.1294.2",
+      "winston": "^3.14.2"
     },
     "keywords": [
-        "aws",
-        "cdk",
-        "security",
-        "typescript"
+      "aws",
+      "cdk",
+      "security",
+      "typescript"
     ],
     "license": "MIT",
     "private": false
-}
+  }
+  
