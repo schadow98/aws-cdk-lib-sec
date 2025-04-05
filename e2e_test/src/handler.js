@@ -1,6 +1,4 @@
-export const handler = async (
-  event: any
-): Promise<any> => {
+exports.handler = async (event) => {
   try {
     if (event.httpMethod !== "POST") {
       return {
@@ -24,7 +22,7 @@ export const handler = async (
       body: JSON.stringify({ message: `hello ${name}` }),
     };
   } catch (error) {
-    console.error("internal server error", error)
+    console.error("internal server error", error);
     return {
       statusCode: 500,
       body: JSON.stringify({ message: "Internal Server Error" }),
