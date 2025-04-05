@@ -6,7 +6,7 @@
   "scripts": {
     "unittest": "jest --config jest.config.cjs unit",
     "integrationtest": "jest --config jest.config.cjs integration",
-    "sast": "npx eslint ./src"
+    "sast": "eslint ./src"
   },
   "author": "Malte Schadow",
   "license": "ISC",
