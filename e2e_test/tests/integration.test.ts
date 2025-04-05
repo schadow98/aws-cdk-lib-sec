@@ -1,3 +1,4 @@
+// @ts-ignore
 import { handler } from "../src/handler";
 
 test("returns hello name", async () => {
