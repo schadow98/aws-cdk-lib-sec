@@ -1,6 +1,6 @@
 import * as cdk from "aws-cdk-lib";
-import { ConfigurationError } from "../../tools/ConfigurationError";
-import logger from "../../tools/logger";
+import { ConfigurationError } from "../tools/ConfigurationError";
+import logger from "../tools/logger";
 
 /**
  * Secure and extended implementation of `cdk.StackProps` with validation logic.

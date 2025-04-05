@@ -7,7 +7,7 @@ import { checkDescription } from '../aws-lambda/StandardizedNaming';
 import { checkRetainDeployments } from './checkRetainDeployments';
 import { checkDomainName } from './checkDomainName';
 import { checkDefaultMethodOptions } from './checkDefaultMethodOptions';
-import logger from '../../tools/logger';
+import logger from '../tools/logger';
 
 /**
  * Custom wrapper for the AWS CDK `RestApi` construct.

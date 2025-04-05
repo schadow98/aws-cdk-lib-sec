@@ -1,6 +1,6 @@
 import * as Lambda from 'aws-cdk-lib/aws-lambda';
-import { ConfigurationError } from '../../tools/ConfigurationError';
-import logger from '../../tools/logger';
+import { ConfigurationError } from '../tools/ConfigurationError';
+import logger from '../tools/logger';
 
 /**
  * Validates if the RecursiveLoop configuration for a Lambda function is TERMINATE.

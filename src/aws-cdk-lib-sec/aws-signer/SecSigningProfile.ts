@@ -2,8 +2,8 @@ import { Duration } from 'aws-cdk-lib';
 import * as signer from 'aws-cdk-lib/aws-signer';
 import { Construct } from 'constructs';
 import { SecMarker } from '../SecMarker';
-import { ConfigurationError } from '../../tools/ConfigurationError';
-import logger from '../../tools/logger';
+import { ConfigurationError } from '../tools/ConfigurationError';
+import logger from '../tools/logger';
 
 /**
  * Custom wrapper for AWS Signer `SigningProfile` with secure defaults.

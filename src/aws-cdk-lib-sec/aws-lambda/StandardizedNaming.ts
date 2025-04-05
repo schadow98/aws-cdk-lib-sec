@@ -1,7 +1,7 @@
 import * as Lambda  from 'aws-cdk-lib/aws-lambda';
 import { FunctionProps } from './SecFunctionProps';
-import { ConfigurationError } from '../../tools/ConfigurationError';
-import logger from '../../tools/logger';
+import { ConfigurationError } from '../tools/ConfigurationError';
+import logger from '../tools/logger';
 
 /**
  * Validates the provided Lambda `Code` configuration.

@@ -1,6 +1,6 @@
 
-import { Stack } from "../aws-cdk-lib-sec";
-import * as cdk from "../aws-cdk-lib-sec";
+import { Stack } from "..";
+import * as cdk from "..";
 import logger from "./logger";
 import { Construct } from 'constructs';
 

@@ -1,5 +1,5 @@
 import * as aws_apigateway from 'aws-cdk-lib/aws-apigateway' ;
-import logger from '../../tools/logger';
+import logger from '../tools/logger';
 
 /**
  * Validates and returns a complete `DomainNameOptions` configuration for an API Gateway custom domain.

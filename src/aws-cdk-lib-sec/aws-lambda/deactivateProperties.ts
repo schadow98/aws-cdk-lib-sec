@@ -1,6 +1,6 @@
 
-import { ConfigurationError } from "../../tools/ConfigurationError"
-import logger from "../../tools/logger"
+import { ConfigurationError } from "../tools/ConfigurationError"
+import logger from "../tools/logger"
 import { Size } from "../aws-stack"
 import * as Lambda from "aws-cdk-lib/aws-lambda";
 

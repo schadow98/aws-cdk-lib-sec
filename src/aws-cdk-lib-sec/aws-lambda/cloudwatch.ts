@@ -2,7 +2,7 @@ import { Construct } from "constructs";
 import * as aws_sns from "aws-cdk-lib/aws-sns";
 import * as aws_cloudwatch from "aws-cdk-lib/aws-cloudwatch";
 import { SecMarker } from "../SecMarker";
-import logger from "../../tools/logger";
+import logger from "../tools/logger";
 import { TagManager } from "aws-cdk-lib";
 import * as aws_subs from 'aws-cdk-lib/aws-sns-subscriptions';
 import * as aws_lambda from 'aws-cdk-lib/aws-lambda';

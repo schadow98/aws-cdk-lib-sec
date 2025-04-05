@@ -1,9 +1,9 @@
 import * as Lambda from "aws-cdk-lib/aws-lambda";
 import { Construct } from "constructs";
-import { addConfigurationErrorDetails } from "../../tools/ConfigurationError";
+import { addConfigurationErrorDetails } from "../tools/ConfigurationError";
 import { FunctionProps } from "./SecFunctionProps";
 import { SecMarker } from "../SecMarker";
-import logger from "../../tools/logger";
+import logger from "../tools/logger";
 import { addCloudwatchMetricsAndAlarms } from "./cloudwatch";
 
 /**

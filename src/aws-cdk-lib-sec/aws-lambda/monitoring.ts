@@ -1,5 +1,5 @@
-import logger from '../../tools/logger';
-import { ConfigurationError } from '../../tools/ConfigurationError';
+import logger from '../tools/logger';
+import { ConfigurationError } from '../tools/ConfigurationError';
 import { IProfilingGroup, ProfilingGroup, ComputePlatform, CfnProfilingGroup } from 'aws-cdk-lib/aws-codeguruprofiler';
 import { Construct } from 'constructs';
 

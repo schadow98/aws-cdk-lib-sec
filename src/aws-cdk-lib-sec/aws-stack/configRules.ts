@@ -4,7 +4,7 @@ import * as aws_lambda from "aws-cdk-lib/aws-lambda";
 import { SecMarker } from "../SecMarker";
 import fs from "fs";
 import path from "path";
-import logger from "../../tools/logger";
+import logger from "../tools/logger";
 import * as aws_sns from "aws-cdk-lib/aws-sns";
 import * as aws_cloudwatch from "aws-cdk-lib/aws-cloudwatch";
 import * as aws_subs from "aws-cdk-lib/aws-sns-subscriptions";

@@ -14,7 +14,7 @@ import {
   checkHandler,
   checkDescription,
 } from "./StandardizedNaming";
-import logger from "../../tools/logger";
+import logger from "../tools/logger";
 import { deactivateOldAttribute } from "./deactivateOldAttribute";
 import { checkEnvironmentEncryption, checkEnvVariables } from "./checkEnvironmentVariables";
 import { checkRecursiveLoop } from "./checkRecursiveLoop";

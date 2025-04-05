@@ -3,9 +3,9 @@ import * as signer from '../aws-signer';
 import { Construct } from 'constructs';
 import { Tags } from 'aws-cdk-lib';
 import { CodeSigningConfig } from './SecCodeSigningConfig';
-import logger from '../../tools/logger';
+import logger from '../tools/logger';
 import { hasSecMarker } from '../aws-stack/validator';
-import { ConfigurationError } from '../../tools/ConfigurationError';
+import { ConfigurationError } from '../tools/ConfigurationError';
 
 /**
  * Creates a new `CodeSigningConfig` or returns an existing one.

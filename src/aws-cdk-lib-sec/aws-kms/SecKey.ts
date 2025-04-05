@@ -3,7 +3,7 @@ import * as kms from 'aws-cdk-lib/aws-kms';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import { Construct } from 'constructs';
 import { SecMarker } from '../SecMarker';
-import { ConfigurationError } from '../../tools/ConfigurationError';
+import { ConfigurationError } from '../tools/ConfigurationError';
 
 import { IPrincipal } from 'aws-cdk-lib/aws-iam';
 

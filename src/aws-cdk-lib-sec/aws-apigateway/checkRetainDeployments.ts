@@ -1,5 +1,5 @@
-import { ConfigurationError } from '../../tools/ConfigurationError';
-import logger from '../../tools/logger';
+import { ConfigurationError } from '../tools/ConfigurationError';
+import logger from '../tools/logger';
 
 /**
  * Checks if the API Gateway deployments isretained.

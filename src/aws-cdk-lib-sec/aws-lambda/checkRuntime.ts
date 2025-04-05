@@ -1,6 +1,6 @@
 import * as Lambda  from 'aws-cdk-lib/aws-lambda';
-import { ConfigurationError } from '../../tools/ConfigurationError';
-import logger from '../../tools/logger';
+import { ConfigurationError } from '../tools/ConfigurationError';
+import logger from '../tools/logger';
 const safeLambdaRuntimes: Lambda.Runtime[] = [
     // Lambda.Runtime.NODEJS,
     // Lambda.Runtime.NODEJS_4_3,

@@ -1,4 +1,4 @@
-import logger from '../../tools/logger';
+import logger from '../tools/logger';
 
 import { IVpc, SubnetSelection } from 'aws-cdk-lib/aws-ec2';
 import { Construct } from "constructs";

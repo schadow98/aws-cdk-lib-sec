@@ -1,6 +1,6 @@
 import * as Lambda from 'aws-cdk-lib/aws-lambda';
-import { ConfigurationError } from '../../tools/ConfigurationError';
-import logger from '../../tools/logger';
+import { ConfigurationError } from '../tools/ConfigurationError';
+import logger from '../tools/logger';
 import { Construct } from 'constructs';
 import { Stack } from '../aws-stack';
 import { RetentionDays, ILogGroup } from "aws-cdk-lib/aws-logs";

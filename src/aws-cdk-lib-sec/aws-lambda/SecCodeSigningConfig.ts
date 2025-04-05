@@ -1,9 +1,9 @@
 import * as signer from 'aws-cdk-lib/aws-signer';
 import { Construct } from 'constructs';
 import { SecMarker } from '../SecMarker';
-import { ConfigurationError } from '../../tools/ConfigurationError';
+import { ConfigurationError } from '../tools/ConfigurationError';
 import * as Lambda  from 'aws-cdk-lib/aws-lambda';
-import logger from '../../tools/logger';
+import logger from '../tools/logger';
 
 /**
  * Custom Lambda `CodeSigningConfig` with security tagging support.

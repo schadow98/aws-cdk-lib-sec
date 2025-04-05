@@ -1,6 +1,6 @@
 import * as Lambda from "aws-cdk-lib/aws-lambda";
-import logger from "../../tools/logger";
-import { ConfigurationError } from "../../tools/ConfigurationError";
+import logger from "../tools/logger";
+import { ConfigurationError } from "../tools/ConfigurationError";
 
 /**
  * Validates the provided Lambda `RuntimeManagementMode` or defaults it to `Auto`.

@@ -1,6 +1,6 @@
 
-import { ConfigurationError } from "../../tools/ConfigurationError"
-import logger from "../../tools/logger"
+import { ConfigurationError } from "../tools/ConfigurationError"
+import logger from "../tools/logger"
 /**
  * Deactivates an old attribute by checking and optionally modifying a parameter value.
  * 

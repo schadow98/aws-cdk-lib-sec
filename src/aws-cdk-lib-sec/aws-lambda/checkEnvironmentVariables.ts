@@ -1,6 +1,6 @@
 import { IKey } from "aws-cdk-lib/aws-kms";
-import { ConfigurationError } from "../../tools/ConfigurationError";
-import logger from "../../tools/logger";
+import { ConfigurationError } from "../tools/ConfigurationError";
+import logger from "../tools/logger";
 
 import { Construct } from "constructs";
 import { Key } from "../aws-kms/SecKey";

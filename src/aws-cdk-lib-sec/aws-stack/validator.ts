@@ -1,7 +1,7 @@
 import { Stack }  from '..';
 import * as cdk from '..';
-import logger from '../../tools/logger'; 
-import { ConfigurationError } from '../../tools/ConfigurationError';
+import logger from '../tools/logger'; 
+import { ConfigurationError } from '../tools/ConfigurationError';
 import { SecMarker } from '../SecMarker';
 
 /**
