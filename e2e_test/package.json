@@ -4,11 +4,13 @@
   "description": "A example project for the aws-sec-lib",
   "main": "sec-app.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "unittest": "jest --config jest.config.cjs unit",
+    "integrationtest": "jest --config jest.config.cjs integration"
   },
   "author": "Malte Schadow",
   "license": "ISC",
   "dependencies": {
-    "aws-cdk-lib-sec": "file:.."
+    "aws-cdk-lib-sec": "file:..",
+    "jest": "^29.7.0"
   }
 }

@@ -7,9 +7,9 @@ export class MyCdkAppStack extends cdk.Stack {
     super(scope, id, props);
 
     // Lambda-Funktion erstellen
-    var lambdaFunction = new cdk.aws_lambda.Function(this, "MyLambdaFunction", {
+    const lambdaFunction = new cdk.aws_lambda.Function(this, "MyLambdaFunction", {
       runtime: cdk.aws_lambda.Runtime.NODEJS_20_X,
-      description: "Secured Lambda",
+      description: "Secured Lambda for e2e test",
     });
 
     const apiGateway = new cdk.aws_apigateway.RestApi(this, "MyApiGateway", {
@@ -37,7 +37,7 @@ export class MyCdkAppStack extends cdk.Stack {
 
 const app = new cdk.App();
 new MyCdkAppStack(app, "MyCdkAppStack", {
-  description: "Secure App",
+  description: "Secure Stack for E2E-Test",
   contact: {
     developerTeam: "developerTeam@domain.com",
     operationTeam: "operationTeam@domain.com",

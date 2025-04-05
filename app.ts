@@ -10,7 +10,7 @@ import * as apigateway from './src/aws-cdk-lib-sec/aws-apigateway';
 
 // Defines the Stack
 export class MyLambdaStack extends cdk.Stack {
-    constructor(scope: Construct, id: string, props: cdk.StackProps) {
+    constructor(scope: Construct, id: string) {
         super(scope, id, { 
             description: "irgendwas was 10 zeichen hat",
             contact: {

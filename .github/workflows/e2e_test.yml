@@ -19,6 +19,12 @@ jobs:
   secure-deploy:
     runs-on: ubuntu-latest
     steps:
+
+      # -----------------------------
+      # Prepare Environment
+      # -----------------------------
+
+
       - name: Checkout Repository
         uses: actions/checkout@v3
 
@@ -27,9 +33,86 @@ jobs:
         with:
           node-version: '22.4.0'
 
+      # -----------------------------
+      # SECURITY SCANS BEGIN HERE
+      # -----------------------------
+
+      - name: Run SAST with Semgrep
+        uses: returntocorp/semgrep-action@v1
+        with:
+          config: 'p/owasp-top-ten'
+          path: e2e_test
+
+      - name: Run Dependency Audit (npm audit)
+        working-directory: e2e_test
+        run: npm audit --audit-level=moderate || true
+
+      - name: Run Trivy for Dependency Scanning
+        uses: aquasecurity/trivy-action@v0.12.0
+        with:
+          scan-type: 'fs'
+          scan-ref: './e2e_test'
+
+      - name: Run Secret Scan with Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        with:
+          config-path: ''
+          fail: false
+        
+      # -----------------------------
+      # Function and Application tests
+      # -----------------------------      
+      
+      
       - name: Install dependencies for E2E tests
         run: npm ci
         working-directory: e2e_test
+      - name: Run unit tests
+        working-directory: e2e_test
+        run: npm run unittest
+      - name: Run integration tests
+        working-directory: e2e_test
+        run: npm run integrationtest
+
+      # -----------------------------
+      # CDK SYNTH → CloudFormation Templates
+      # -----------------------------
+
+      - name: Install AWS CDK
+        run: npm install -g aws-cdk
+
+      - name: Synthesize CDK Templates
+        working-directory: e2e_test
+        run: cdk synth --app "npx ts-node sec-app.ts" --output ../templates
+
+      # -----------------------------
+      # 🔐 SECURITY SCANS: CloudFormation
+      # -----------------------------
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install cfn-lint and cfn-nag
+        run: |
+          pip install cfn-lint
+          gem install cfn-nag
+
+      - name: Run cfn-lint (syntax & best practices)
+        run: |
+          cfn-lint templates/*.template.json
+
+      - name: Run cfn-nag (security checks)
+        run: |
+          for template in templates/*.template.json; do
+            cfn_nag_scan --input-path "$template" || exit 1
+          done
+
+
+      # -----------------------------
+      # Deploy on AWS
+      # -----------------------------      
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v3
