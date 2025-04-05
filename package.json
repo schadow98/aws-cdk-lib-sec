@@ -11,7 +11,7 @@
     },
     "files": ["dist"],
     "scripts": {
-      "build": "tsc",
+      "build": "rd /s /q  dist && tsc",
       "prepare": "tsc",
       "auto": "nodemon --exec ts-node app.ts",
       "dev": "ts-node app.ts",

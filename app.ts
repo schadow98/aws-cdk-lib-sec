@@ -1,10 +1,10 @@
 // my-stack.ts
 // npx ts-node app.ts && cdk synth
-import * as cdk from './src/aws-cdk-lib-sec';
+import * as cdk from './src';
 
 import { Construct } from 'constructs';
-import * as lambda from './src/aws-cdk-lib-sec/aws-lambda';
-import * as apigateway from './src/aws-cdk-lib-sec/aws-apigateway';
+import * as lambda from './src/aws-lambda';
+import * as apigateway from './src/aws-apigateway';
 
 
 
