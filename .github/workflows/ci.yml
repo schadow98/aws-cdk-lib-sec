@@ -2,8 +2,10 @@ name: CI Pipeline
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
+    paths-ignore:
+      - 'e2e_test/**'
+      - '.github/workflows/e2e_test.yml'
 
 jobs:
   eslint:

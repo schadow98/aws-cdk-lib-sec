@@ -56,10 +56,12 @@ jobs:
           scan-type: 'fs'
           scan-ref: './e2e_test'
 
-      - name: Run Secret Scan with Gitleaks
-        uses: gitleaks/gitleaks-action@v2
-        with:
-          args: detect --source=./e2e_test/src --redact --report-format=sarif --report-path=results.sarif
+      - name: Run Gitleaks via CLI (custom scan)
+        run: |
+          curl -sSL https://github.com/gitleaks/gitleaks/releases/latest/download/gitleaks-linux-amd64.tar.gz | tar -xz
+          chmod +x gitleaks
+          ./gitleaks detect --source=e2e_test/src --redact --report-format=sarif --report-path=results.sarif
+        
         
       # -----------------------------
       # Function and Application tests
