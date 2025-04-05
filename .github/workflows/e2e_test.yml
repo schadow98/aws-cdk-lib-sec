@@ -48,7 +48,7 @@ jobs:
         run: npm audit --audit-level=moderate || true
 
       - name: Run Trivy for Dependency Scanning
-        uses: aquasecurity/trivy-action
+        uses: aquasecurity/trivy-action@0.28.0
         with:
           scan-type: 'fs'
           scan-ref: './e2e_test'
