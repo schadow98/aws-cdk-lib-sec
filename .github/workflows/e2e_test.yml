@@ -59,8 +59,7 @@ jobs:
       - name: Run Secret Scan with Gitleaks
         uses: gitleaks/gitleaks-action@v2
         with:
-          config-path: ''
-          fail: false
+          args: detect --source=./e2e_test/src --redact --report-format=sarif --report-path=results.sarif
         
       # -----------------------------
       # Function and Application tests
