@@ -107,6 +107,7 @@ jobs:
         run: npm install -g aws-cdk
         
       - name: Bootstrap
+        working-directory: e2e_test
         run: cdk bootstrap
         
       - name: Deploy CDK Stack
