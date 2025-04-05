@@ -5,6 +5,7 @@ import security from 'eslint-plugin-security';
 export default [
   {
     ...js.configs.recommended,
+    files: ['src/**/*.ts', 'src/**/*.js'], // ← das ist wichtig!
     ignores: ['jest.config.cjs'],
     plugins: {
       'no-secrets': noSecrets,
