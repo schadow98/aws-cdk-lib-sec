@@ -203,11 +203,8 @@ export class ConfigurationError extends Error {
     this.attribut = attribut;
     this.name = 'ConfigurationError'; // Der Fehlername
 
-    if (!process.env.DEBUG) {
-      throw this; // Fehler werfen, wenn DEBUG nicht gesetzt ist
-    } else {
-      configurationErrors.push(this); // Fehler in die Liste einfügen
-    }
+    configurationErrors.push(this); // Fehler in die Liste einfügen
+    
   }
 }
 

@@ -1,14 +1,9 @@
-// my-stack.ts
-// npx ts-node app.ts && cdk synth
-import * as cdk from './src';
+import * as cdk from '../src';
 
 import { Construct } from 'constructs';
-import * as lambda from './src/aws-lambda';
-import * as apigateway from './src/aws-apigateway';
+import * as lambda from '../src/aws-lambda';
+import * as apigateway from '../src/aws-apigateway';
 
-
-
-// Defines the Stack
 export class MyLambdaStack extends cdk.Stack {
     constructor(scope: Construct, id: string) {
         super(scope, id, { 
@@ -37,22 +32,14 @@ export class MyLambdaStack extends cdk.Stack {
             logLevel: lambda.ParamsAndSecretsLogLevel.DEBUG,
           });
 
-        // Add a Lambda-Function to the stack
         const lambdaFunction = new cdk.aws_lambda.Function(this, 'MyLambdaFunction', {
-            runtime: cdk.aws_lambda.Runtime.NODEJS_10_X,
+            runtime: cdk.aws_lambda.Runtime.NODEJS_20_X,
             description: "My lambda function to deploy something",
             environment: {
-                // API_URL: 'https://example.com/api',
-                // DB_PASSWORD: 'someHardcodedSecret',
-                // TOKEN: 'ghp_very_suspicious_token',
-                // NORMAL_VAR: 'just_normal_value',
                 PATH1: '/usr/bin:/bin',
             },
             
             paramsAndSecrets: paramsAndSecrets
-            // handler: 'handler.handler',
-            // code: cdk.aws_lambda.Code.fromAsset('src')
-            //snapStart: cdk.aws_lambda.SnapStartConf.ON_PUBLISHED_VERSIONS,
         })
 
         const pingRessource = apiGateway.root.addResource("ping");
@@ -74,6 +61,15 @@ export class MyLambdaStack extends cdk.Stack {
     }
 }
 
-const app = new cdk.App();
-new MyLambdaStack(app, 'MyLambdaStack');
-app.synth();
+describe('stack testcase', () => {
+
+  const app = new cdk.App();
+  app.synth();
+    new MyLambdaStack(app, 'MyLambdaStack');
+
+  it('check stack', () => {
+    expect(app).toBeDefined();
+  });
+});
+
+

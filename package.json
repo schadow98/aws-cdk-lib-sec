@@ -19,7 +19,7 @@
         "auto": "nodemon --exec ts-node app.ts",
         "dev": "ts-node app.ts",
         "start": "node app.js",
-        "test": "jest",
+        "test": "jest --coverage",
         "coverage": "jest --coverage",
         "linting": "npx eslint ./src"
     },
