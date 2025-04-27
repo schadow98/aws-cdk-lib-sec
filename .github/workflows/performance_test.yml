@@ -1,0 +1,38 @@
+name: Deploy to AWS
+
+on:
+    push:
+      branches: [ main ]
+      paths:
+        - 'performance_test/**'
+        - '.github/workflows/performance_test.yml'
+    pull_request:
+      paths:
+        - 'performance_test/**'
+        - '.github/workflows/performance_test.yml'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16' # oder deine bevorzugte Version
+
+    - name: Install dependencies
+      run: |
+        npm install
+        npm install -g aws-cdk
+
+    - name: Deploy to AWS
+      run: |
+        cdk deploy --require-approval never
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_DEFAULT_REGION: 'us-central-1' # Region anpassen
