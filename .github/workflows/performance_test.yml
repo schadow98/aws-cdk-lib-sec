@@ -28,10 +28,12 @@ jobs:
       run: |
         npm install
         npm install -g aws-cdk
+      working-directory: performance_test
 
     - name: Deploy to AWS
       run: |
         cdk deploy --require-approval never
+      working-directory: performance_test
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
