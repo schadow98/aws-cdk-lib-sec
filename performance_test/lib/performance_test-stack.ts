@@ -7,11 +7,19 @@ export class MyLambdaApiStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    // Lambda-Funktion erstellen
+    // Inline Lambda-Code
     const lambdaFunction = new lambda.Function(this, 'MyLambda', {
       runtime: lambda.Runtime.NODEJS_20_X, // Runtime der Lambda
       handler: 'index.handler',
-      code: lambda.Code.fromAsset('lambda'), // Ordner mit dem Lambda-Code
+      code: lambda.Code.fromInline(`
+        exports.handler = async (event) => {
+          console.log("Request:", JSON.stringify(event, undefined, 2));
+          return {
+            statusCode: 200,
+            body: JSON.stringify({ message: "Hello from Lambda!" })
+          };
+        };
+      `), // Inline-Code für die Lambda-Funktion
     });
 
     // API Gateway erstellen
